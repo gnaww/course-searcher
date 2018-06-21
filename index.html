@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--This is the landing page-->
+<html>
+<head>
+	<title>Rutgers Course Planner++</title>
+</head>
+<body>
+	<header>
+		<nav>
+			<h2>RU Course Planner++</h1>
+			<p>Login</p>
+			<p>Register</p>
+		</nav>
+	</header>
+	<section>
+		<h3> Direct Class Search </h3>
+		<p>Quickly find a class by keyword, index #, or course ID.</p>
+		<select>
+			<option value="keyword">Keyword</option>
+			<option value="index">Index #</option>
+			<option value="course">Course ID</option>
+			<input type="text" placeholder="Search...">
+		</select>
+	</section>
+	<section>
+		<h1>Requirement Fufillment</h1>
+		<p>Select your school, and check up to four boxes below 
+		in order to find the optimal classes top fufill your requirements.</p>
+	</section>
+	<aside>
+		<h3>School Selection</h3>
+		<form>
+			<div class="schoolSelect">
+				<input type="radio" name="radio" id="SAS">
+				<label for="SAS">SAS</label>
+			</div>
+			<div class="schoolSelect">
+				<input type="radio" name="radio" id="BSN">
+				<label for="BSN">BSN</label>
+			</div>
+			<div class="schoolSelect">
+				<input type="radio" name="radio" id="PHA">
+				<label for="PHA">PHA</label>
+			</div>
+			<div class="schoolSelect">
+				<input type="radio" name="radio" id="ENG">
+				<label for="ENG">ENG</label>
+			</div>
+		</form>
+	</aside>
+	<section>
+		<form>
+			<div class="col1">
+				<div class="reqBoxes">
+					<h4>Natural Sciences</h4>
+					<input type="checkbox" name="checkbox" id="NS">
+					<label for="NS">NS</label>
+				</div>
+				<div class="reqBoxes">
+					<h4>Social Analysis</h4>
+					<input type="checkbox" name="checkbox" id="SCL">
+					<label for="SCL">SCL</label>
+				</div>
+				<div class="reqBoxes">
+					<h4>Historical Analysis</h4>
+					<input type="checkbox" name="checkbox" id="HST">
+					<label for="HST">HST</label>
+				</div>
+				<div class="reqBoxes">
+					<h4>Wrinting & Communication</h4>
+					<input type="checkbox" name="checkbox" id="WC">
+					<label for="WC">WC</label>
+					<input type="checkbox" name="checkbox" id="WCr">
+					<label for="WCr">WCr</label>
+					<input type="checkbox" name="checkbox" id="WCd">
+					<label for="WCd">WCd</label>
+				</div>
+			</div>
+			<div class="col2">
+				<div class="reqBoxes">
+					<h4>Contemporary Challenges</h4>
+					<input type="checkbox" name="checkbox" id="CC">
+					<label for="CC">CC</label>
+				</div>
+				<div class="reqBoxes">
+					<h4>Quantitative & Formal Reasoning</h4>
+					<input type="checkbox" name="checkbox" id="QQ">
+					<label for="QQ">QQ</label>
+					<input type="checkbox" name="checkbox" id="QR">
+					<label for="QR">QR</label>
+				</div>
+				<div class="reqBoxes">
+					<h4>Arts & Humanities</h4>
+					<input type="checkbox" name="checkbox" id="AH">
+					<label for="AH">AH</label>
+				</div>
+				<div class="reqBoxes">
+					<h4>Information Technology & Research</h4>
+					<input type="checkbox" name="checkbox" id="ITR">
+					<label for="ITR">ITR</label>
+				</div>
+			</div>
+		</form>
+		<div class="confirmationBtns">
+			<input type="button" value="Submit">
+			<input type="button" value="Clear">
+		</div>
+	</section>
+</body>
+</html>
