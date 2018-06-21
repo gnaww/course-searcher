@@ -1,5 +1,5 @@
 # Course-Planner-
-A better Rutgers Course Schedule Planner
+A better Rutgers Course Planner
 
 GIT WORKING:
 Jonathan King
