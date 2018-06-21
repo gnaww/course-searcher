@@ -1,4 +1,4 @@
-# Course-Schedule-Planner-
+# Course-Planner-
 A better Rutgers Course Schedule Planner
 
 GIT WORKING:
