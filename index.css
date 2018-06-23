@@ -1,0 +1,37 @@
+body {
+	font-family: 'Lato', sans-serif;
+}
+.navbar {
+	background-color: #0F436D;
+	min-height: 5em;
+}
+.navbar-dark .navbar-brand {
+	color: #C3DFE4;
+	font-weight: 300;
+	font-size: 2em;
+	transition: color 1s ease;
+}
+.nav-link {
+	color: #C3DFE4;
+	font-weight: 100;
+	font-size: 1.3em;
+	transition: color 2s ease;
+	letter-spacing: 2px;
+}
+.navbar-brand:hover, .nav-link:hover {
+	color: #FFFFFF;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+	padding-right: 10px;
+	padding-left:20px;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: #C3DFE4;
+}
+.navbar-light .navbar-brand {
+    color: #C3DFE4;
+}
+
+.navbar-light .navbar-toggler {
+    color: #C3DFE4;
+}
