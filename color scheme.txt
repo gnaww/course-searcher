@@ -1,0 +1,16 @@
+JAPANESE INDIGO               DARKEST
+#293651
+
+DARK IMPERIAL BLUE
+#0F436D
+
+GREEN-BLUE
+#1768AC
+
+COLUMBIA BLUE
+#BADAE0
+
+WHITE                        LIGHTEST
+#FFFFFF
+
+https://coolors.co/293651-0f436d-1768ac-badae0-ffffff
