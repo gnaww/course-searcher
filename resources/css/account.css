@@ -1,46 +1,9 @@
-body {
-    font-family: 'Lato', sans-serif;
-}
-
-.navbar-brand {
-    font-size: 2em;
-}
-
-.navbar-nav .nav-item.nav-link {
-    font-weight: bold;
-    font-size: 1.2em;
-    color: #FFFFFF;
-}
-
-.navbar-nav .nav-item.nav-link:hover {
-    color: #BADAE0;
-    transition: color 0.2s ease;
-}
-
-.btn-primary {
-    background-color: #1768AC;
-    border: #1768AC;
-}
-
-.btn-primary:hover {
-    background-color: #0F4877;
-}
-
-.btn-secondary {
-    background-color: #BADAE0;
-    border: #BADAE0;
-}
-
-.btn-secondary:hover {
-    background-color: #6DCFE0;
-}
-
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr) 2px repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) 2em repeat(2, 1fr);
     grid-template-rows: 1fr repeat(4, auto) 1fr;
     grid-template-areas: 
-        "username username div uploadNew uploadNew" 
+        "header header div uploadNew uploadNew" 
         "semester1 semester2 div semester1New semester2New" 
         "semester3 semester4 div semester3New semester4New" 
         "semester5 semester6 div semester5New semester6New" 
@@ -52,7 +15,7 @@ body {
 @media only screen and (max-width: 1200px) {
     .grid-container {
         display: grid;
-        grid-template-columns: 1fr 2px 1fr;
+        grid-template-columns: 1fr 2em 1fr;
         grid-template-rows: 1fr repeat(8, auto) 1fr;
         grid-template-areas:
             "username div uploadNew" 
@@ -117,7 +80,7 @@ body {
     height: 100%;
 }
 .username-header {
-    grid-area: username;
+    grid-area: header;
     padding: 1em 0 1em 0;
 }
 
@@ -139,7 +102,6 @@ body {
 }
 
 .semester {
-    border: 1px solid black;
     font-size: 1.4em;
 }
 
