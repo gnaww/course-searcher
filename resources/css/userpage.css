@@ -38,10 +38,12 @@ body {
 		"semester5 semester6 semester5New semester6New"
 		"semester7 semester8 semester7New semester8New"
 		". . saveChanges cancel";
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 .username-header {
 	grid-area: username;
-	padding: 40px 0 15px 25px;
+    padding: 1em 0 1em 2em;
 }
 h1 {
 	font-weight: 100;
@@ -50,17 +52,26 @@ h1 {
 }
 .upload {
 	grid-area: uploadNew;
-	padding: 40px 50px 15px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 2px solid #d3d3d3;
 }
 .semester {
-	background-color: gray;
-	border: 1px solid black;
+	background-color: cornsilk;
 }
 .saveChanges {
 	grid-area: saveChanges;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 2px solid #d3d3d3;
 }
 .cancel {
 	grid-area: cancel;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .sem1 {
 	grid-area: semester1;
@@ -88,25 +99,48 @@ h1 {
 }
 .sem1New {
 	grid-area: semester1New;
+    border-left: 2px solid #d3d3d3;
 }
 .sem2New {
 	grid-area: semester2New;
 }
 .sem3New {
 	grid-area: semester3New;
+    border-left: 2px solid #d3d3d3;
 }
 .sem4New {
 	grid-area: semester4New;
 }
 .sem5New {
 	grid-area: semester5New;
+    border-left: 2px solid #d3d3d3;
 }
 .sem6New {
 	grid-area: semester6New;
 }
 .sem7New {
 	grid-area: semester7New;
+    border-left: 2px solid #d3d3d3;
 }
 .sem8New {
 	grid-area: semester8New;
+}
+
+
+
+.upload-button {
+    width: 60%;
+    height: 70%;
+    font-weight: bold;
+    font-size: 1.7em;
+}
+
+.save-button {
+    width: 65%;
+    height 60%;
+}
+
+.cancel-button {
+    width: 65%;
+    height 60%;
 }
