@@ -1,0 +1,162 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+.navbar-brand {
+    font-size: 2em;
+}
+
+.navbar-nav .nav-item.nav-link {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #FFFFFF;
+}
+
+.navbar-nav .nav-item.nav-link:hover {
+    color: #BADAE0;
+    transition: color 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #1768AC;
+    border: #1768AC;
+}
+
+.btn-primary:hover {
+    background-color: #0F4877;
+}
+
+.btn-secondary {
+    background-color: #BADAE0;
+    border: #BADAE0;
+}
+
+.btn-secondary:hover {
+    background-color: #6DCFE0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr repeat(4, 2fr) 1fr;
+    grid-template-areas: "username username uploadNew uploadNew" "semester1 semester2 semester1New semester2New" "semester3 semester4 semester3New semester4New" "semester5 semester6 semester5New semester6New" "semester7 semester8 semester7New semester8New" ". . saveChanges cancel";
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.username-header {
+    grid-area: username;
+    padding: 1em 0 1em 2em;
+}
+
+.upload {
+    grid-area: uploadNew;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 2px solid #d3d3d3;
+}
+
+.semester {
+    background-color: cornsilk;
+}
+
+.saveChanges {
+    grid-area: saveChanges;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 2px solid #d3d3d3;
+}
+
+.cancel {
+    grid-area: cancel;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sem1 {
+    grid-area: semester1;
+}
+
+.sem2 {
+    grid-area: semester2;
+}
+
+.sem3 {
+    grid-area: semester3;
+}
+
+.sem4 {
+    grid-area: semester4;
+}
+
+.sem5 {
+    grid-area: semester5;
+}
+
+.sem6 {
+    grid-area: semester6;
+}
+
+.sem7 {
+    grid-area: semester7;
+}
+
+.sem8 {
+    grid-area: semester8;
+}
+
+.sem1New {
+    grid-area: semester1New;
+    border-left: 2px solid #d3d3d3;
+}
+
+.sem2New {
+    grid-area: semester2New;
+}
+
+.sem3New {
+    grid-area: semester3New;
+    border-left: 2px solid #d3d3d3;
+}
+
+.sem4New {
+    grid-area: semester4New;
+}
+
+.sem5New {
+    grid-area: semester5New;
+    border-left: 2px solid #d3d3d3;
+}
+
+.sem6New {
+    grid-area: semester6New;
+}
+
+.sem7New {
+    grid-area: semester7New;
+    border-left: 2px solid #d3d3d3;
+}
+
+.sem8New {
+    grid-area: semester8New;
+}
+
+.upload-button {
+    width: 60%;
+    height: 70%;
+    font-weight: bold;
+    font-size: 1.7em;
+}
+
+.save-button {
+    width: 65%;
+    height 60%;
+}
+
+.cancel-button {
+    width: 65%;
+    height 60%;
+}
