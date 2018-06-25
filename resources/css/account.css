@@ -40,12 +40,12 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 1fr repeat(4, auto) 1fr;
     grid-template-areas: "username username uploadNew uploadNew" "semester1 semester2 semester1New semester2New" "semester3 semester4 semester3New semester4New" "semester5 semester6 semester5New semester6New" "semester7 semester8 semester7New semester8New" ". . saveChanges cancel";
-    margin: 2em;
+    margin: 2em 5em 2em 5em;
 }
 
 .username-header {
     grid-area: username;
-    padding: 1em 0 1em 2em;
+    padding: 1em 0 1em 0;
 }
 
 .username-header h1 {
@@ -67,7 +67,6 @@ body {
 }
 
 .semester {
-    background-color: cornsilk;
     border: 1px solid black;
     font-size: 1.4em;
 }
