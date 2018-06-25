@@ -38,10 +38,9 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 1fr repeat(4, 2fr) 1fr;
+    grid-template-rows: 1fr repeat(4, auto) 1fr;
     grid-template-areas: "username username uploadNew uploadNew" "semester1 semester2 semester1New semester2New" "semester3 semester4 semester3New semester4New" "semester5 semester6 semester5New semester6New" "semester7 semester8 semester7New semester8New" ". . saveChanges cancel";
-    margin-top: 2em;
-    margin-bottom: 2em;
+    margin: 2em;
 }
 
 .username-header {
@@ -49,6 +48,9 @@ body {
     padding: 1em 0 1em 2em;
 }
 
+.username-header h1 {
+    font-weight: bold;
+}
 .upload {
     grid-area: uploadNew;
     display: flex;
@@ -57,10 +59,22 @@ body {
     border-left: 2px solid #d3d3d3;
 }
 
-.semester {
-    background-color: cornsilk;
+.upload-button {
+    width: 60%;
+    height: 70%;
+    font-weight: bold;
+    font-size: 1.7em;
 }
 
+.semester {
+    background-color: cornsilk;
+    border: 1px solid black;
+    font-size: 1.4em;
+}
+
+.semester h2 {
+    font-weight: bold;
+}
 .saveChanges {
     grid-area: saveChanges;
     display: flex;
@@ -144,13 +158,6 @@ body {
     grid-area: semester8New;
 }
 
-.upload-button {
-    width: 60%;
-    height: 70%;
-    font-weight: bold;
-    font-size: 1.7em;
-}
-
 .save-button {
     width: 65%;
     height 60%;
@@ -160,3 +167,4 @@ body {
     width: 65%;
     height 60%;
 }
+
