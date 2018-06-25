@@ -1,0 +1,50 @@
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr auto auto auto auto;
+    grid-template-areas: 
+        "classHeader rating"
+        "metadata commentsHeader"
+        "prereq comments"
+        "classDesc commments"
+        "lectures comments"
+        "recitations comments";
+    margin: 2em 5em 2em 5em;
+}
+
+.class-header {
+    grid-area: classHeader;
+}
+
+.class-rating {
+    grid-area: rating;
+}
+
+.class-metadata {
+    grid-area: metadata;
+}
+
+.comments-header {
+    grid-area: commentsHeader;
+}
+
+.class-prequisites {
+    grid-area: preqreq;
+}
+
+.class-description {
+    grid-area: classDesc;
+}
+
+.class-lectures {
+    grid-area: lectures;
+}
+
+.class-recitations {
+    grid-area: recitations;
+}
+
+.comments {
+    grid-area: comments;
+}
