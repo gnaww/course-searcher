@@ -37,12 +37,42 @@ body {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr) 2px repeat(2, 1fr);
     grid-template-rows: 1fr repeat(4, auto) 1fr;
-    grid-template-areas: "username username uploadNew uploadNew" "semester1 semester2 semester1New semester2New" "semester3 semester4 semester3New semester4New" "semester5 semester6 semester5New semester6New" "semester7 semester8 semester7New semester8New" ". . saveChanges cancel";
+    grid-template-areas: 
+        "username username div uploadNew uploadNew" 
+        "semester1 semester2 div semester1New semester2New" 
+        "semester3 semester4 div semester3New semester4New" 
+        "semester5 semester6 div semester5New semester6New" 
+        "semester7 semester8 div semester7New semester8New" 
+        ". . div saveChanges saveChanges";
     margin: 2em 5em 2em 5em;
 }
 
+@media only screen and (max-width: 992px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 2px 1fr;
+        grid-template-rows: 1fr repeat(8, auto) 1fr;
+        grid-template-areas:
+            "username div uploadNew" 
+            "semester1 div semester1New"
+            "semester2 div semester2New" 
+            "semester3 div semester3New" 
+            "semester4 div semester4New" 
+            "semester5 div semester5New" 
+            "semester6 div semester6New" 
+            "semester7 div semester7New" 
+            "semester8 div semester8New" 
+            ". div saveChanges";
+        margin: 2em 5em 2em 5em;
+    }
+}
+.divider {
+    grid-area: div;
+    border-left: 2px solid #d3d3d3;
+    height: 100%;
+}
 .username-header {
     grid-area: username;
     padding: 1em 0 1em 0;
@@ -56,7 +86,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-left: 2px solid #d3d3d3;
 }
 
 .upload-button {
@@ -76,14 +105,6 @@ body {
 }
 .saveChanges {
     grid-area: saveChanges;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-left: 2px solid #d3d3d3;
-}
-
-.cancel {
-    grid-area: cancel;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -123,7 +144,6 @@ body {
 
 .sem1New {
     grid-area: semester1New;
-    border-left: 2px solid #d3d3d3;
 }
 
 .sem2New {
@@ -132,7 +152,6 @@ body {
 
 .sem3New {
     grid-area: semester3New;
-    border-left: 2px solid #d3d3d3;
 }
 
 .sem4New {
@@ -141,7 +160,6 @@ body {
 
 .sem5New {
     grid-area: semester5New;
-    border-left: 2px solid #d3d3d3;
 }
 
 .sem6New {
@@ -150,7 +168,6 @@ body {
 
 .sem7New {
     grid-area: semester7New;
-    border-left: 2px solid #d3d3d3;
 }
 
 .sem8New {
