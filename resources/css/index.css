@@ -15,7 +15,7 @@ body {
 	color: #C3DFE4;
 	font-weight: 100;
 	font-size: 1.3em;
-	transition: color 2s ease;
+	transition: color 1s ease;
 	letter-spacing: 2px;
 }
 .navbar-brand:hover, .nav-link:hover {
@@ -34,4 +34,74 @@ body {
 
 .navbar-light .navbar-toggler {
     color: #C3DFE4;
+}
+h3 {
+    font-weight: 100;
+    color: #13446B;
+    font-size: 2.5em;
+}
+section {
+    padding-top: 2.2em;
+}
+p {
+    color: #13446B;
+    font-weight: 400;
+    font-size: .7em;
+}
+
+.dirclass {
+    text-align: center;
+}
+
+
+
+
+h1 {
+	font-weight: 100;
+    color: #0F436D;
+    font-size: 4em;
+}
+#dirsearch {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    transition: background-color 1s ease;
+    border-bottom: 0.01em solid #09325A;
+}
+#diresearch:hover {
+    background-color: #f4fdff;
+}
+
+.mid-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.school-selecton{
+    flex-grow: 1;
+    height: 15em;
+}
+
+
+
+
+
+
+
+.req-1 {
+    
+}
+
+.req-col1 {
+    flex-grow: 1;
+    height: 20em;
+        text-align: center;
+
+}
+
+.req-col2 {
+    flex-grow: 1;
+    height: 20em;
+    text-align: center;
 }

@@ -43,8 +43,10 @@ body {
 	grid-area: username;
 	padding: 40px 0 15px 25px;
 }
-.username-header h1 {
-	font-weight: bold;
+h1 {
+	font-weight: 100;
+    color: #0F436D;
+    font-size: 5em;
 }
 .upload {
 	grid-area: uploadNew;
