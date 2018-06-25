@@ -20,6 +20,13 @@ body {
 .btn-primary:hover {
 	background-color: #0F4877;
 }
+.btn-secondary {
+	background-color: #BADAE0;
+	border: #BADAE0;
+}
+.btn-secondary:hover {
+	background-color: #6DCFE0;
+}
 .grid-container {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
@@ -34,29 +41,24 @@ body {
 }
 .username-header {
 	grid-area: username;
-	width: 100%;
-	height: 100%;
+	padding: 40px 0 15px 25px;
+}
+.username-header h1 {
+	font-weight: bold;
 }
 .upload {
 	grid-area: uploadNew;
-	width: 100%;
-	height: 100%;
+	padding: 40px 50px 15px 50px;
 }
 .semester {
 	background-color: gray;
 	border: 1px solid black;
-	width: 100%;
-	height: 100%;
 }
 .saveChanges {
 	grid-area: saveChanges;
-	width: 100%;
-	height: 100%;
 }
 .cancel {
 	grid-area: cancel;
-	width: 100%;
-	height: 100%;
 }
 .sem1 {
 	grid-area: semester1;
