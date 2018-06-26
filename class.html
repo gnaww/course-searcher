@@ -5,6 +5,7 @@
 <head>
     <title>Rutgers Course Planner++</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="resources/css/resources.css">
     <link rel="stylesheet" type="text/css" href="resources/css/class.css">
@@ -32,12 +33,34 @@
     </header>
     <div class="grid-container">
         <div class="class-header">
-            <h1>Class Name</h1>
-            <span>37:575:202</span>
+            <span class="header-text">Introduction to Database Systems</span>
+            <!-- status: open -->
+            <span class="class-open">
+              <i class="fas fa-check-circle"></i>
+            </span>
+            <!-- status: closed -->
+<!--
+            <span class="class-closed">
+                <i class="fas fa-times-circle"></i>
+            </span>
+-->
+            <button type="button" class="btn btn-primary btn-lg register-button">Register</button>
         </div>
+        <div class="divider"></div>
         <div class="class-rating">
+            <span class="header-text">Overall Rating</span>
+            <span class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+            </span>
         </div>
         <div class="class-metadata">
+            <span class="class-number">Course Number: 37:575:202</span>
+            <span>Registration Number: 12345</span>
+            <span>Credits: 3</span>
         </div>
         <div class="comments-header">
         </div>

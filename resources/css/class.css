@@ -1,24 +1,65 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2em 1fr;
     grid-template-rows: 1fr 1fr auto auto auto auto;
     grid-template-areas: 
-        "classHeader rating"
-        "metadata commentsHeader"
-        "prereq comments"
-        "classDesc commments"
-        "lectures comments"
-        "recitations comments";
+        "classHeader div rating"
+        "metadata div commentsHeader"
+        "prereq div comments"
+        "classDesc div comments"
+        "lectures div comments"
+        "recitations div comments";
     margin: 2em 5em 2em 5em;
 }
 
 .class-header {
     grid-area: classHeader;
+    display: flex;
+}
+
+.header-text{
+    font-weight: bold;
+    font-size: 2.5em;
+    padding-right: 0.5em;
+    align-self: center;
+}
+
+.class-number {
+    color: gray;
+    font-size: 2em;
+    padding-right: 0.5em;
+}
+
+.register-button {
+    padding: 0.3em 0.8em;
+    font-size: 1.7em;
+    font-weight: bold;
+    align-self: center;
+}
+
+.class-open {
+    font-size: 3em;
+    color: #33cc33;
+    padding-right: 0.5em;
+    align-self: center;
+}
+
+.class-closed {
+    font-size: 3em;
+    color: #ff0000;
+    padding-right: 0.5em;
+    align-self: center;
 }
 
 .class-rating {
     grid-area: rating;
+    display: flex;
+}
+
+.class-rating h1 {
+    display: inline-block;
+    padding-right: 1em;
 }
 
 .class-metadata {
@@ -27,6 +68,12 @@
 
 .comments-header {
     grid-area: commentsHeader;
+}
+
+.stars {
+    font-size: 3em;
+    color: gold;
+    align-self: center;
 }
 
 .class-prequisites {

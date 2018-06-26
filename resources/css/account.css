@@ -12,6 +12,7 @@
     margin: 2em 5em 2em 5em;
 }
 
+/* smaller laptop/desktop screens */
 @media only screen and (max-width: 1200px) {
     .grid-container {
         display: grid;
@@ -39,6 +40,7 @@
     }
 }
 
+/* mobile screens */
 @media only screen and (max-width: 992px) {
     .grid-container {
         display: grid;
@@ -74,11 +76,6 @@
     }
 }
 
-.divider {
-    grid-area: div;
-    border-left: 2px solid #d3d3d3;
-    height: 100%;
-}
 .username-header {
     grid-area: header;
     padding: 1em 0 1em 0;
