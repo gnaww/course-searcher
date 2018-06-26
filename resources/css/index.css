@@ -106,6 +106,7 @@ h1 {
     margin-left:0.3em;
     margin-right:0.3em;
     line-height: 1.2em;
+    background-color: white;
 }
 .btn:hover {
     color: #BBDAE0;
