@@ -1,5 +1,6 @@
 body {
 	font-family: 'Lato', sans-serif;
+    color: #13446B;
 }
 .navbar {
 	background-color: #0F436D;
@@ -53,9 +54,6 @@ p {
     text-align: center;
 }
 
-
-
-
 h1 {
 	font-weight: 100;
     color: #0F436D;
@@ -73,35 +71,68 @@ h1 {
 }
 
 .mid-container {
+    margin-left: 20%;
+    margin-right: 20%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.school-selecton{
+.school-selecton {
     flex-grow: 1;
-    height: 15em;
-}
-
-
-
-
-
-
-
-.req-1 {
-    
+    height: auto;
+    padding-bottom: 5em;
 }
 
 .req-col1 {
     flex-grow: 1;
-    height: 20em;
-        text-align: center;
-
+    height: auto;
+    width: auto;
+    text-align: left;
 }
 
 .req-col2 {
     flex-grow: 1;
-    height: 20em;
-    text-align: center;
+    height: auto;
+    width: auto;
+    text-align: left;
 }
+
+@media (max-width: 1113px) {
+    .mid-container {
+        flex-direction: column;
+    }
+}
+.btn {
+    border: 1px solid #13446B;
+    color: #13446B;
+    width: 10em;
+    height: 2em;
+    font-size: 1.2em;
+    transform: color 1s ease, background-color 1.5s ease;
+}
+.btn:hover {
+    color: #BBDAE0;
+    background-color: #13446B;
+}
+
+.confirmation-btns {
+    height: auto;
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 5em;
+}
+
+.checkboxes {
+    font-size: .8em;
+    margin-bottom: 5em;
+}
+
+h4 {
+    font-size: 1.3em;
+    font-weight: 300;
+}
+
+
