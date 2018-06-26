@@ -16,6 +16,8 @@ WHITE                        LIGHTEST
 https://coolors.co/293651-0f436d-1768ac-badae0-ffffff
 
 
+RANDOM NOTES
+
 RESPONSIVE DESIGN BREAKPOINTS
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {...} 
@@ -31,3 +33,7 @@ RESPONSIVE DESIGN BREAKPOINTS
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {...}
+
+https://github.com/davidchen/rutgers-soc-api
+
+https://ourcodeworld.com/articles/read/405/how-to-convert-pdf-to-text-extract-text-from-pdf-with-javascript
