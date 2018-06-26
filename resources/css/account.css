@@ -84,9 +84,7 @@
     padding: 1em 0 1em 0;
 }
 
-.username-header h1 {
-    font-weight: bold;
-}
+
 .upload {
     grid-area: uploadNew;
     display: flex;

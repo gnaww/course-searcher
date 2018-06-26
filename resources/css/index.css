@@ -39,7 +39,8 @@ body {
 h3 {
     font-weight: 100;
     color: #13446B;
-    font-size: 2.5em;
+    font-size: 2.8em;
+    text-align: center;
 }
 section {
     padding-top: 2.2em;
@@ -47,7 +48,8 @@ section {
 p {
     color: #13446B;
     font-weight: 400;
-    font-size: .7em;
+    font-size: .8em;
+    text-align: center;
 }
 
 .dirclass {
@@ -59,20 +61,23 @@ h1 {
     color: #0F436D;
     font-size: 4em;
 }
+
 #dirsearch {
     border: 0;
     outline: 0;
     background: transparent;
     transition: background-color 1s ease;
     border-bottom: 0.01em solid #09325A;
+    width: 30em;
 }
+
 #diresearch:hover {
     background-color: #f4fdff;
 }
 
 .mid-container {
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 21%;
+    margin-right: 21%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -84,32 +89,23 @@ h1 {
     padding-bottom: 5em;
 }
 
-.req-col1 {
+.req-col1, .rec-col2 {
     flex-grow: 1;
     height: auto;
     width: auto;
     text-align: left;
 }
 
-.req-col2 {
-    flex-grow: 1;
-    height: auto;
-    width: auto;
-    text-align: left;
-}
-
-@media (max-width: 1113px) {
-    .mid-container {
-        flex-direction: column;
-    }
-}
 .btn {
     border: 1px solid #13446B;
     color: #13446B;
-    width: 10em;
-    height: 2em;
+    width: 8em;
+    height: 1.9em;
     font-size: 1.2em;
     transform: color 1s ease, background-color 1.5s ease;
+    margin-left:0.3em;
+    margin-right:0.3em;
+    line-height: 1.2em;
 }
 .btn:hover {
     color: #BBDAE0;
@@ -118,21 +114,93 @@ h1 {
 
 .confirmation-btns {
     height: auto;
-    margin-left: 20%;
-    margin-right: 20%;
-    display: flex;
-    justify-content: space-evenly;
-    margin-bottom: 5em;
+/*    margin-left: 20%;*/
+/*    margin-right: 20%;*/
+    margin-bottom: 1.2em;
+    text-align: center;
 }
 
 .checkboxes {
     font-size: .8em;
-    margin-bottom: 5em;
+    margin-bottom: 1em;
 }
 
 h4 {
     font-size: 1.3em;
     font-weight: 300;
 }
+@media (max-width: 425px) {
+    #top-btn {
+        margin-bottom: 1em;
+    }
+}
+@media (max-width: 1113px) {
+    .mid-container {
+        flex-direction: column;
+    }
+    .school-selecton {
+        text-align: center;
+    }
+    .req-col1 {
+        text-align: center;
+    }
+    .req-col2 {
+        text-align: center;
+        height: auto;
+    }
+}
+.dir-search-p {
+    margin-bottom: 2.5em;
+    font-size: 0.8em;
+    font-weight: 400
+}
+
+select {
+    margin-right: .5em
+}
+
+.icon-btn {
+    background-color: transparent;
+    color: #4D6785;
+    outline: none;
+    border: none;
+    transition: color 1s ease;
+}
+.icon-btn:hover {
+    color: #8dbbef;
+}
+
+.school-select-heading {
+    font-weight: 400;
+    font-size: 1.25em;
+    padding-bottom: .5em;
+}
+
+label {
+    font-size: 0.8em;
+    font-weight: 300;
+}
+
+.reqful-h {
+    text-align: center;
+    font-size: 3.1em;
+}
+
+.reqful-p {
+    font-weight: 700;
+    font-size: .83em;
+}
+
+.reqful {
+    padding-bottom: 0em;
+}
 
 
+
+input {
+    
+}
+
+.cb {
+    margin-right: 1em;
+}
