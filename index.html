@@ -5,6 +5,7 @@
         <title>Rutgers Course Planner++</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="resources/css/index.css">
     </head>
     <body>
@@ -28,8 +29,8 @@
             </nav>
         </header>
         <section>
-            <h3 class="text-center"> Direct Class Search </h3>
-            <p class="text-center">Quickly find a class by keyword, index #, professor, lowest rating, or course ID.</p>
+            <h3 class="dir-search-h"> Direct Class Search </h3>
+            <p class="dir-search-p">Quickly find a class by keyword, index #, or course ID.</p>
             <div class="dirclass">
                 <select>
                     <option selected disabled>Search Category</option>
@@ -39,19 +40,20 @@
                     <option value="professor">Professor</option>
                     <option value="rating">Lowest Rating</option>
                     <input id="dirsearch" type="text" placeholder="Search...">
+                    <button class="icon-btn" type="button"><i class="fas fa-search"></i></button>
                 </select>
             </div>
         </section>
         <section class="reqful">
-            <h1 class="text-center">Requirement Fufillment</h1>
-            <p class="text-center">Select your school, and check up to four boxes below
-                in order to find the optimal classes top fufill your requirements.</p>
+            <h1 class="reqful-h">Requirement Fufillment</h1>
+            <p class="reqful-p">Select your school, and check up to four boxes below
+                in order to find <br> the optimal classes top fufill your requirements.</p>
         </section>
 
         <section>
             <div class="mid-container">
                 <div class="school-selecton">
-                    <h3 class>School Selection</h3>
+                    <h4 class="school-select-heading">School Selection</h4>
                     <form>
                         <div class="schoolSelect">
                             <input type="radio" name="radio" id="SAS">
@@ -76,26 +78,26 @@
                         <div class="reqBoxes">
                             <h4>Natural Sciences</h4>
                             <input type="checkbox" name="checkbox" id="NS">
-                            <label for="NS">NS</label>
+                            <label class="cb" for="NS">NS</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Social Analysis</h4>
                             <input type="checkbox" name="checkbox" id="SCL">
-                            <label for="SCL">SCL</label>
+                            <label class="cb" for="SCL">SCL</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Historical Analysis</h4>
                             <input type="checkbox" name="checkbox" id="HST">
-                            <label for="HST">HST</label>
+                            <label class="cb" for="HST">HST</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Wrinting & Communication</h4>
                             <input type="checkbox" name="checkbox" id="WC">
-                            <label for="WC">WC</label>
+                            <label class="cb" class="cb" for="WC">WC</label>
                             <input type="checkbox" name="checkbox" id="WCr">
-                            <label for="WCr">WCr</label>
+                            <label class="cb" class="cb" for="WCr">WCr</label>
                             <input type="checkbox" name="checkbox" id="WCd">
-                            <label for="WCd">WCd</label>
+                            <label class="cb" class="cb" for="WCd">WCd</label>
                         </div>
                     </form>
                 </div>
@@ -104,30 +106,30 @@
                         <div class="reqBoxes">
                             <h4>Contemporary Challenges</h4>
                             <input type="checkbox" name="checkbox" id="CC">
-                            <label for="CC">CC</label>
+                            <label class="cb" for="CC">CC</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Quantitative & Formal Reasoning</h4>
                             <input type="checkbox" name="checkbox" id="QQ">
-                            <label for="QQ">QQ</label>
+                            <label class="cb" for="QQ">QQ</label>
                             <input type="checkbox" name="checkbox" id="QR">
-                            <label for="QR">QR</label>
+                            <label class="cb" for="QR">QR</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Arts & Humanities</h4>
                             <input type="checkbox" name="checkbox" id="AH">
-                            <label for="AH">AH</label>
+                            <label class="cb" for="AH">AH</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Information Technology & Research</h4>
                             <input type="checkbox" name="checkbox" id="ITR">
-                            <label for="ITR">ITR</label>
+                            <label class="cb" for="ITR">ITR</label>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="confirmation-btns">
-                <input class="btn" type="button" value="Submit">
+                <input class="btn" type="button" value="Submit" id="top-btn">
                 <input class="btn" type="button" value="Clear">
             </div>
         </section>
