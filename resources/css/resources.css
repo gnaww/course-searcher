@@ -31,3 +31,7 @@ body {
     border-left: 2px solid #d3d3d3;
     height: 100%;
 }
+
+.bold {
+    font-weight: bold;
+}
