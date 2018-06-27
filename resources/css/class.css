@@ -36,16 +36,18 @@
 
 .register-button {
     align-self: center;
+    display: none;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
 }
 
 .status {
     font-size: 3em;
-    padding-right: 0.5em;
     align-self: center;
 }
 
 .sections {
-    font-size: 1.2em;
+    font-size: 2em;
     padding: 0;
 }
 
@@ -115,10 +117,20 @@
 
 .class-sections table th {
     font-size: 1.4em;
+    text-align: center;
 }
 
 .class-sections table td {
     font-size: 1.2em;
+    text-align: center;
+}
+
+.class-sections table tbody tr td {
+    vertical-align: middle;
+}
+
+.status-header {
+    width: 108px;
 }
 .comments {
     grid-area: comments;
