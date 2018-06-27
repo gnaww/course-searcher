@@ -11,6 +11,22 @@ $( document ).ready(function() {
             $(event.currentTarget).prev().children().fadeIn(300);
         });
     });
+    
+    // Only execute this jquery if browser width is desktop size on page load
+    if($(window).width() >= 1538.02){
+        $('.column-left').css("height", "auto");
+        $('.column-right').height($('.column-left').height());
+        $(".class-comments").css("max-height", ($(".column-right").height()-$(".class-rating").height()-$(".add-comments").height()));
+    }
+    
+    // fix for if they resize window manually
+    $(window).resize(function() {
+        if( $(window).width() > 1538.02) {
+            $('.column-left').css("height", "auto");
+            $('.column-right').height($('.column-left').height());
+            $(".class-comments").css("max-height", ($(".column-right").height()-$(".class-rating").height()-$(".add-comments").height()));
+        }
+    });
 });
 
 // Turn on Bootstrap tooltips
