@@ -82,6 +82,7 @@
     font-size: 2.5em;
     display: flex;
     align-items: flex-end;
+    margin-bottom: 0.3em;
 }
 
 .stars {
@@ -130,8 +131,40 @@
 .status-header {
     width: 108px;
 }
-.comments {
+
+.class-comments {
     grid-area: comments;
+}
+
+.comment {
+    border-top: 2px solid #d3d3d3;
+    padding: 0.5em 1em 0.5em 0;
+    overflow: hidden;
+}
+
+.comment-date {
+    font-size: 1.2em;
+}
+
+.comment-metadata {
+    float: right;
+}
+
+.comment-text {
+    font-size: 1.3em;
+}
+
+.comment-text p {
+    margin: 0;
+}
+
+.comment-date {
+    color: gray;
+    margin-right: 1em;
+}
+
+.comment-stars {
+    font-size: 1.7em;
 }
 
 /* media queries */
