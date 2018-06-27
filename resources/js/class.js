@@ -7,6 +7,7 @@ $( document ).ready(function() {
     });
     $('.register-button').click(function(event){    
         $(event.currentTarget).fadeOut(300, function(){
+            $(event.currentTarget).prev().show();
             $(event.currentTarget).prev().children().fadeIn(300);
         });
     });
