@@ -1,8 +1,7 @@
-
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 2em 1fr;
-    grid-template-rows: 1fr 1fr auto auto auto auto;
+    grid-template-columns: 50% 2em 50%;
+    grid-template-rows: repeat(6, auto);
     grid-template-areas: 
         "classHeader div rating"
         "metadata div commentsHeader"
@@ -89,7 +88,6 @@
     font-size: 3em;
     color: gold;
     align-self: center;
-    margin-left: 1em;
 }
 
 .class-prerequisites {
@@ -134,4 +132,37 @@
 }
 .comments {
     grid-area: comments;
+}
+
+/* media queries */
+
+/* laptop/desktop screens with 150% page zoom. same layout for mobile */
+@media only screen and (max-width: 1280px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(6, auto) 2em repeat(3, auto);
+        grid-template-areas:
+            "classHeader"
+            "metadata"
+            "prereq"
+            "classDesc"
+            "desc"
+            "sections"
+            "div"
+            "rating"
+            "commentsHeader"
+            "comments";
+        margin: 2em 5em 2em 5em;
+    }
+    
+    .divider {
+        border-top: 2px solid #d3d3d3;
+        border-left: 0;
+    }
+    
+    .class-header, .class-metadata, .class-prerequisites, 
+    .class-description, .description, .class-sections {
+        padding-right: 0;
+    }
 }

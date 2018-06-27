@@ -12,70 +12,6 @@
     margin: 2em 5em 2em 5em;
 }
 
-/* smaller laptop/desktop screens */
-@media only screen and (max-width: 1200px) {
-    .grid-container {
-        display: grid;
-        grid-template-columns: 1fr 2em 1fr;
-        grid-template-rows: 1fr repeat(8, auto) 1fr;
-        grid-template-areas:
-            "username div uploadNew" 
-            "semester1 div semester1New"
-            "semester2 div semester2New" 
-            "semester3 div semester3New" 
-            "semester4 div semester4New" 
-            "semester5 div semester5New" 
-            "semester6 div semester6New" 
-            "semester7 div semester7New" 
-            "semester8 div semester8New" 
-            ". div saveChanges";
-        margin: 2em 5em 2em 5em;
-    }
-    .btn-primary.upload-button {
-        width: 100%;
-        display: block;
-    }
-    .upload {
-        padding: 0 1em;
-    }
-}
-
-/* mobile screens */
-@media only screen and (max-width: 992px) {
-    .grid-container {
-        display: grid;
-        grid-template-columns: 100%;
-        grid-template-rows: 1fr repeat(8, auto) 1fr repeat(8,auto);
-        grid-template-areas:
-            "uploadNew"
-            "semester1New"
-            "semester2New"
-            "semester3New"
-            "semester4New"
-            "semester5New"
-            "semester6New"
-            "semester7New"
-            "semester8New"
-            "saveChanges"
-            "username"
-            "semester1"
-            "semester2"
-            "semester3"
-            "semester4"
-            "semester5"
-            "semester6"
-            "semester7"
-            "semester8";  
-        margin: 2em 5em 2em 5em;
-    }
-    .btn-primary.upload-button {
-        width: 60%;
-    }
-    .upload {
-        padding: 1em;
-    }
-}
-
 .username-header {
     grid-area: header;
     padding: 1em 0 1em 0;
@@ -187,3 +123,87 @@
     margin-left: 1em;
 }
 
+/* media queries */
+
+/* laptop/desktop screens with 150% page zoom */
+@media only screen and (max-width: 1280px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 2em 1fr;
+        grid-template-rows: 1fr repeat(8, auto) 1fr;
+        grid-template-areas:
+            "header div uploadNew" 
+            "semester1 div semester1New"
+            "semester2 div semester2New" 
+            "semester3 div semester3New" 
+            "semester4 div semester4New" 
+            "semester5 div semester5New" 
+            "semester6 div semester6New" 
+            "semester7 div semester7New" 
+            "semester8 div semester8New" 
+            ". div saveChanges";
+        margin: 2em 5em 2em 5em;
+    }
+    
+    .btn-primary.upload-button {
+        width: 100%;
+        display: block;
+    }
+    
+    .upload {
+        padding: 0 1em;
+    }
+}
+
+/* mobile screens */
+@media only screen and (max-width: 992px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr repeat(8, auto) 1fr repeat(8,auto);
+        grid-template-areas:
+            "uploadNew"
+            "semester1New"
+            "semester2New"
+            "semester3New"
+            "semester4New"
+            "semester5New"
+            "semester6New"
+            "semester7New"
+            "semester8New"
+            "saveChanges"
+            "header"
+            "semester1"
+            "semester2"
+            "semester3"
+            "semester4"
+            "semester5"
+            "semester6"
+            "semester7"
+            "semester8";  
+        margin: 2em 5em 2em 5em;
+    }
+    
+    .btn-primary.upload-button {
+        width: 60%;
+    }
+    
+    .upload {
+        padding: 1em;
+    }
+    
+    .divider {
+        display: none;
+    }
+    
+    .semester {
+        text-align: center;
+    }
+    
+    .semester ul {
+        list-style: none; 
+    }
+    .username-header {
+        text-align: center;
+    }
+}
