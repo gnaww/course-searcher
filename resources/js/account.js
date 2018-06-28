@@ -70,3 +70,8 @@ function getPageText(pageNum, PDFDocumentInstance) {
         });
     });
 }
+
+// Turn on Bootstrap tooltips
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
