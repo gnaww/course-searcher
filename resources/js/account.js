@@ -28,6 +28,13 @@ PDFJS.getDocument(PDF_URL).then(function (pdf) {
         console.log('hellol');
         console.log(pagesText);
         console.log('world');
+        	// Remove loading
+        $("#loading").remove();
+        
+        // Render text
+        for(var i = 0;i < pagesText.length;i++){
+        	$("#pdf-text").append("<div><h3>Page "+ (i + 1) +"</h3><p>"+pagesText[i]+"</p><br></div>")
+        }
     });
 
 }, function (reason) {
