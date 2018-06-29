@@ -131,8 +131,14 @@ h4 {
     font-weight: 300;
 }
 @media (max-width: 425px) {
-    #top-btn {
-        margin-bottom: 1em;
+    .reqful-p {
+        padding-right: 10%;
+        padding-left: 10%;
+    }
+}
+@media (max-width: 688px) {
+    #dirsearch {
+        width: 10em;
     }
 }
 @media (max-width: 1113px) {
@@ -148,6 +154,11 @@ h4 {
     .req-col2 {
         text-align: center;
         height: auto;
+    }
+}
+@media (min-width: 1113px) {
+    #dirsearch {
+        width: 50em;
     }
 }
 .dir-search-p {
