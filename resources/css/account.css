@@ -1,14 +1,16 @@
 .grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr) 2em repeat(2, 1fr);
-    grid-template-rows: 1fr repeat(5, auto) 1fr;
+    grid-template-rows: 1fr repeat(7, auto) 1fr;
     grid-template-areas: 
         "header header div uploadNew uploadNew"
         "external transfer div externalNew transferNew"
         "semester1 semester2 div semester1New semester2New" 
         "semester3 semester4 div semester3New semester4New" 
         "semester5 semester6 div semester5New semester6New" 
-        "semester7 semester8 div semester7New semester8New" 
+        "semester7 semester8 div semester7New semester8New"
+        "semester9 semester10 div semester9New semester10New"
+        "semester11 semester12 div semester11New semester12New"
         ". . div saveChanges saveChanges";
     margin: 2em 5em 2em 5em;
 }
@@ -102,6 +104,22 @@
     grid-area: semester8;
 }
 
+.sem9 {
+    grid-area: semester9;
+}
+
+.sem10 {
+    grid-area: semester10;
+}
+
+.sem11 {
+    grid-area: semester11;
+}
+
+.sem12 {
+    grid-area: semester12;
+}
+
 .sem1New {
     grid-area: semester1New;
 }
@@ -134,6 +152,22 @@
     grid-area: semester8New;
 }
 
+.sem9New {
+    grid-area: semester9New;
+}
+
+.sem10New {
+    grid-area: semester10New;
+}
+
+.sem11New {
+    grid-area: semester11New;
+}
+
+.sem12New {
+    grid-area: semester12New;
+}
+
 .save-button {
     width: 35%;
     height 60%;
@@ -146,6 +180,32 @@
     margin-left: 1em;
 }
 
+/* loading.io loading icon*/
+.lds-dual-ring {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #1768AC;
+  border-color: #1768AC transparent #1768AC transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* media queries */
 
 /* laptop/desktop screens with 150% page zoom */
@@ -153,7 +213,7 @@
     .grid-container {
         display: grid;
         grid-template-columns: 1fr 2em 1fr;
-        grid-template-rows: 1fr repeat(10, auto) 1fr;
+        grid-template-rows: 1fr repeat(14, auto) 1fr;
         grid-template-areas:
             "header div uploadNew" 
             "external div externalNew"
@@ -165,7 +225,11 @@
             "semester5 div semester5New" 
             "semester6 div semester6New" 
             "semester7 div semester7New" 
-            "semester8 div semester8New" 
+            "semester8 div semester8New"
+            "semester9 div semester9New" 
+            "semester10 div semester10New" 
+            "semester11 div semester11New" 
+            "semester12 div semester12New" 
             ". div saveChanges";
         margin: 2em 5em 2em 5em;
     }
@@ -185,7 +249,7 @@
     .grid-container {
         display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 1fr repeat(10, auto) 1fr repeat(10,auto);
+        grid-template-rows: 1fr repeat(12, auto) 1fr repeat(12,auto);
         grid-template-areas:
             "uploadNew"
             "externalNew"
@@ -198,6 +262,10 @@
             "semester6New"
             "semester7New"
             "semester8New"
+            "semester9New"
+            "semester10New"
+            "semester11New"
+            "semester12xNew"
             "saveChanges"
             "header"
             "external"
@@ -209,7 +277,11 @@
             "semester5"
             "semester6"
             "semester7"
-            "semester8";  
+            "semester8"
+            "semester9"
+            "semester10"
+            "semester11"
+            "semester12";  
         margin: 2em 5em 2em 5em;
     }
     
