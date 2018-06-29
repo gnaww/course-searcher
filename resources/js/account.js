@@ -38,8 +38,8 @@ PDFJS.getDocument(PDF_URL).then(function (pdf) {
         console.log(tr);
         let external = pagesText[0].slice(ex,tr);
         console.log(external);
-        const courseNumRE = /[0-9][0-9]\s\s[0-9][0-9][0-9]\s\s[0-9][0-9][0-9]/;
-        console.log(external.match(courseNumRE));
+        const courseNumRE = /[0-9][0-9]\s\s[0-9][0-9][0-9]\s\s[0-9][0-9][0-9]/gi;
+        console.log(JSON.stringify(external.match(courseNumRE)));
 //        // Render text
 //        for(var i = 0;i < pagesText.length;i++){
 //        	$("#pdf-text").append("<div><h3>Page "+ (i + 1) +"</h3><p>"+pagesText[i]+"</p><br></div>")
