@@ -1,9 +1,10 @@
 .grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr) 2em repeat(2, 1fr);
-    grid-template-rows: 1fr repeat(4, auto) 1fr;
+    grid-template-rows: 1fr repeat(5, auto) 1fr;
     grid-template-areas: 
-        "header header div uploadNew uploadNew" 
+        "header header div uploadNew uploadNew"
+        "external transfer div externalNew transferNew"
         "semester1 semester2 div semester1New semester2New" 
         "semester3 semester4 div semester3New semester4New" 
         "semester5 semester6 div semester5New semester6New" 
@@ -17,6 +18,10 @@
     padding: 1em 0 1em 0;
 }
 
+.header-text{
+    font-size: 2.5em;
+    align-self: center;
+}
 
 .upload {
     grid-area: uploadNew;
@@ -34,17 +39,35 @@
 
 .semester {
     font-size: 1.4em;
-    padding-right: 1.42em;
+    margin-right: 1.42em;
+    margin-bottom: 0.5em;
 }
 
 .semester h2 {
     font-weight: bold;
 }
+
 .saveChanges {
     grid-area: saveChanges;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.external {
+    grid-area: external;
+}
+
+.transfer {
+    grid-area: transfer;
+}
+
+.externalNew {
+    grid-area: externalNew;
+}
+
+.transferNew {
+    grid-area: transferNew;
 }
 
 .sem1 {
@@ -130,9 +153,11 @@
     .grid-container {
         display: grid;
         grid-template-columns: 1fr 2em 1fr;
-        grid-template-rows: 1fr repeat(8, auto) 1fr;
+        grid-template-rows: 1fr repeat(10, auto) 1fr;
         grid-template-areas:
             "header div uploadNew" 
+            "external div externalNew"
+            "transfer div transferNew"
             "semester1 div semester1New"
             "semester2 div semester2New" 
             "semester3 div semester3New" 
@@ -160,9 +185,11 @@
     .grid-container {
         display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 1fr repeat(8, auto) 1fr repeat(8,auto);
+        grid-template-rows: 1fr repeat(10, auto) 1fr repeat(10,auto);
         grid-template-areas:
             "uploadNew"
+            "externalNew"
+            "transferNew"
             "semester1New"
             "semester2New"
             "semester3New"
@@ -173,6 +200,8 @@
             "semester8New"
             "saveChanges"
             "header"
+            "external"
+            "transfer"
             "semester1"
             "semester2"
             "semester3"
@@ -199,11 +228,14 @@
     .semester {
         text-align: center;
     }
-    
-    .semester ul {
-        list-style: none; 
-    }
+
     .username-header {
         text-align: center;
+    }
+  
+    .semester ul {
+        width: 70%;
+        margin: auto;
+        text-align: left;
     }
 }

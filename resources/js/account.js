@@ -30,11 +30,20 @@ PDFJS.getDocument(PDF_URL).then(function (pdf) {
         console.log('world');
         	// Remove loading
         $("#loading").remove();
-        
-        // Render text
-        for(var i = 0;i < pagesText.length;i++){
-        	$("#pdf-text").append("<div><h3>Page "+ (i + 1) +"</h3><p>"+pagesText[i]+"</p><br></div>")
-        }
+        console.log(pagesText[0]);
+        page1 = pagesText[0].toUpperCase();
+        let ex = pagesText[0].indexOf('EXTERNAL EXAMINATIONS');
+        console.log(ex);
+        let tr = pagesText[0].indexOf('TRANSFER COURSES');
+        console.log(tr);
+        let external = pagesText[0].slice(ex,tr);
+        console.log(external);
+        const courseNumRE = /[0-9][0-9]\s\s[0-9][0-9][0-9]\s\s[0-9][0-9][0-9]/;
+        console.log(external.match(courseNumRE));
+//        // Render text
+//        for(var i = 0;i < pagesText.length;i++){
+//        	$("#pdf-text").append("<div><h3>Page "+ (i + 1) +"</h3><p>"+pagesText[i]+"</p><br></div>")
+//        }
     });
 
 }, function (reason) {
