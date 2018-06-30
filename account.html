@@ -34,12 +34,7 @@
         <div class="username-header">
             <span class="header-text bold">COMPLETED COURSES</span>
         </div>
-        <div class="divider"></div>
-        <div class="upload">
-            <button type="button" class="btn btn-primary btn-lg upload-button" data-toggle="tooltip" data-placement="bottom" title="Upload your official Rutgers transcript here!">Upload New Transcript</button>
-        </div>
-        <div id="pdf-text"><div class="lds-dual-ring" id="loading"></div></div>
-        <div class="external semester">
+        <div class="sem1 semester">
             <h2>External Examinations</h2>
             <ul>
                 <li>Introduction to Database Systems</li>
@@ -48,17 +43,18 @@
                 <li>Class 4</li>
             </ul>
         </div>
-        <div class="transfer semester">
+        <div class="sem2 semester">
             <h2>Transfer Courses</h2>
             <ul>
-                <li>Introduction to Database Systems</li>
+                <li>Class 1</li>
                 <li>Class 2</li>
                 <li>Class 3</li>
                 <li>Class 4</li>
             </ul>
         </div>
+<!--
         <div class="sem1 semester">
-            <h2>Fall 2017</h2>
+            <h2>External Examinations</h2>
             <ul>
                 <li>Introduction to Database Systems</li>
                 <li>Class 2</li>
@@ -67,7 +63,7 @@
             </ul>
         </div>
         <div class="sem2 semester">
-            <h2>Fall 2017</h2>
+            <h2>Transfer Courses</h2>
             <ul>
                 <li>Class 1</li>
                 <li>Class 2</li>
@@ -165,8 +161,8 @@
                 <li>Class 4</li>
             </ul>
         </div>
-        <div class="externalNew semester">
-            <h2>External Examinations</h2>
+        <div class="sem13 semester">
+            <h2>Fall 2017</h2>
             <ul>
                 <li>Introduction to Database Systems</li>
                 <li>Class 2</li>
@@ -174,8 +170,8 @@
                 <li>Class 4</li>
             </ul>
         </div>
-        <div class="transferNew semester">
-            <h2>Transfer Courses</h2>
+        <div class="sem14 semester">
+            <h2>Fall 2017</h2>
             <ul>
                 <li>Introduction to Database Systems</li>
                 <li>Class 2</li>
@@ -183,118 +179,14 @@
                 <li>Class 4</li>
             </ul>
         </div>
-        <div class="sem1New semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem2New semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem3New semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem4New semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem5New semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem6New semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem7New semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem8New semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem9New semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem10New semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem11New semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem12New semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="saveChanges">
-            <button type="button" class="btn btn-primary btn-lg save-button">Save Changes</button>
-            <button type="button" class="btn btn-primary btn-lg cancel-button">Cancel</button>
-        </div>
+-->
+        <div class="divider"></div>
+        <div class="upload">
+            <form action="account.html" method="post" enctype="multipart/form-data" id="upload-form">
+                <button type="button" class="btn btn-primary btn-lg upload-button" data-toggle="tooltip" data-placement="bottom" title="Upload your official Rutgers transcript here!">Upload New Transcript</button>
+                <input id="transcript-upload" name="new-transcript" type="file" accept="application/pdf"/>
+            </form>
+        </div>    
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>

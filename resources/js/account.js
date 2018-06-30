@@ -1,117 +1,158 @@
 // Code from: https://ourcodeworld.com/articles/read/405/how-to-convert-pdf-to-text-extract-text-from-pdf-with-javascript
 
 // Path to PDF file
-var PDF_URL = 'mybadgrades.pdf';
+var PDF_URL;
 
 // Specify the path to the worker
 PDFJS.workerSrc = '/resources/js/pdf.worker.js';
 
-PDFJS.getDocument(PDF_URL).then(function (pdf) {
+// Open file upload input when user clicks button
+$(".upload-button").on('click', function() {
+    $("#transcript-upload").trigger('click');
+});
 
-    var pdfDocument = pdf;
-    // Create an array that will contain our promises 
-    var pagesPromises = [];
+// When save button clicked save user data to DB
+$(".save-button").on('click', function() {
+    // Insert courses from array userCourses into DB
+    
+    // refresh page to see changes
+    window.location.reload();
+});
 
-    for (var i = 0; i < pdf.pdfInfo.numPages; i++) {
-        // Required to prevent that i is always the total of pages
-        (function (pageNumber) {
-            // Store the promise of getPageText that returns the text of a page
-            pagesPromises.push(getPageText(pageNumber, pdfDocument));
-        })(i + 1);
+// Every section of the transcript ends with this string
+const sectionEnd = '                                                                      .';
+
+// Use regex to get the unique course IDs
+const getCourseNums = semester => {
+    const courseNumRE = /[0-9]{2}\s\s[0-9]{3}\s\s[0-9]{3}/gmi;
+    let courseNums = semester.match(courseNumRE);
+    for (var i = 0; i < courseNums.length; i++) {
+        courseNums[i] = courseNums[i].replace(/\s+/gm,':');
     }
+    return courseNums;
+};
+        
+/* Get External Examination/Transfer section if it exists. Returns special semester name, array of course numbers, and end index of special semester or -1 if no semester found.*/
+const getSpecialSemester = (transcript) => {
+    let specialName = transcript.match(/(EXTERNAL\sEXAMINATIONS|TRANSFER\sCOURSES)/mi);
+    if (specialName) {
+        specialName = specialName[0].toLowerCase();
+        let specialEndIndex = transcript.indexOf(sectionEnd);
+        let courseNums = getCourseNums(transcript.slice(0,specialEndIndex));
+        return { name: specialName, courses: courseNums, endIndex: specialEndIndex};
+    } else {
+        return -1;
+    }
+};
+        
+/* Get a single semester (Fall/Spring/Summer) if it exists. Returns semester name, array of course numbers, and end index of semester or -1 if no semester found. */
+const getSemester = transcript => {
+    let headerEndIndex = transcript.indexOf('MAJOR');
+    if (headerEndIndex === -1) { // no remaining semesters found
+        return -1
+    } else {
+        // get semester name
+        let semesterHeader = transcript.slice(0,headerEndIndex);
+        let semesterName = semesterHeader.match(/(SPRING|FALL|SUMMER)\s+[0-9]{4}/mi);
+        semesterName = semesterName[0].replace(/\s+/gm, ' ');
+        // get semester course numbers
+        let semesterEndIndex = transcript.indexOf(sectionEnd);
+        let courseNums = getCourseNums(transcript.slice(0,semesterEndIndex));
+        
+        return { name: semesterName, courses: courseNums, endIndex: semesterEndIndex};
+    }
+};
 
-    // Execute all the promises
-    Promise.all(pagesPromises).then(function (pagesText) {
-        
-        // Remove loading
-        $("#loading").remove();
-        
-        /* Rutger Transcript PDF order: 
-           1)External Examinations 2)Transfer Courses 3)Fall/Spring/Summer semesters */
-        
-        let transcript = pagesText.join(' ');
-        //console.log(transcript);
-        
-        // Every section of the transcript ends with this string
-        const sectionEnd = '                                                                      .';
-        
-        // Use regex to get the unique course IDs
-        const getCourseNums = semester => {
-            const courseNumRE = /[0-9]{2}\s\s[0-9]{3}\s\s[0-9]{3}/gmi;
-            return semester.match(courseNumRE);
-        };
-        
-        /* Get External Examination/Transfer section end index if it exists. Returns index for end of special section, -1 if not found. */
-        const getSpecialEndIndex = (transcript, special) => {
-            let externalIndex = transcript.indexOf(special); // -1 if not found
-            if (externalIndex === -1) {
-                return -1;
-            } else {
-                let endIndex = transcript.indexOf(sectionEnd);
-                return endIndex;
-            }
-        };
-        
-        /* Get a single semester (Fall/Spring/Summer) if it exists. Returns semester name and array of course numbers, -1 if no semester found. */
-        const getEndIndex = transcript => {
-            let headerEndIndex = transcript.indexOf('MAJOR');
-            if (headerEndIndex === -1) { // no remaining semesters found
-                return -1
-            } else {
-                // get semester name
-                let semesterHeader = transcript.slice(0,headerEndIndex);
-                let semesterName = semesterHeader.match(/(SPRING|FALL|SUMMER)\s+[0-9]{4}/gmi);
-                
-                // get semester course numbers
-                let semesterEndIndex = transcript.indexOf(sectionEnd);
-                let courseNums = getCourseNums(transcript.slice(0,semesterEndIndex));
-                
-                return { name: semesterName, courses: courseNums, endIndex: semesterEndIndex};
-            }
-        };
-        
-        let externalCourses, transferCourses, sem;
-        
-        /* Algorithm: Find external/transfer if exists first. Then keep on checking for regular          semesters and remove from string, when can't find any more semesters you are finished */
-        let endIndex = getSpecialEndIndex(transcript, 'EXTERNAL EXAMINATIONS');
-        if (endIndex !== -1) {
-            externalCourses = getCourseNums(transcript.slice(0,endIndex));
-            transcript = transcript.slice(endIndex + sectionEnd.length);
+/* Add a single semester to newly uploaded section */
+const appendSemester = (semesterNumber, semesterName, semesterCourses) => {
+    let divName = "sem" + semesterNumber + "New";
+    let coursesList = "";
+    for (let i = 0; i < semesterCourses.length; i++) {
+        coursesList += "<li>" + semesterCourses[i] + "</li>";
+    }
+    $(".grid-container").append(`<div class="${divName} semester"><h2>${semesterName}</h2><ul>${coursesList}</ul></div>`);
+}
+
+// When user chooses a PDF file
+$("#transcript-upload").on('change', function() {
+    $('.upload').nextAll().remove();
+    $(".upload-button").hide();
+    $("#upload-form").append("<div class='lds-dual-ring' id='loading'></div>");
+    // Get user uploaded file
+    PDF_URL = URL.createObjectURL($("#transcript-upload").get(0).files[0]);
+    
+    // Parse PDF for course numbers and semester names
+    PDFJS.getDocument(PDF_URL).then(function (pdf) {
+        var pdfDocument = pdf;
+        // Create an array that will contain our promises 
+        var pagesPromises = [];
+
+        for (var i = 0; i < pdf.pdfInfo.numPages; i++) {
+            // Required to prevent that i is always the total of pages
+            (function (pageNumber) {
+                // Store the promise of getPageText that returns the text of a page
+                pagesPromises.push(getPageText(pageNumber, pdfDocument));
+            })(i + 1);
         }
-        console.log('External Examinations');
-        console.log(externalCourses);
-        endIndex = getSpecialEndIndex(transcript, 'TRANSFER COURSES');
-        if (endIndex !== -1) {
-            transferCourses = getCourseNums(transcript.slice(0,endIndex));
-            transcript = transcript.slice(endIndex + sectionEnd.length);
-        }
-        console.log('Transfer Courses');
-        console.log(transferCourses);
-        
-        while (true) {
-            sem = getEndIndex(transcript);
-            if (sem === -1) {
-                break;
-            } else {
-                console.log(sem.name);
-                console.log(sem.courses);
-                transcript = transcript.slice(sem.endIndex + sectionEnd.length);
-            }
-        }
-        
-//        // Render text
-//        for(var i = 0;i < pagesText.length;i++){
-//        	$("#pdf-text").append("<div><h3>Page "+ (i + 1) +"</h3><p>"+pagesText[i]+"</p><br></div>")
-//        }
+
+        // Execute all the promises
+        Promise.all(pagesPromises).then(function (pagesText) {
+            /* Rutger Transcript PDF order: 
+               1)External Examinations 2)Transfer Courses 3)Fall/Spring/Summer semesters */
+
+            let transcript = pagesText.join(' ');
+
+            let special, sem, counter, divName, userData;
+            counter = 1;
+            userCourses = []; //array of courses user has taken, to be inserted into DB
+            
+            // forcing it to wait to parse/render to see that beautiful loading icon lol
+            setTimeout(function(){
+                /* Algorithm: Find external/transfer if exists first. Then keep on checking for regular          semesters and remove from string, when can't find any more semesters you are finished */
+
+                // get external examinations/transfer courses if exist
+                for (var i = 0; i < 2; i++) {
+                    special = getSpecialSemester(transcript);
+                    if (special === -1) {
+                        break;
+                    } else {
+                        transcript = transcript.slice(special.endIndex + sectionEnd.length);
+                        appendSemester(counter, special.name, special.courses);
+                        counter++;
+                        userCourses.push.apply(userCourses, special.courses);
+                    }
+                }
+
+                // get remaining regular semesters if exist
+                while (true) {
+                    sem = getSemester(transcript);
+                    if (sem === -1) {
+                        break;
+                    } else {
+                        transcript = transcript.slice(sem.endIndex + sectionEnd.length);
+                        appendSemester(counter, sem.name, sem.courses);
+                        counter++;
+                        userCourses.push.apply(userCourses, sem.courses);
+                    }
+                }
+
+                console.log(userCourses);
+                // Show save/cancel buttons
+                $('.grid-container').append("<div class='saveChanges'><button type='button' class='btn btn-primary btn-lg save-button'>Save Changes</button><button type='button' class='btn btn-primary btn-lg cancel-button' onClick='window.location.reload()'>Cancel</button></div>");
+                // remove loading icon
+                $('#loading').remove();
+                $(".upload-button").show();
+            }, 3000);
+        });
+    }, function (reason) {
+        alert("An error occurred while parsing your transcript! Make sure you uploaded the unofficial version of your transcript in PDF format. Error details logged in console.")
+        // PDF loading error
+        console.error(reason);
     });
-
-}, function (reason) {
-    // PDF loading error
-    console.error(reason);
 });
 
 /**
- * Retrieves the text of a specif page within a PDF Document obtained through pdf.js 
+ * Retrieves the text of a specific page within a PDF Document obtained through pdf.js 
  * 
  * @param {Integer} pageNum Specifies the number of the page 
  * @param {PDFDocument} PDFDocumentInstance The PDF document obtained 

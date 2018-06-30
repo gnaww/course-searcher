@@ -4,13 +4,13 @@
     grid-template-rows: 1fr repeat(7, auto) 1fr;
     grid-template-areas: 
         "header header div uploadNew uploadNew"
-        "external transfer div externalNew transferNew"
         "semester1 semester2 div semester1New semester2New" 
         "semester3 semester4 div semester3New semester4New" 
         "semester5 semester6 div semester5New semester6New" 
         "semester7 semester8 div semester7New semester8New"
         "semester9 semester10 div semester9New semester10New"
         "semester11 semester12 div semester11New semester12New"
+        "semester13 semester14 div semester13New semester14New"
         ". . div saveChanges saveChanges";
     margin: 2em 5em 2em 5em;
 }
@@ -27,9 +27,17 @@
 
 .upload {
     grid-area: uploadNew;
+}
+
+.upload form {
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.upload form input[type="file"] {
+    display: none;
 }
 
 .upload-button {
@@ -47,6 +55,7 @@
 
 .semester h2 {
     font-weight: bold;
+    text-transform: capitalize;
 }
 
 .saveChanges {
@@ -54,22 +63,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.external {
-    grid-area: external;
-}
-
-.transfer {
-    grid-area: transfer;
-}
-
-.externalNew {
-    grid-area: externalNew;
-}
-
-.transferNew {
-    grid-area: transferNew;
 }
 
 .sem1 {
@@ -120,6 +113,14 @@
     grid-area: semester12;
 }
 
+.sem13 {
+    grid-area: semester13;
+}
+
+.sem14 {
+    grid-area: semester14;
+}
+
 .sem1New {
     grid-area: semester1New;
 }
@@ -168,6 +169,14 @@
     grid-area: semester12New;
 }
 
+.sem13New {
+    grid-area: semester13New;
+}
+
+.sem14New {
+    grid-area: semester14New;
+}
+
 .save-button {
     width: 35%;
     height 60%;
@@ -182,20 +191,22 @@
 
 /* loading.io loading icon*/
 .lds-dual-ring {
-  display: inline-block;
-  width: 64px;
-  height: 64px;
+    grid-area: load;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 2em;
 }
 .lds-dual-ring:after {
-  content: " ";
-  display: block;
-  width: 46px;
-  height: 46px;
-  margin: 1px;
-  border-radius: 50%;
-  border: 5px solid #1768AC;
-  border-color: #1768AC transparent #1768AC transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
+    content: " ";
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid #1768AC;
+    border-color: #1768AC transparent #1768AC transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
 }
 @keyframes lds-dual-ring {
   0% {
@@ -216,8 +227,6 @@
         grid-template-rows: 1fr repeat(14, auto) 1fr;
         grid-template-areas:
             "header div uploadNew" 
-            "external div externalNew"
-            "transfer div transferNew"
             "semester1 div semester1New"
             "semester2 div semester2New" 
             "semester3 div semester3New" 
@@ -229,7 +238,9 @@
             "semester9 div semester9New" 
             "semester10 div semester10New" 
             "semester11 div semester11New" 
-            "semester12 div semester12New" 
+            "semester12 div semester12New"
+            "semester13 div semester13New" 
+            "semester14 div semester14New" 
             ". div saveChanges";
         margin: 2em 5em 2em 5em;
     }
@@ -265,7 +276,9 @@
             "semester9New"
             "semester10New"
             "semester11New"
-            "semester12xNew"
+            "semester12New"
+            "semester13New"
+            "semester14New"
             "saveChanges"
             "header"
             "external"
@@ -281,7 +294,9 @@
             "semester9"
             "semester10"
             "semester11"
-            "semester12";  
+            "semester12"
+            "semester13"
+            "semester14";  
         margin: 2em 5em 2em 5em;
     }
     
