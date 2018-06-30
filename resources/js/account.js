@@ -135,11 +135,11 @@ $("#transcript-upload").on('change', function() {
 
                 console.log(userCourses);
                 // Show save/cancel buttons
-                $('.grid-container').append("<div class='saveChanges'><button type='button' class='btn btn-primary btn-lg save-button'>Save Changes</button><button type='button' class='btn btn-primary btn-lg cancel-button' onClick='window.location.reload()'>Cancel</button></div>");
+                $('.grid-container').append("<div class='saveChanges'><button type='button' class='btn btn-primary btn-lg save-button'>Save Changes</button><button type='button' class='btn btn-outline-primary btn-lg cancel-button' onClick='window.location.reload()'>Cancel</button></div>");
                 // remove loading icon
                 $('#loading').remove();
                 $(".upload-button").show();
-            }, 3000);
+            }, 1000);
         });
     }, function (reason) {
         alert("An error occurred while parsing your transcript! Make sure you uploaded the unofficial version of your transcript in PDF format. Error details logged in console.")
