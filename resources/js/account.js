@@ -26,10 +26,7 @@ const sectionEnd = '                                                            
 const getCourseNums = semester => {
     const courseNumRE = /[0-9]{2}\s\s[0-9]{3}\s\s[0-9]{3}/gmi;
     let courseNums = semester.match(courseNumRE);
-    for (var i = 0; i < courseNums.length; i++) {
-        courseNums[i] = courseNums[i].replace(/\s+/gm,':');
-    }
-    return courseNums;
+    return courseNums.map(courseNum => courseNum.replace(/\s+/gm,':'));
 };
         
 /* Get External Examination/Transfer section if it exists. Returns special semester name, array of course numbers, and end index of special semester or -1 if no semester found.*/
