@@ -1,2 +1,2 @@
 # Course Planner++
-A better Rutgers Course Planner
+A better Rutgers University course search engine.
