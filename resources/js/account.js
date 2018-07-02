@@ -67,7 +67,7 @@ const appendSemester = (semesterNumber, semesterName, semesterCourses) => {
     for (let i = 0; i < semesterCourses.length; i++) {
         coursesList += "<li>" + semesterCourses[i] + "</li>";
     }
-    $(".grid-container").append(`<div class="${divName} semester"><h2>${semesterName}</h2><ul>${coursesList}</ul></div>`);
+    $(".modal-content").append(`<div class="${divName} semester"><h2>${semesterName}</h2><ul>${coursesList}</ul></div>`);
 }
 
 // When user chooses a PDF file
@@ -135,7 +135,7 @@ $("#transcript-upload").on('change', function() {
 
                 console.log(userCourses);
                 // Show save/cancel buttons
-                $('.grid-container').append("<div class='saveChanges'><button type='button' class='btn btn-primary btn-lg save-button'>Save Changes</button><button type='button' class='btn btn-primary btn-lg cancel-button' onClick='window.location.reload()'>Cancel</button></div>");
+                $('.modal-content').append("<div class='saveChanges'><button type='button' class='btn btn-primary btn-lg save-button'>Save Changes</button><button type='button' class='btn btn-primary btn-lg cancel-button' onClick='window.location.reload()'>Cancel</button></div>");
                 // remove loading icon
                 $('#loading').remove();
                 $(".upload-button").show();
