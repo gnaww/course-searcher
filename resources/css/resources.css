@@ -26,6 +26,16 @@ body {
     background-color: #0F4877;
 }
 
+.btn-outline-primary {
+    color: #1768AC;
+    border-color: #1768AC;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0F4877;
+    border-color: #0F4877;
+}
+
 .divider {
     grid-area: div;
     border-left: 2px solid #d3d3d3;
