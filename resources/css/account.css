@@ -1,32 +1,49 @@
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr) 2em repeat(2, 1fr);
-    grid-template-rows: 1fr repeat(7, auto) 1fr;
-    grid-template-areas: 
-        "header header div uploadNew uploadNew"
-        "semester1 semester2 div semester1New semester2New" 
-        "semester3 semester4 div semester3New semester4New" 
-        "semester5 semester6 div semester5New semester6New" 
-        "semester7 semester8 div semester7New semester8New"
-        "semester9 semester10 div semester9New semester10New"
-        "semester11 semester12 div semester11New semester12New"
-        "semester13 semester14 div semester13New semester14New"
-        ". . div saveChanges saveChanges";
-    margin: 2em 5em 2em 5em;
+.container-fluid {
+    padding: 2em 5em 2em 5em;
+}
+
+.container {
+    text-align: center;
+    width: auto;
+    padding: 2em 3em;
+}
+
+.container .btn {
+    margin: 0 1em;
+    width: 25%;
+}
+
+.semesters-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
 }
 
 .username-header {
-    grid-area: header;
     padding: 1em 0 1em 0;
 }
 
 .header-text{
-    font-size: 2.5em;
+    font-size: 3em;
     align-self: center;
 }
 
-.upload {
-    grid-area: uploadNew;
+.modal-body {
+    padding: 2em;
+}
+.modal-content semester {
+    width: 50%;
+}
+
+.manual-add {
+    resize: none;
+    height: 12em;
+    width: 100%;
+}
+
+.submit-button {
+    height 60%;
 }
 
 .upload form {
@@ -35,158 +52,44 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 1em;
 }
 .upload form input[type="file"] {
     display: none;
 }
 
 .upload-button {
-    width: 60%;
     height: 70%;
     font-weight: bold;
     font-size: 1.7em;
+    margin-bottom: 1em;
+}
+
+.new-semester {
+    font-size: 1.4em;
+    padding-bottom: 0.5em;
+    width: 100%;
 }
 
 .semester {
     font-size: 1.4em;
-    margin-right: 1.42em;
-    margin-bottom: 0.5em;
+    padding-right: 1.42em;
+    padding-bottom: 0.5em;
+    width: 33.33%;
 }
 
-.semester h2 {
+.semester h2, .new-semester h2 {
     font-weight: bold;
     text-transform: capitalize;
 }
 
-.saveChanges {
-    grid-area: saveChanges;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.sem1 {
-    grid-area: semester1;
-}
-
-.sem2 {
-    grid-area: semester2;
-}
-
-.sem3 {
-    grid-area: semester3;
-}
-
-.sem4 {
-    grid-area: semester4;
-}
-
-.sem5 {
-    grid-area: semester5;
-}
-
-.sem6 {
-    grid-area: semester6;
-}
-
-.sem7 {
-    grid-area: semester7;
-}
-
-.sem8 {
-    grid-area: semester8;
-}
-
-.sem9 {
-    grid-area: semester9;
-}
-
-.sem10 {
-    grid-area: semester10;
-}
-
-.sem11 {
-    grid-area: semester11;
-}
-
-.sem12 {
-    grid-area: semester12;
-}
-
-.sem13 {
-    grid-area: semester13;
-}
-
-.sem14 {
-    grid-area: semester14;
-}
-
-.sem1New {
-    grid-area: semester1New;
-}
-
-.sem2New {
-    grid-area: semester2New;
-}
-
-.sem3New {
-    grid-area: semester3New;
-}
-
-.sem4New {
-    grid-area: semester4New;
-}
-
-.sem5New {
-    grid-area: semester5New;
-}
-
-.sem6New {
-    grid-area: semester6New;
-}
-
-.sem7New {
-    grid-area: semester7New;
-}
-
-.sem8New {
-    grid-area: semester8New;
-}
-
-.sem9New {
-    grid-area: semester9New;
-}
-
-.sem10New {
-    grid-area: semester10New;
-}
-
-.sem11New {
-    grid-area: semester11New;
-}
-
-.sem12New {
-    grid-area: semester12New;
-}
-
-.sem13New {
-    grid-area: semester13New;
-}
-
-.sem14New {
-    grid-area: semester14New;
-}
-
 .save-button {
-    width: 35%;
     height 60%;
-    margin-right: 1em;
+    display: none;
 }
 
 .cancel-button {
-    width: 35%;
     height 60%;
-    margin-left: 1em;
 }
 
 /* loading.io loading icon*/
@@ -221,30 +124,6 @@
 
 /* laptop/desktop screens with 150% page zoom */
 @media only screen and (max-width: 1280px) {
-    .grid-container {
-        display: grid;
-        grid-template-columns: 1fr 2em 1fr;
-        grid-template-rows: 1fr repeat(14, auto) 1fr;
-        grid-template-areas:
-            "header div uploadNew" 
-            "semester1 div semester1New"
-            "semester2 div semester2New" 
-            "semester3 div semester3New" 
-            "semester4 div semester4New" 
-            "semester5 div semester5New" 
-            "semester6 div semester6New" 
-            "semester7 div semester7New" 
-            "semester8 div semester8New"
-            "semester9 div semester9New" 
-            "semester10 div semester10New" 
-            "semester11 div semester11New" 
-            "semester12 div semester12New"
-            "semester13 div semester13New" 
-            "semester14 div semester14New" 
-            ". div saveChanges";
-        margin: 2em 5em 2em 5em;
-    }
-    
     .btn-primary.upload-button {
         width: 100%;
         display: block;
@@ -253,67 +132,26 @@
     .upload {
         padding: 0 1em;
     }
+    
+    .semester {
+        width: 50%;
+        padding-right: 0;
+    }
+    
+    .container .btn {
+        width: auto;
+    }
 }
 
 /* mobile screens */
 @media only screen and (max-width: 992px) {
-    .grid-container {
-        display: grid;
-        grid-template-columns: 100%;
-        grid-template-rows: 1fr repeat(12, auto) 1fr repeat(12,auto);
-        grid-template-areas:
-            "uploadNew"
-            "externalNew"
-            "transferNew"
-            "semester1New"
-            "semester2New"
-            "semester3New"
-            "semester4New"
-            "semester5New"
-            "semester6New"
-            "semester7New"
-            "semester8New"
-            "semester9New"
-            "semester10New"
-            "semester11New"
-            "semester12New"
-            "semester13New"
-            "semester14New"
-            "saveChanges"
-            "header"
-            "external"
-            "transfer"
-            "semester1"
-            "semester2"
-            "semester3"
-            "semester4"
-            "semester5"
-            "semester6"
-            "semester7"
-            "semester8"
-            "semester9"
-            "semester10"
-            "semester11"
-            "semester12"
-            "semester13"
-            "semester14";  
-        margin: 2em 5em 2em 5em;
-    }
-    
-    .btn-primary.upload-button {
-        width: 60%;
-    }
-    
     .upload {
         padding: 1em;
     }
     
-    .divider {
-        display: none;
-    }
-    
     .semester {
         text-align: center;
+        width: 100%;
     }
 
     .username-header {

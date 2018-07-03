@@ -61,13 +61,12 @@ const getSemester = transcript => {
 };
 
 /* Add a single semester to newly uploaded section */
-const appendSemester = (semesterNumber, semesterName, semesterCourses) => {
-    let divName = "sem" + semesterNumber + "New";
+const appendSemester = (semesterName, semesterCourses) => {
     let coursesList = "";
     for (let i = 0; i < semesterCourses.length; i++) {
         coursesList += "<li>" + semesterCourses[i] + "</li>";
     }
-    $(".modal-content").append(`<div class="${divName} semester"><h2>${semesterName}</h2><ul>${coursesList}</ul></div>`);
+    $(".modal-body").append(`<div class="new-semester"><h2>${semesterName}</h2><ul>${coursesList}</ul></div>`);
 }
 
 // When user chooses a PDF file
@@ -99,8 +98,7 @@ $("#transcript-upload").on('change', function() {
 
             let transcript = pagesText.join(' ');
 
-            let special, sem, counter, divName, userData;
-            counter = 1;
+            let special, sem, userData;
             userCourses = []; //array of courses user has taken, to be inserted into DB
             
             // forcing it to wait to parse/render to see that beautiful loading icon lol
@@ -114,8 +112,7 @@ $("#transcript-upload").on('change', function() {
                         break;
                     } else {
                         transcript = transcript.slice(special.endIndex + sectionEnd.length);
-                        appendSemester(counter, special.name, special.courses);
-                        counter++;
+                        appendSemester(special.name, special.courses);
                         userCourses.push.apply(userCourses, special.courses);
                     }
                 }
@@ -127,19 +124,18 @@ $("#transcript-upload").on('change', function() {
                         break;
                     } else {
                         transcript = transcript.slice(sem.endIndex + sectionEnd.length);
-                        appendSemester(counter, sem.name, sem.courses);
-                        counter++;
+                        appendSemester(sem.name, sem.courses);
                         userCourses.push.apply(userCourses, sem.courses);
                     }
                 }
 
                 console.log(userCourses);
-                // Show save/cancel buttons
-                $('.modal-content').append("<div class='saveChanges'><button type='button' class='btn btn-primary btn-lg save-button'>Save Changes</button><button type='button' class='btn btn-primary btn-lg cancel-button' onClick='window.location.reload()'>Cancel</button></div>");
+                // Show save button
+                $('.save-button').show();
                 // remove loading icon
                 $('#loading').remove();
                 $(".upload-button").show();
-            }, 3000);
+            }, 1000);
         });
     }, function (reason) {
         alert("An error occurred while parsing your transcript! Make sure you uploaded the unofficial version of your transcript in PDF format. Error details logged in console.")

@@ -30,182 +30,219 @@
             </div>
         </nav>
     </header>
-    <div class="grid-container">
-        <div class="username-header">
-            <span class="header-text bold">COMPLETED COURSES</span>
+    <div class="container-fluid">
+        <div class="container border rounded">
+            <h1 class="bold">Update Your Completed Courses</h1>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".upload-modal-auto">Automatically Update</button>
+            <button type="button" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target=".upload-modal-manual">Manually Update</button>
         </div>
-        <div class="sem1 semester">
-            <h2>External Examinations</h2>
-            <ul>
-                <li>Introduction to Database Systems</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem2 semester">
-            <h2>Transfer Courses</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-<!--
-        <div class="sem1 semester">
-            <h2>External Examinations</h2>
-            <ul>
-                <li>Introduction to Database Systems</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem2 semester">
-            <h2>Transfer Courses</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem3 semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem4 semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem5 semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem6 semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem7 semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem8 semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem9 semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem10 semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem11 semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem12 semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Class 1</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem13 semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Introduction to Database Systems</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
-        <div class="sem14 semester">
-            <h2>Fall 2017</h2>
-            <ul>
-                <li>Introduction to Database Systems</li>
-                <li>Class 2</li>
-                <li>Class 3</li>
-                <li>Class 4</li>
-            </ul>
-        </div>
--->
-        <div class="divider"></div>
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".upload-modal">Update Completed Courses</button>
+        
 
-        <div class="modal fade upload-modal" tabindex="-1" role="dialog" aria-labelledby="Upload New Transcript" aria-hidden="true">
+        <div class="modal fade upload-modal-auto" tabindex="-1" role="dialog" aria-labelledby="Upload New Transcript" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title bold">Update Completed Courses</h2>
+                    <h2 class="modal-title bold">Automatically Update Completed Courses</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="upload">
-                    <form action="account.html" method="post" enctype="multipart/form-data" id="upload-form">
-                        <button type="button" class="btn btn-primary btn-lg upload-button" data-toggle="tooltip" data-placement="bottom" title="Upload your official Rutgers transcript here!">Upload New Transcript</button>
-                        <input id="transcript-upload" name="new-transcript" type="file" accept="application/pdf"/>
-                    </form>
+                <div class="modal-body">
+                    <div class="upload">
+                        <form action="account.html" method="post" enctype="multipart/form-data" id="upload-form">
+                            <button type="button" class="btn btn-primary btn-lg upload-button" data-toggle="tooltip" data-placement="bottom" title="Upload your official Rutgers transcript here!">Upload New Transcript</button>
+                            <input id="transcript-upload" name="new-transcript" type="file" accept="application/pdf"/>
+                        </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary btn-lg" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary btn-lg">Save Changes</button>
+                    <button type="button" class="btn btn-outline-primary btn-lg cancel-button" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary btn-lg save-button">Save Changes</button>
                 </div>
             </div>
           </div>
         </div>
-           
+        <div class="modal fade upload-modal-manual" tabindex="-1" role="dialog" aria-labelledby="Upload New Transcript" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title bold">Manually Update Completed Courses</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="account.html" method="post" enctype="multipart/form-data" id="upload-form">
+                        <p>Manually enter your completed courses here. Use this format when entering your coursework or else it will not save properly: <br> <br>
+                        Semester Name <br>
+                        -1:111:111 <br>
+                        -2:222:222 <br> <br>
+                        Ex: <br>
+                        Spring 2018 <br>
+                        -33:010:272 <br>
+                        Fall 2019 <br>
+                        -33:010:451 <br>
+                        -01:013:192
+                        </p>
+                        <textarea class="manual-add" name="new-courses" type="text" placeholder="Enter the semester names and the course numbers of the courses you took that semester." required></textarea>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary btn-lg cancel-button" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary btn-lg submit-button">Save Changes</button>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="username-header">
+            <h1 class="header-text bold">username - COMPLETED COURSES</h1>
+        </div>
+        <div class="semesters-container">
+            <div class="semester">
+            <h2>External Examinations</h2>
+            <ul>
+                <li>Introduction to Database Systems</li>
+                <li>Class 2</li>
+                <li>Class 3</li>
+                <li>Class 4</li>
+            </ul>
+            </div>
+            <div class="semester">
+                <h2>Transfer Courses</h2>
+                <ul>
+                    <li>Class 1</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>External Examinations</h2>
+                <ul>
+                    <li>Introduction to Database Systems</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>Transfer Courses</h2>
+                <ul>
+                    <li>Class 1</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>Fall 2017</h2>
+                <ul>
+                    <li>Class 1</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>Fall 2017</h2>
+                <ul>
+                    <li>Class 1</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>Fall 2017</h2>
+                <ul>
+                    <li>Class 1</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>Fall 2017</h2>
+                <ul>
+                    <li>Class 1</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>Fall 2017</h2>
+                <ul>
+                    <li>Class 1</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>Fall 2017</h2>
+                <ul>
+                    <li>Class 1</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>Fall 2017</h2>
+                <ul>
+                    <li>Class 1</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>Fall 2017</h2>
+                <ul>
+                    <li>Class 1</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>Fall 2017</h2>
+                <ul>
+                    <li>Class 1</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>Fall 2017</h2>
+                <ul>
+                    <li>Class 1</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>Fall 2017</h2>
+                <ul>
+                    <li>Introduction to Database Systems</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+            <div class="semester">
+                <h2>Fall 2017</h2>
+                <ul>
+                    <li>Introduction to Database Systems</li>
+                    <li>Class 2</li>
+                    <li>Class 3</li>
+                    <li>Class 4</li>
+                </ul>
+            </div>
+        </div>   
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
