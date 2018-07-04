@@ -1,3 +1,8 @@
+body {
+    font-family: 'Lato', sans-serif;
+    color: #13446B;
+
+}
 .container-fluid {
     display: flex;
     margin: 0;
@@ -31,11 +36,19 @@
     font-size: 2.5em;
     padding-right: 0.5em;
     align-self: center;
+    font-weight: 100;
 }
 
 .subheader-text{
     font-size: 2em;
     padding-right: 0.5em;
+    font-weight: 300;
+}
+
+.subsubheader-text {
+    font-size: 1.5em;
+    padding-right: 0.5em;
+    font-weight: 400;
 }
 
 .register-button {
