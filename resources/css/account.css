@@ -1,3 +1,8 @@
+body {
+	font-family: 'Lato', sans-serif;
+    color: #13446B;
+}
+
 .container-fluid {
     padding: 2em 5em 2em 5em;
 }
@@ -16,8 +21,8 @@
 .semesters-container {
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
     align-items: center;
+    widows: 90%;
 }
 
 .username-header {
@@ -31,6 +36,7 @@
 
 .modal-body {
     padding: 2em;
+    
 }
 .modal-content semester {
     width: 50%;
@@ -79,7 +85,8 @@
 }
 
 .semester h2, .new-semester h2 {
-    font-weight: bold;
+    font-weight: 300;
+    font-size: 1.2em;
     text-transform: capitalize;
 }
 
@@ -163,4 +170,47 @@
         margin: auto;
         text-align: left;
     }
+}
+
+h1 {
+    font-weight: 100;
+}
+
+#completed-courses-header {
+    margin-bottom: .5em;
+}
+
+li {
+    font-size: .8em;
+    font-weight: 300;
+}
+
+#manual-update-header {
+    margin: 0;
+    font-weight: 300;
+}
+
+h5 {
+    font-weight: 300;
+    font-size: 1.1em;
+}
+
+h6 {
+    font-size: 1.1em;
+    font-weight: 400
+}
+
+p {
+    font-weight: 300;
+    font-size: .9em;
+}
+
+.modal-tutorial {
+    display: flex;
+    padding-bottom: 1em;
+}
+
+.tut-aside {
+    flex-grow: 1;
+    text-align: center;
 }
