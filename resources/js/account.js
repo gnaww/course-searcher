@@ -19,6 +19,14 @@ $(".save-button").on('click', function() {
     window.location.reload();
 });
 
+// When save button clicked save user data to DB
+$(".submit-button").on('click', function() {
+    // Insert courses from array userCourses into DB
+    
+    // refresh page to see changes
+    window.location.reload();
+});
+
 // Every section of the transcript ends with this string
 const sectionEnd = '                                                                      .';
 

@@ -49,7 +49,7 @@ body {
 }
 
 .submit-button {
-    height 60%;
+    height: 60%;
 }
 
 .upload form {
@@ -185,7 +185,7 @@ li {
     font-weight: 300;
 }
 
-#manual-update-header {
+.update-header {
     margin: 0;
     font-weight: 300;
 }
