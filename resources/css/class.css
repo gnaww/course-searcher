@@ -33,10 +33,10 @@ body {
 }
 
 .header-text{
-    font-size: 2.5em;
+    font-size: 3.1em;
     padding-right: 0.5em;
     align-self: center;
-    font-weight: 100;
+    font-weight: 300;
 }
 
 .subheader-text{
@@ -46,9 +46,14 @@ body {
 }
 
 .subsubheader-text {
-    font-size: 1.5em;
+    font-size: 1em;
     padding-right: 0.5em;
     font-weight: 400;
+}
+
+.course-info-text {
+    font-size: 1em;
+    font-weight: 300;
 }
 
 .register-button {
@@ -82,6 +87,7 @@ body {
 
 .class-metadata {
     font-size: 1.5em;
+    padding-bottom: 1em;
 }
 
 .metadata-number {
@@ -89,7 +95,8 @@ body {
 }
 
 .prereqs {
-    font-size: 1.5em;
+    font-size: 1em;
+    font-weight: 300;
 }
 
 .comments-header {
@@ -106,7 +113,7 @@ body {
 }
 
 .class-prerequisites {
-    padding-bottom: 1em;
+    padding-bottom: 1.5em;
 }
 
 .class-description {
@@ -137,6 +144,7 @@ body {
 
 .class-comments {
     overflow-y: scroll;
+    font-size: .9em;
 }
 
 .add-comments {
@@ -283,4 +291,10 @@ body {
     .class-comments {
         overflow: auto;
     }
+}
+
+
+
+.class-sections {
+    
 }

@@ -14,7 +14,7 @@ body {
 }
 .nav-link {
 	color: #C3DFE4;
-	font-weight: 100;
+	font-weight: 300;
 	font-size: 1.3em;
 	transition: color 1s ease;
 	letter-spacing: 2px;
@@ -37,7 +37,7 @@ body {
     color: #C3DFE4;
 }
 h3 {
-    font-weight: 100;
+    font-weight: 200;
     color: #13446B;
     font-size: 2.8em;
     text-align: center;
@@ -57,7 +57,7 @@ p {
 }
 
 h1 {
-	font-weight: 100;
+	font-weight: 200;
     color: #0F436D;
     font-size: 4em;
 }
