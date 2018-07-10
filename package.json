@@ -1,0 +1,23 @@
+{
+  "name": "course-planner",
+  "version": "1.0.0",
+  "description": "Rutgers Course Planner++",
+  "main": "index.js",
+  "dependencies": {
+    "cassandra-driver": "^3.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wwang99/Course-Planner.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wwang99/Course-Planner/issues"
+  },
+  "homepage": "https://github.com/wwang99/Course-Planner#readme"
+}
