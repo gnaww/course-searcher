@@ -37,3 +37,14 @@ RESPONSIVE DESIGN BREAKPOINTS
 https://github.com/davidchen/rutgers-soc-api
 
 https://ourcodeworld.com/articles/read/405/how-to-convert-pdf-to-text-extract-text-from-pdf-with-javascript
+
+
+EXPRESS NOTES
+https://www.codementor.io/mayowa.a/how-to-build-a-simple-session-based-authentication-system-with-nodejs-from-scratch-6vn67mcy3
+https://www.npmjs.com/package/express-session
+https://www.npmjs.com/package/connect-session-sequelize
+https://www.npmjs.com/package/express-validator
+https://medium.com/@THEozmic/how-to-create-many-to-many-relationship-using-sequelize-orm-postgres-on-express-677753a3edb5
+http://docs.sequelizejs.com/manual/installation/getting-started.html
+https://www.npmjs.com/package/body-parser
+https://expressjs.com/en/api.html

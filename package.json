@@ -4,9 +4,14 @@
   "description": "Rutgers Course Planner++",
   "main": "index.js",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "cassandra-driver": "^3.5.0",
-    "express": "^4.16.3"
+    "connect-session-sequelize": "^5.2.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.2"
