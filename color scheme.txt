@@ -48,3 +48,6 @@ https://medium.com/@THEozmic/how-to-create-many-to-many-relationship-using-seque
 http://docs.sequelizejs.com/manual/installation/getting-started.html
 https://www.npmjs.com/package/body-parser
 https://expressjs.com/en/api.html
+https://dev.to/aspittel/objection--knex--painless-postgresql-in-your-node-app--6n6
+https://knexjs.org/
+https://vincit.github.io/objection.js/#installation
