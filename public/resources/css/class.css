@@ -1,0 +1,294 @@
+body {
+    font-family: 'Lato', sans-serif;
+    color: #13446B;
+
+}
+.container-fluid {
+    display: flex;
+    margin: 0;
+    width: 100%;
+    padding: 2em 5em 2em 5em;
+    flex-direction: row;
+    flex-wrap:wrap;
+}
+
+.column-left {
+    padding-right: 2em;
+    width: 50%;
+    height: auto;
+}
+
+.column-right {
+    padding-left: 2em;
+    width: 50%;
+    height: 0;
+}
+
+.class-header {
+    display: flex;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+.header-text{
+    font-size: 3.1em;
+    padding-right: 0.5em;
+    align-self: center;
+    font-weight: 300;
+}
+
+.subheader-text{
+    font-size: 2em;
+    padding-right: 0.5em;
+    font-weight: 300;
+}
+
+.subsubheader-text {
+    font-size: 1em;
+    padding-right: 0.5em;
+    font-weight: 400;
+}
+
+.course-info-text {
+    font-size: 1em;
+    font-weight: 300;
+}
+
+.register-button {
+    align-self: center;
+    display: none;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
+}
+
+.status {
+    font-size: 3em;
+    align-self: center;
+}
+
+.sections {
+    font-size: 2em;
+    padding: 0;
+}
+
+.open {
+    color: #33cc33;
+}
+
+.closed {
+    color: #ff0000;
+}
+
+.class-rating {
+    display: flex;
+}
+
+.class-metadata {
+    font-size: 1.5em;
+    padding-bottom: 1em;
+}
+
+.metadata-number {
+    padding: 0 1em 0 0.5em;
+}
+
+.prereqs {
+    font-size: 1em;
+    font-weight: 300;
+}
+
+.comments-header {
+    font-size: 2.5em;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 0.3em;
+}
+
+.stars {
+    font-size: 3em;
+    color: gold;
+    align-self: center;
+}
+
+.class-prerequisites {
+    padding-bottom: 1.5em;
+}
+
+.class-description {
+    display: flex;
+}
+
+.description {
+    font-size: 1.2em;
+}
+
+.class-sections table th {
+    font-size: 1.4em;
+    text-align: center;
+}
+
+.class-sections table td {
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.class-sections table tbody tr td {
+    vertical-align: middle;
+}
+
+.status-header {
+    width: 108px;
+}
+
+.class-comments {
+    overflow-y: scroll;
+    font-size: .9em;
+}
+
+.add-comments {
+    padding: 0.5em 2em 0 2em;
+    margin-bottom: 1em;
+    margin-right: 1em;
+}
+
+.add-comments form textarea {
+    resize: none;
+    height: 6em;
+    font-size: 1.2em;
+}
+
+.add-comments form .bold {
+    font-size: 1.5em;
+    margin-top: 0.2em;
+}
+
+.comment-button.bold.btn.btn-primary{
+    float: right;
+    font-size: 1.2em;
+    margin-top: 0.5em;
+    margin-right: 1em;
+}
+
+.rating {
+    display: block;
+    position: relative;
+    height: auto;
+    display: inline-block;
+    font-size: 2rem;
+    margin-top: 0.1em;
+}
+
+.rating label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: auto;
+    cursor: pointer;
+    margin: 0;
+}
+
+.rating label:last-child {
+    position: static;
+}
+
+.rating label:nth-child(1) {
+    z-index: 5;
+}
+
+.rating label:nth-child(2) {
+    z-index: 4;
+}
+
+.rating label:nth-child(3) {
+    z-index: 3;
+}
+
+.rating label:nth-child(4) {
+    z-index: 2;
+}
+
+.rating label:nth-child(5) {
+    z-index: 1;
+}
+
+.rating label input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.rating label .icon {
+    float: left;
+    color: transparent;
+}
+
+.rating label:last-child .icon {
+    color: #d3d3d3;
+}
+
+.rating:not(:hover) label input:checked ~ .icon,
+.rating:hover label:hover input ~ .icon {
+    color: gold;
+}
+
+.rating label input:focus:not(:checked) ~ .icon:last-child {
+    color: #d3d3d3;
+    text-shadow: 0 0 5px #09f;
+}
+
+.comment {
+    border-top: 2px solid #d3d3d3;
+    padding: 0.5em 1em 0.5em 0;
+    overflow: hidden;
+}
+
+.comment-date {
+    font-size: 1.2em;
+}
+
+.comment-metadata {
+    float: right;
+}
+
+.comment-text {
+    font-size: 1.3em;
+}
+
+.comment-text p {
+    margin: 0;
+}
+
+.comment-date {
+    color: gray;
+    margin-right: 1em;
+}
+
+.comment-stars {
+    font-size: 1.7em;
+}
+
+/* media queries */
+
+/* laptop/desktop screens with 125%+ page zoom. same layout for mobile */
+@media only screen and (max-width: 1538px) {
+    .column-left {
+        width: 100%;
+        padding-bottom: 2em;
+    }
+    
+    .column-right {
+        width: 100%;
+        padding-top: 2em;
+    }
+    .divider {
+        border-top: 2px solid #d3d3d3;
+        border-left: 0;
+    }
+    
+    .class-comments {
+        overflow: auto;
+    }
+}

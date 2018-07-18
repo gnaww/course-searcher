@@ -1,0 +1,47 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+.navbar-brand {
+    font-size: 2em;
+}
+
+.navbar-nav .nav-item.nav-link {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #FFFFFF;
+}
+
+.navbar-nav .nav-item.nav-link:hover {
+    color: #BADAE0;
+    transition: color 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #1768AC;
+    border: #1768AC;
+}
+
+.btn-primary:hover {
+    background-color: #0F4877;
+}
+
+.btn-outline-primary {
+    color: #1768AC;
+    border-color: #1768AC;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0F4877;
+    border-color: #0F4877;
+}
+
+.divider {
+    grid-area: div;
+    border-left: 2px solid #d3d3d3;
+    height: 100%;
+}
+
+.bold {
+    font-weight: bold;
+}
