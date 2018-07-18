@@ -12,6 +12,7 @@
     "express-session": "^1.15.6",
     "express-validator": "^5.2.0",
     "knex": "^0.15.1",
+    "npm": "^6.2.0",
     "objection": "^1.2.0",
     "pg": "^7.4.3"
   },
