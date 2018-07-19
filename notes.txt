@@ -54,3 +54,6 @@ https://expressjs.com/en/api.html
 https://dev.to/aspittel/objection--knex--painless-postgresql-in-your-node-app--6n6
 https://knexjs.org/
 https://vincit.github.io/objection.js/#installation
+
+https://github.com/Vincit/objection.js/tree/master/examples/express-es6
+https://github.com/aneagoie/smart-brain-api/tree/master/controllers

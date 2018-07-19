@@ -20,6 +20,7 @@ const knex = Knex({
     }
 });
 
+// used to store user sessions
 const store = new KnexSessionStore({
     knex: knex,
 });
@@ -32,6 +33,7 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// user sessions middleware
 app.use(session({
     name: 'user_id',
     secret: 'changethisbeforedeploy',
