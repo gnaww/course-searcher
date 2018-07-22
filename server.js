@@ -3,28 +3,22 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const Knex = require('knex');
+const knexConfig = require('./knexfile');
 var session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 
 
-// connect to postgres db
-const knex = Knex({
-    client: 'pg',
-    connection: {
-        host: '127.0.0.1',
-        user: 'postgres',
-        password: '',
-        database: 'course-planner'
-    }
-});
+// Initialize knex.
+const knex = Knex(knexConfig);
+
+Model.knex(knex);
 
 // used to store user sessions
 const store = new KnexSessionStore({
     knex: knex,
 });
-
 
 const app = express();
 

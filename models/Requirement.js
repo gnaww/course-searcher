@@ -33,8 +33,8 @@ class Requirement extends Model {
                 join: {
                     from: 'requirements.code',
                     through: {
-                        from: 'courses_requirements.course',
-                        to: 'courses_requirements.requirement'
+                        from: 'courses_requirements.requirement',
+                        to: 'courses_requirements.course'
 
                         // If you have a model class for the join table
                         // you can specify it like this:

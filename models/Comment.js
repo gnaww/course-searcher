@@ -41,4 +41,4 @@ class Comment extends Model {
     }
 }
 
-module.exports = User;
+module.exports = Comment;
