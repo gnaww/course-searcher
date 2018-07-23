@@ -1,13 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcryptjs');
+const saltRounds = 10;
 const cors = require('cors');
 const Knex = require('knex');
 const knexConfig = require('./knexfile');
-var session = require('express-session');
+const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
+const { Model } = require('objection')
 
 
 // Initialize knex.
@@ -36,7 +38,6 @@ app.use(session({
     saveUninitialized: false,
     unset: 'destroy'
 }));
-
 
 // route for handling 404 requests(unavailable routes)
 app.use(function (req, res, next) {

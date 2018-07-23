@@ -4,20 +4,20 @@
   "description": "Rutgers Course Planner++",
   "main": "index.js",
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "connect-session-knex": "^1.4.0",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "express-validator": "^5.2.0",
-    "knex": "^0.15.1",
+    "knex": "^0.15.2",
     "npm": "^6.2.0",
     "objection": "^1.2.0",
     "pg": "^7.4.3"
   },
   "devDependencies": {
-    "nodemon": "^1.18.2"
+    "nodemon": "^1.18.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
