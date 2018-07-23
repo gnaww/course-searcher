@@ -32,22 +32,17 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                            <h5 class="modal-title">Sign In</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                           <form>
-                                <input type="text"  name=:uname: required>
-                                <label for="uname">Username</label> <br>
-                                <input type="passwprd" name="pword" required>
-                                <label for="pword">Password</label>
+                        <div class="modal-body modal-layout">
+                            <form>
+                                <input class="smooth-input" type="text"  name="uname" placeholder="Username" required><br>
+                                <input class="smooth-input" type="password" name="pword" placeholder="Password" required><br>
+                                <button type="button" class="btn">Login</button>
                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary">Login</button>
                         </div>
                     </div>
                 </div>
@@ -57,24 +52,18 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="regModalLabel">Login</h5>
+                            <h5 class="modal-title" id="regModalLabel">Sign Up</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                           <form>
-                                <input type="text"  name=:uname: required>
-                                <label for="uname">Username</label> <br>
-                                <input type="passwprd" name="pword" required>
-                                <label for="pword">Password</label> <br>
-                                <input type="passwprd" name="pword" required>
-                                <label for="pword">Confirm Password</label>
+                        <div class="modal-body modal-layout">
+                            <form>
+                                <input class="smooth-input" type="text"  name="uname" placeholder="Username" required> <br>
+                                <input class="smooth-input" type="password" name="pword" placeholder="Password" required> <br>
+                                <input class="smooth-input" type="password" name="pword-confirm" placeholder="Confirm Password" required> <br>
+                                <button type="button" class="btn btn-primary">Register</button>
                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary">Register</button>
                         </div>
                     </div>
                 </div>
