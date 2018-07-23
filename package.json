@@ -10,9 +10,8 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
-    "express-validator": "^5.2.0",
+    "express-validator": "^5.3.0",
     "knex": "^0.15.2",
-    "npm": "^6.2.0",
     "objection": "^1.2.0",
     "pg": "^7.4.3"
   },
