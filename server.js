@@ -39,9 +39,32 @@ app.use(session({
     unset: 'destroy'
 }));
 
+// serve HTML pages to client
+app.use('/index.html', function (req, res) {
+    res.redirect('/');
+});
+app.use('/course.html', function (req, res) {
+    res.redirect('/course');
+});
+app.use('/account.html', function (req, res) {
+    res.redirect('/account');
+});
+app.use(express.static('public'));
+app.use('/', express.static('public/index.html'));
+app.use('/course', express.static('public/course.html'));
+app.use('/account', express.static('public/account.html'));
+
+// API routes
+app.get('/courses', function (req, res, next) {
+    res.send('Courses API');
+});
+app.get('/accounts', function (req, res, next) {
+    res.send('Accounts API');
+});
+
 // route for handling 404 requests(unavailable routes)
 app.use(function (req, res, next) {
-  res.status(404).send("404 Page Not Found")
+    res.status(404).send('404 Page Not Found');
 });
 
 const PORT = process.env.PORT || 3000;

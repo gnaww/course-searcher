@@ -96,6 +96,15 @@ class Course extends Model {
                     from: 'courses.course_full_number',
                     to: 'comments.course'
                 }
+            },
+            
+            ratings: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: Rating,
+                join: {
+                    from: 'courses.course_full_number',
+                    to: 'ratings.course'
+                }
             }
         };
     }
