@@ -42,6 +42,10 @@ const getSpecialSemester = (transcript) => {
     let specialName = transcript.match(/(EXTERNAL\sEXAMINATIONS|TRANSFER\sCOURSES)/mi);
     if (specialName) {
         specialName = specialName[0].toLowerCase();
+        // capitalize first letter of each word
+        specialName = specialName.replace(/\w\S*/g, function(str){
+            return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
+        });
         let specialEndIndex = transcript.indexOf(sectionEnd);
         let courseNums = getCourseNums(transcript.slice(0,specialEndIndex));
         return { name: specialName, courses: courseNums, endIndex: specialEndIndex};
@@ -81,7 +85,7 @@ const appendSemester = (semesterName, semesterCourses) => {
 $("#transcript-upload").on('change', function() {
     $('.upload').nextAll().remove();
     $(".upload-button").hide();
-    $("#upload-form").append("<div class='lds-dual-ring' id='loading'></div>");
+    $("#upload-auto-form").append("<div class='lds-dual-ring' id='loading'></div>");
     // Get user uploaded file
     PDF_URL = URL.createObjectURL($("#transcript-upload").get(0).files[0]);
     
@@ -107,7 +111,7 @@ $("#transcript-upload").on('change', function() {
             let transcript = pagesText.join(' ');
 
             let special, sem, userData;
-            userCourses = []; //array of courses user has taken, to be inserted into DB
+            userCourses = {}; // object of courses user has taken, to be inserted into DB
             
             // forcing it to wait to parse/render to see that beautiful loading icon lol
             setTimeout(function(){
@@ -121,7 +125,7 @@ $("#transcript-upload").on('change', function() {
                     } else {
                         transcript = transcript.slice(special.endIndex + sectionEnd.length);
                         appendSemester(special.name, special.courses);
-                        userCourses.push.apply(userCourses, special.courses);
+                        userCourses[special.name] = special.courses;
                     }
                 }
 
@@ -133,7 +137,7 @@ $("#transcript-upload").on('change', function() {
                     } else {
                         transcript = transcript.slice(sem.endIndex + sectionEnd.length);
                         appendSemester(sem.name, sem.courses);
-                        userCourses.push.apply(userCourses, sem.courses);
+                        userCourses[sem.name] = sem.courses;
                     }
                 }
 
