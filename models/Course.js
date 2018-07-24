@@ -37,6 +37,7 @@ class Course extends Model {
         const Requirement = require('Requirement');
         const User = require('User');
         const Comment = require('Comment');
+        const Rating = require('Rating');
         
         return {
             users: {
