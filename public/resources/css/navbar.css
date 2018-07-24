@@ -38,7 +38,7 @@ body {
 *:focus:-ms-input-placeholder { opacity: 0; } /* IE 10+ */
 *:focus::placeholder { opacity: 0; } /* Modern Browsers */
 
-.btn {
+.login form .btn {
     border: 1px solid #13446B;
     color: #13446B;
     width: 8em;
@@ -50,12 +50,12 @@ body {
     line-height: 1.2em;
     background-color: white;
 }
-.btn:hover {
+.login form .btn:hover {
     color: #BBDAE0;
     background-color: #13446B;
 }
 
-.btn:active {
+.login form .btn:active {
     color: white;
     background-color: #3472a3;
 }
