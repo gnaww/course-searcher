@@ -87,7 +87,6 @@ body {
 .semester h2, .new-semester h2 {
     font-weight: 300;
     font-size: 1.2em;
-    text-transform: capitalize;
 }
 
 .save-button {
