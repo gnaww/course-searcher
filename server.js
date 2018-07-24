@@ -10,6 +10,7 @@ const KnexSessionStore = require('connect-session-knex')(session);
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 const { Model } = require('objection')
+const morgan = require('morgan')
 
 
 // Initialize knex.
@@ -28,6 +29,7 @@ const app = express();
 app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan('dev'))
 
 // user sessions middleware
 app.use(session({
@@ -61,10 +63,18 @@ app.get('/courses', function (req, res, next) {
 app.get('/accounts', function (req, res, next) {
     res.send('Accounts API');
 });
-
+app.post('/comments', function (req, res, next) {
+    console.log(req.body);
+    res.redirect('/course');
+})
 // route for handling 404 requests(unavailable routes)
 app.use(function (req, res, next) {
     res.status(404).send('404 Page Not Found');
+});
+
+app.use(function (err, req, res, next) {
+    console.error(err.stack)
+    res.status(500).send('Something broke!')
 });
 
 const PORT = process.env.PORT || 3000;

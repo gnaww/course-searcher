@@ -16,6 +16,7 @@
     "pg": "^7.4.3"
   },
   "devDependencies": {
+    "morgan": "^1.9.0",
     "nodemon": "^1.18.3"
   },
   "scripts": {
