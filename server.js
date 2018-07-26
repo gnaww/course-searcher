@@ -33,28 +33,13 @@ app.use(morgan('dev'))
 
 // user sessions middleware
 app.use(session({
-    name: 'user_id',
+    name: 'user_sid',
     secret: 'changethisbeforedeploy',
     store: store,
     resave: false,
     saveUninitialized: false,
     unset: 'destroy'
 }));
-
-// serve HTML pages to client
-app.use('/index.html', function (req, res) {
-    res.redirect('/');
-});
-app.use('/course.html', function (req, res) {
-    res.redirect('/course');
-});
-app.use('/account.html', function (req, res) {
-    res.redirect('/account');
-});
-app.use(express.static('public'));
-app.use('/', express.static('public/index.html'));
-app.use('/course', express.static('public/course.html'));
-app.use('/account', express.static('public/account.html'));
 
 // API routes
 app.get('/courses', function (req, res, next) {
@@ -67,17 +52,13 @@ app.post('/comments', function (req, res, next) {
     console.log(req.body);
     res.redirect('/course');
 })
+
 // route for handling 404 requests(unavailable routes)
 app.use(function (req, res, next) {
-    res.status(404).send('404 Page Not Found');
-});
-
-app.use(function (err, req, res, next) {
-    console.error(err.stack)
-    res.status(500).send('Something broke!')
+    res.status(500).send('Invalid API route or something broke :(');
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=> {
-  console.log('Server running on port ' + PORT);
+  console.log('Backend server running on port ' + PORT);
 })
