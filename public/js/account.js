@@ -4,7 +4,7 @@
 var PDF_URL;
 
 // Specify the path to the worker
-PDFJS.workerSrc = 'resources/js/pdf.worker.js';
+PDFJS.workerSrc = '/js/pdf.worker.js';
 
 // Open file upload input when user clicks button
 $(".upload-button").on('click', function() {

@@ -2,7 +2,6 @@ const User = require('../models/User');
 
 const handleLogIn = (bcrypt) => async (req, res) => {
     const { username, password } = req.body;
-    console.log(username, password);
     if (!username || !password) {
         console.log('invalid form data');
         return res.status(400).json('Invalid form data');

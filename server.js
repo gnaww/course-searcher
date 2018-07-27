@@ -7,8 +7,8 @@ const Knex = require('knex');
 const knexConfig = require('./knexfile');
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
-const { check, validationResult } = require('express-validator/check');
-const { matchedData, sanitize } = require('express-validator/filter');
+const { check, validationResult, body } = require('express-validator/check');
+const { matchedData, sanitize, sanitizeBody } = require('express-validator/filter');
 const { Model } = require('objection');
 const morgan = require('morgan');
 
@@ -38,10 +38,10 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 // middleware
-app.use(cors())
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 
 // user sessions middleware
 app.use(session({
@@ -74,10 +74,11 @@ app.route('/course')
     });
 
 app.route('/account')
-    .get(authenticate.auth, function (req, res) {
+    .all(authenticate.auth)
+    .get(function (req, res) {
         res.render('pages/account');
     })
-    .post(authenticate.auth, function (req, res) {
+    .post(function (req, res) {
         res.send('adding user courses')
     });
 
@@ -111,5 +112,5 @@ app.use(function (err, req, res) {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=> {
-  console.log('Backend server running on port ' + PORT);
+  console.log('Server running on port ' + PORT);
 })
