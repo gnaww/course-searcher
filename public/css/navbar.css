@@ -34,7 +34,7 @@
 *:focus:-ms-input-placeholder { opacity: 0; } /* IE 10+ */
 *:focus::placeholder { opacity: 0; } /* Modern Browsers */
 
-form .btn {
+.navform .btn {
     border: 1px solid #13446B;
     color: #13446B;
     width: 8em;
@@ -47,12 +47,12 @@ form .btn {
     background-color: white;
 }
 
-form .btn:hover {
+.navform .btn:hover {
     color: #BBDAE0;
     background-color: #13446B;
 }
 
-form .btn:active {
+.navform .btn:active {
     color: white;
     background-color: #3472a3;
 }
