@@ -1,20 +1,6 @@
 body {
     font-family: 'Lato', sans-serif;
-}
-
-.navbar-brand {
-    font-size: 2em;
-}
-
-.navbar-nav .nav-item.nav-link {
-    font-weight: bold;
-    font-size: 1.2em;
-    color: #FFFFFF;
-}
-
-.navbar-nav .nav-item.nav-link:hover {
-    color: #BADAE0;
-    transition: color 0.2s ease;
+    color: #13446B;
 }
 
 .btn-primary {

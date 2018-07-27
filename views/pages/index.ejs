@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--This is the landing page-->
+<html>
+    <head>
+        <title>Rutgers Course Planner++</title>
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,700,900" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/css/resources.css">
+        <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+        <link rel="stylesheet" type="text/css" href="/css/index.css">
+    </head>
+    <body>
+        <header>
+            <% include ../partials/navbar %>
+        </header>
+        <section>
+            <h3 class="dir-search-h"> Direct Search </h3>
+            <p class="dir-search-p">Quickly find a class by keyword, index #, or course ID.</p>
+            <div class="dirclass">
+                <form id="dsearch" method="get" action="/">
+                    <input type="hidden" name="searchType" value="direct">
+                    <select>
+                        <option selected disabled>Search Category</option>
+                        <option value="keyword">Keyword</option>
+                        <option value="index">Index #</option>
+                        <option value="course">Course ID</option>
+                        <option value="professor">Professor</option>
+                    </select>
+                    <input id="dirsearch" type="text" placeholder="Search...">
+                    <button class="icon-btn" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        </section>
+        <section class="reqful">
+            <h1 class="reqful-h bold">OR</h1>
+            <h1 class="reqful-h">Requirement Search</h1>
+            <p class="reqful-p">Check up to four boxes below
+                in order to find <br> the optimal classes to fulfill your requirements.</p>
+        </section>
+
+        <section>
+            <form id="rsearch" method="get" action="/">
+                <div class="mid-container">
+                    <div class="req-col">
+                        <input type="hidden" name="searchType" value="requirement">
+                        <div class="reqBoxes">
+                            <h4>Natural Sciences</h4>
+                            <input type="checkbox" name="NS" id="NS">
+                            <label class="cb" for="NS">NS</label>
+                        </div>
+                        <div class="reqBoxes">
+                            <h4>Social Analysis</h4>
+                            <input type="checkbox" name="SCL" id="SCL">
+                            <label class="cb" for="SCL">SCL</label>
+                        </div>
+                        <div class="reqBoxes">
+                            <h4>Historical Analysis</h4>
+                            <input type="checkbox" name="HST" id="HST">
+                            <label class="cb" for="HST">HST</label>
+                        </div>
+                        <div class="reqBoxes">
+                            <h4>Writing & Communication</h4>
+                            <input type="checkbox" name="WC" id="WC">
+                            <label class="cb" class="cb" for="WC">WC</label>
+                            <input type="checkbox" name="WCr" id="WCr">
+                            <label class="cb" class="cb" for="WCr">WCr</label>
+                            <input type="checkbox" name="WCd" id="WCd">
+                            <label class="cb" class="cb" for="WCd">WCd</label>
+                        </div>
+                    </div>
+                    <div class="req-col">
+                        <div class="reqBoxes">
+                            <h4>Contemporary Challenges</h4>
+                            <input type="checkbox" name="CC" id="CC">
+                            <label class="cb" for="CC">CC</label>
+                        </div>
+                        <div class="reqBoxes">
+                            <h4>Quantitative & Formal Reasoning</h4>
+                            <input type="checkbox" name="QQ" id="QQ">
+                            <label class="cb" for="QQ">QQ</label>
+                            <input type="checkbox" name="QR" id="QR">
+                            <label class="cb" for="QR">QR</label>
+                        </div>
+                        <div class="reqBoxes">
+                            <h4>Arts & Humanities</h4>
+                            <input type="checkbox" name="AHo" id="AHo">
+                            <label class="cb" for="AHo">AHo</label>
+                            <input type="checkbox" name="AHp" id="AHp">
+                            <label class="cb" for="AHp">AHp</label>
+                            <input type="checkbox" name="AHq" id="AHq">
+                            <label class="cb" for="AHq">AHq</label>
+                            <input type="checkbox" name="AHr" id="AHr">
+                            <label class="cb" for="AHr">AHr</label>
+                        </div>
+                        <div class="reqBoxes">
+                            <h4>Information Technology & Research</h4>
+                            <input type="checkbox" name="ITR" id="ITR">
+                            <label class="cb" for="ITR">ITR</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="confirmation-btns">
+                    <input class="btn" type="submit" value="Submit" id="top-btn">
+                    <input class="btn" type="reset" value="Clear">
+                </div>
+            </form>
+        </section>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    </body>
+</html>

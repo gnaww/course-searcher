@@ -9,9 +9,16 @@ const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
-const { Model } = require('objection')
-const morgan = require('morgan')
+const { Model } = require('objection');
+const morgan = require('morgan');
 
+// controllers for routes
+const login = require('./controllers/login');
+const register = require('./controllers/register');
+const authenticate = require('./controllers/authenticate');
+const account = require('./controllers/account');
+const course = require('./controllers/course');
+const index = require('./controllers/index');
 
 // Initialize knex.
 const knex = Knex(knexConfig);
@@ -24,6 +31,11 @@ const store = new KnexSessionStore({
 });
 
 const app = express();
+
+// EJS templating engine setup
+app.use(express.static(__dirname + '/public'));
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 
 // middleware
 app.use(cors())
@@ -38,23 +50,62 @@ app.use(session({
     store: store,
     resave: false,
     saveUninitialized: false,
-    unset: 'destroy'
+    unset: 'destroy',
+    cookie: { 
+        maxAge: 3600000 // 1 hour 
+    }
 }));
 
-// API routes
-app.get('/courses', function (req, res, next) {
-    res.send('Courses API');
+// routes
+app.route('/')
+    .get(function (req, res) {
+        res.render('pages/index');
+    })
+    .post(function (req, res) {
+        res.send('searching for classes')
+    });
+
+app.route('/course')
+    .get(function (req, res) {
+        res.render('pages/course');
+    })
+    .post(function (req, res) {
+        res.send('posting a new comment')
+    });
+
+app.route('/account')
+    .get(authenticate.auth, function (req, res) {
+        res.render('pages/account');
+    })
+    .post(authenticate.auth, function (req, res) {
+        res.send('adding user courses')
+    });
+
+app.post('/login', login.handleLogIn(bcrypt));
+
+app.get('/logout', authenticate.auth, function (req, res) {
+    req.session.destroy(function (err) {
+        if (err) {
+            console.log('error logging out', err);
+            return res.status(500).send('Error logging out');
+        } else {
+            res.send('Successfully logged out')
+        }
+    })
 });
-app.get('/accounts', function (req, res, next) {
-    res.send('Accounts API');
-});
-app.post('/comments', function (req, res, next) {
-    console.log(req.body);
-    res.redirect('/course');
+
+app.post('/register', function (req, res) {
+    res.send('register account');
 })
 
-// route for handling 404 requests(unavailable routes)
-app.use(function (req, res, next) {
+// route for handling 404 requests (unavailable routes)
+app.use(function (req, res) {
+    res.status(404).send('404 Page Not Found');
+});
+
+// route for handling everything else that can go wrong
+app.use(function (err, req, res) {
+    console.error(err.stack)
     res.status(500).send('Invalid API route or something broke :(');
 });
 

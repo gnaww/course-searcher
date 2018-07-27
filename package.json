@@ -2,12 +2,13 @@
   "name": "course-planner",
   "version": "1.0.0",
   "description": "Rutgers Course Planner++",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "connect-session-knex": "^1.4.0",
     "cors": "^2.8.4",
+    "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "express-validator": "^5.3.0",
@@ -21,8 +22,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "start2": "nodemon views.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
