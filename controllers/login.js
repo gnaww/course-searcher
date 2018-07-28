@@ -4,7 +4,11 @@ const handleLogIn = (bcrypt) => async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) {
         console.log('invalid form data');
-        return res.status(400).json('Invalid form data');
+        req.session.notification = { 
+            type: 'error',
+            message: 'Error in submitting user credentials.'
+        };
+        res.redirect('/');
     }
     
     const user = await User
@@ -15,24 +19,50 @@ const handleLogIn = (bcrypt) => async (req, res) => {
         .then(result => {
             if (result.length > 1) {
                 console.log('multiple matching usernames found when logging in');
-                return res.status(500).send('Something went wrong on our end :(');
+                req.session.notification = { 
+                    type: 'error',
+                    message: 'Error logging in. Something went wrong on our end :('
+                };
+                res.redirect('/');
+                //return res.status(500).send('Something went wrong on our end :(');
             }
             bcrypt.compare(password, result[0].password, function(err, valid) {
                 if (err) {
                     console.log('error comparing password hashes: ', err);
-                    return res.status(500).send('Something went wrong on our end :(');
+                    req.session.notification = { 
+                        type: 'error',
+                        message: 'Error logging in. Something went wrong on our end :('
+                    };
+                    res.redirect('/');
+                    //return res.status(500).send('Something went wrong on our end :(');
                 }
                 // valid === true if hash matches
                 if (valid) {
                     req.session.user = result[0].username;
-                    console.log(req.session);
-                    res.send('Successfully logged in');
+                    req.session.notification = { 
+                        type: 'success',
+                        message: 'Successfully logged in!'
+                    };
+                    res.redirect('/');
+                    //res.send('Successfully logged in');
                 } else {
-                    res.status(400).send('Incorrect user credentials');
+                    req.session.notification = { 
+                        type: 'error',
+                        message: 'Incorrect username and/or password.'
+                    };
+                    res.redirect('/');
+                    //res.status(400).send('Incorrect user credentials');
                 }
             });
         })
-        .catch(err => res.status(400).send('Incorrect user credentials'));
+        .catch(err => {
+            req.session.notification = { 
+                type: 'error',
+                message: 'Incorrect username and/or password.'
+            };
+            res.redirect('/');
+            //res.status(400).send('Incorrect user credentials')
+        });
 }
 
 module.exports = {

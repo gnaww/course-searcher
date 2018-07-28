@@ -59,7 +59,7 @@ app.use(session({
 // routes
 app.route('/')
     .get(function (req, res) {
-        res.render('pages/index');
+        index.displayHomepage(req, res);
     })
     .post(function (req, res) {
         res.send('searching for classes')
@@ -67,6 +67,7 @@ app.route('/')
 
 app.route('/course')
     .get(function (req, res) {
+        console.log(req.query)
         res.render('pages/course');
     })
     .post(function (req, res) {
@@ -87,10 +88,16 @@ app.post('/login', login.handleLogIn(bcrypt));
 app.get('/logout', authenticate.auth, function (req, res) {
     req.session.destroy(function (err) {
         if (err) {
-            console.log('error logging out', err);
-            return res.status(500).send('Error logging out');
+            console.log('error logging out: ', err);
+            req.session.notification = {
+                type: 'error',
+                message: 'Error logging out. Something went wrong on our end :('
+            };
+            res.redirect('/');
+            //return res.status(500).send('Error logging out');
         } else {
-            res.send('Successfully logged out')
+            res.redirect('/');
+            //res.send('Successfully logged out')
         }
     })
 });
