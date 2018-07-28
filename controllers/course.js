@@ -3,7 +3,7 @@ const Course = require('../models/Course.js');
 const handleCourseGet = async (req, res, next) =>  {
     let data = {
         notification: null,
-        user:null
+        user: null
     };
     console.log(req.query.id);
     const course_id = req.query.id;
@@ -48,4 +48,6 @@ const handleCourseGet = async (req, res, next) =>  {
     }
 }
 
-module.exports = { handleCourseGet }
+module.exports = { 
+    handleCourseGet: handleCourseGet
+}
