@@ -58,9 +58,7 @@ app.use(session({
 
 // routes
 app.route('/')
-    .get(function (req, res) {
-        index.displayHomepage(req, res);
-    })
+    .get(index.displayHomepage)
     .post(function (req, res) {
         res.send('searching for classes')
     });
@@ -85,22 +83,7 @@ app.route('/account')
 
 app.post('/login', login.handleLogIn(bcrypt));
 
-app.get('/logout', authenticate.auth, function (req, res) {
-    req.session.destroy(function (err) {
-        if (err) {
-            console.log('error logging out: ', err);
-            req.session.notification = {
-                type: 'error',
-                message: 'Error logging out. Something went wrong on our end :('
-            };
-            res.redirect('/');
-            //return res.status(500).send('Error logging out');
-        } else {
-            res.redirect('/');
-            //res.send('Successfully logged out')
-        }
-    })
-});
+app.get('/logout', authenticate.auth, login.handleLogOut);
 
 app.post('/register', function (req, res) {
     res.send('register account');
