@@ -18,11 +18,11 @@ class Requirement extends Model {
     }
 
     static get relationMappings() {
-        const Course = require('Course');
+        const Course = require('./Course');
         
         return {
             courses: {
-                relation: Model.HasManyRelation,
+                relation: Model.ManyToManyRelation,
                 modelClass: Course,
                 join: {
                     from: 'requirements.code',

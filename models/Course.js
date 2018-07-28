@@ -34,20 +34,20 @@ class Course extends Model {
     }
 
     static get relationMappings() {
-        const Requirement = require('Requirement');
-        const User = require('User');
-        const Comment = require('Comment');
-        const Rating = require('Rating');
+        const Requirement = require('./Requirement');
+        const User = require('./User');
+        const Comment = require('./Comment');
+        const Rating = require('./Rating');
         
         return {
             users: {
-                relation: Model.HasManyRelation,
+                relation: Model.ManyToManyRelation,
                 modelClass: User,
                 join: {
                     from: 'courses.course_full_number',
                     through: {
                         from: 'users_courses.course',
-                        to: 'users_courses.user'
+                        to: 'users_courses.username'
 
                         // If you have a model class for the join table
                         // you can specify it like this:
@@ -66,7 +66,7 @@ class Course extends Model {
             },
             
             requirements: {
-                relation: Model.HasManyRelation,
+                relation: Model.ManyToManyRelation,
                 modelClass: Requirement,
                 join: {
                     from: 'courses.course_full_number',

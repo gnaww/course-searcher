@@ -3,9 +3,6 @@
 // Path to PDF file
 var PDF_URL;
 
-// Specify the path to the worker
-PDFJS.workerSrc = '/js/pdf.worker.js';
-
 // Open file upload input when user clicks button
 $(".upload-button").on('click', function() {
     $("#transcript-upload").trigger('click');
@@ -14,7 +11,7 @@ $(".upload-button").on('click', function() {
 // When save button clicked save user data to DB
 $(".save-button").on('click', function() {
     // Insert courses from array userCourses into DB
-    
+
     // refresh page to see changes
     window.location.reload();
 });
@@ -22,7 +19,7 @@ $(".save-button").on('click', function() {
 // When save button clicked save user data to DB
 $(".submit-button").on('click', function() {
     // Insert courses from array userCourses into DB
-    
+
     // refresh page to see changes
     window.location.reload();
 });
@@ -36,7 +33,7 @@ const getCourseNums = semester => {
     let courseNums = semester.match(courseNumRE);
     return courseNums.map(courseNum => courseNum.replace(/\s+/gm,':'));
 };
-        
+
 /* Get External Examination/Transfer section if it exists. Returns special semester name, array of course numbers, and end index of special semester or -1 if no semester found.*/
 const getSpecialSemester = (transcript) => {
     let specialName = transcript.match(/(EXTERNAL\sEXAMINATIONS|TRANSFER\sCOURSES)/mi);
@@ -53,7 +50,7 @@ const getSpecialSemester = (transcript) => {
         return -1;
     }
 };
-        
+
 /* Get a single semester (Fall/Spring/Summer) if it exists. Returns semester name, array of course numbers, and end index of semester or -1 if no semester found. */
 const getSemester = transcript => {
     let headerEndIndex = transcript.indexOf('MAJOR');
@@ -67,7 +64,7 @@ const getSemester = transcript => {
         // get semester course numbers
         let semesterEndIndex = transcript.indexOf(sectionEnd);
         let courseNums = getCourseNums(transcript.slice(0,semesterEndIndex));
-        
+
         return { name: semesterName, courses: courseNums, endIndex: semesterEndIndex};
     }
 };
@@ -88,11 +85,11 @@ $("#transcript-upload").on('change', function() {
     $("#upload-auto-form").append("<div class='lds-dual-ring' id='loading'></div>");
     // Get user uploaded file
     PDF_URL = URL.createObjectURL($("#transcript-upload").get(0).files[0]);
-    
+
     // Parse PDF for course numbers and semester names
-    PDFJS.getDocument(PDF_URL).then(function (pdf) {
+    pdfjsLib.getDocument(PDF_URL).then(function (pdf) {
         var pdfDocument = pdf;
-        // Create an array that will contain our promises 
+        // Create an array that will contain our promises
         var pagesPromises = [];
 
         for (var i = 0; i < pdf.pdfInfo.numPages; i++) {
@@ -105,14 +102,14 @@ $("#transcript-upload").on('change', function() {
 
         // Execute all the promises
         Promise.all(pagesPromises).then(function (pagesText) {
-            /* Rutger Transcript PDF order: 
+            /* Rutger Transcript PDF order:
                1)External Examinations 2)Transfer Courses 3)Fall/Spring/Summer semesters */
 
             let transcript = pagesText.join(' ');
 
             let special, sem, userData;
             userCourses = {}; // object of courses user has taken, to be inserted into DB
-            
+
             // forcing it to wait to parse/render to see that beautiful loading icon lol
             setTimeout(function(){
                 /* Algorithm: Find external/transfer if exists first. Then keep on checking for regular          semesters and remove from string, when can't find any more semesters you are finished */
@@ -141,7 +138,6 @@ $("#transcript-upload").on('change', function() {
                     }
                 }
 
-                console.log(userCourses);
                 // Show save button
                 $('.save-button').show();
                 // remove loading icon
@@ -157,10 +153,10 @@ $("#transcript-upload").on('change', function() {
 });
 
 /**
- * Retrieves the text of a specific page within a PDF Document obtained through pdf.js 
- * 
- * @param {Integer} pageNum Specifies the number of the page 
- * @param {PDFDocument} PDFDocumentInstance The PDF document obtained 
+ * Retrieves the text of a specific page within a PDF Document obtained through pdf.js
+ *
+ * @param {Integer} pageNum Specifies the number of the page
+ * @param {PDFDocument} PDFDocumentInstance The PDF document obtained
  **/
 function getPageText(pageNum, PDFDocumentInstance) {
     // Return a Promise that is solved once the text of the page is retrieven

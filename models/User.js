@@ -18,16 +18,16 @@ class User extends Model {
     }
 
     static get relationMappings() {
-        const Course = require('Course');
+        const Course = require('./Course');
         
         return {
             courses: {
-                relation: Model.HasManyRelation,
+                relation: Model.ManyToManyRelation,
                 modelClass: Course,
                 join: {
                     from: 'users.username',
                     through: {
-                        from: 'users_courses.user',
+                        from: 'users_courses.username',
                         to: 'users_courses.course'
 
                         // If you have a model class for the join table
