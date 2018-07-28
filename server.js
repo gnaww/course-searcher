@@ -66,9 +66,7 @@ app.route('/')
     });
 
 app.route('/course')
-    .get(function (req, res) {
-        res.render('pages/course');
-    })
+    .get(course.handleCourseGet)
     .post(function (req, res) {
         res.send('posting a new comment')
     });
