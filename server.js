@@ -51,8 +51,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     unset: 'destroy',
-    cookie: { 
-        maxAge: 3600000 // 1 hour 
+    cookie: {
+        maxAge: 3600000 // 1 hour
     }
 }));
 
@@ -66,10 +66,7 @@ app.route('/')
     });
 
 app.route('/course')
-    .get(function (req, res) {
-        console.log(req.query)
-        res.render('pages/course');
-    })
+    .get(course.handleCourseGet)
     .post(function (req, res) {
         res.send('posting a new comment')
     });

@@ -22,7 +22,7 @@ const handleCourseGet = async (req, res, next) =>  {
             const first_section = selected_course[0];
             const { name, course_full_number, core_codes, credits, notes } = first_section;
             let core_codes_string = '';
-            
+
             // formats the core codes
             if (core_codes) {
                 core_codes.forEach(function(element) {
@@ -32,26 +32,27 @@ const handleCourseGet = async (req, res, next) =>  {
             } else {
                 core_codes_string = 'None';
             }
-            
+
             data.name = name;
             data.course_full_number = course_full_number;
             data.core_codes_string = core_codes_string;
             data.credits = credits;
             data.notes = notes;
-            
+
             console.log(name);
             console.log(course_full_number);
             console.log(core_codes_string);
             console.log(credits);
             console.log(notes);
-            
-            res.render('views/pages/course', data);
-            return res.json(selected_course);
-        } 
+
+            res.render('pages/course', data);
+        }
     } catch (error) {
         console.log(error);
         return res.status(400).json('Error retrieving course data');
     }
 }
 
-module.exports = { handleCourseGet }
+module.exports = {
+    handleCourseGet: handleCourseGet
+}
