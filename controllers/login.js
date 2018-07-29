@@ -4,13 +4,13 @@ const handleLogIn = (bcrypt) => async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) {
         console.log('invalid form data');
-        req.session.notification = { 
+        req.session.notification = {
             type: 'error',
-            message: 'Error in submitting user credentials.'
+            message: 'Error in submitting user credentials. Something was missing.'
         };
         res.redirect('/');
     }
-    
+
     const user = await User
         .query()
         .where({
@@ -19,7 +19,7 @@ const handleLogIn = (bcrypt) => async (req, res) => {
         .then(result => {
             if (result.length > 1) {
                 console.log('multiple matching usernames found when logging in');
-                req.session.notification = { 
+                req.session.notification = {
                     type: 'error',
                     message: 'Error logging in. Something went wrong on our end :('
                 };
@@ -28,7 +28,7 @@ const handleLogIn = (bcrypt) => async (req, res) => {
             bcrypt.compare(password, result[0].password, function(err, valid) {
                 if (err) {
                     console.log('error comparing password hashes: ', err);
-                    req.session.notification = { 
+                    req.session.notification = {
                         type: 'error',
                         message: 'Error logging in. Something went wrong on our end :('
                     };
@@ -37,13 +37,13 @@ const handleLogIn = (bcrypt) => async (req, res) => {
                 // valid === true if hash matches
                 if (valid) {
                     req.session.user = result[0].username;
-                    req.session.notification = { 
+                    req.session.notification = {
                         type: 'success',
                         message: 'Successfully logged in!'
                     };
                     res.redirect('/');
                 } else {
-                    req.session.notification = { 
+                    req.session.notification = {
                         type: 'error',
                         message: 'Incorrect username and/or password.'
                     };
@@ -52,7 +52,7 @@ const handleLogIn = (bcrypt) => async (req, res) => {
             });
         })
         .catch(err => {
-            req.session.notification = { 
+            req.session.notification = {
                 type: 'error',
                 message: 'Incorrect username and/or password.'
             };

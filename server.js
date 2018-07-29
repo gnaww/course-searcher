@@ -7,8 +7,6 @@ const Knex = require('knex');
 const knexConfig = require('./knexfile');
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
-const { check, validationResult, body } = require('express-validator/check');
-const { matchedData, sanitize, sanitizeBody } = require('express-validator/filter');
 const { Model } = require('objection');
 const morgan = require('morgan');
 
@@ -51,8 +49,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     unset: 'destroy',
-    cookie: { 
-        maxAge: 3600000 // 1 hour 
+    cookie: {
+        maxAge: 3600000 // 1 hour
     }
 }));
 
@@ -66,7 +64,7 @@ app.route('/')
 app.route('/course')
     .get(function (req, res) {
         console.log(req.query)
-        res.render('pages/course');
+        res.render('pages/course', { user: null, notification: null });
     })
     .post(function (req, res) {
         res.send('posting a new comment')
@@ -83,9 +81,7 @@ app.post('/login', login.handleLogIn(bcrypt));
 
 app.get('/logout', authenticate.auth, login.handleLogOut);
 
-app.post('/register', function (req, res) {
-    res.send('register account');
-})
+app.post('/register', register.handleRegister(bcrypt));
 
 // route for handling 404 requests (unavailable routes)
 app.use(function (req, res) {

@@ -273,7 +273,7 @@
         width: 100%;
         padding-bottom: 2em;
     }
-    
+
     .column-right {
         width: 100%;
         padding-top: 2em;
@@ -282,7 +282,7 @@
         border-top: 2px solid #d3d3d3;
         border-left: 0;
     }
-    
+
     .class-comments {
         overflow: auto;
     }
