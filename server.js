@@ -7,8 +7,6 @@ const Knex = require('knex');
 const knexConfig = require('./knexfile');
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
-const { check, validationResult, body } = require('express-validator/check');
-const { matchedData, sanitize, sanitizeBody } = require('express-validator/filter');
 const { Model } = require('objection');
 const morgan = require('morgan');
 
