@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--This is the landing page-->
+<html>
+
+<head>
+    <title>Rutgers Course Planner++</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/resources.css">
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+</head>
+
+<body>
+    <header>
+        <% include ../partials/navbar %>
+    </header>
+    <% include ../partials/notification %>
+    <div class="container-fluid">
+        <h1>Sign Up</h1>
+        <form id="register" method="post" action="/register" class="navform">
+            <span style="opacity: 0.75">Username can only contain alphanumeric characters</span>
+            <input class="smooth-input" type="text"  name="username" placeholder="Username" required> <br>
+            <input class="smooth-input" type="password" name="password" placeholder="Password" required> <br>
+            <input class="smooth-input" type="password" name="passwordConfirm" placeholder="Confirm Password" required> <br>
+            <button type="submit" class="btn">Register</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="/js/pdf.min.js"></script>
+    <script src="/js/account.js"></script>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 const User = require('../models/User');
 
-const handleLogIn = (bcrypt) => async (req, res) => {
+const handleLogIn = bcrypt => async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) {
         console.log('invalid form data');
@@ -45,7 +45,7 @@ const handleLogIn = (bcrypt) => async (req, res) => {
                 } else {
                     req.session.notification = {
                         type: 'error',
-                        message: 'Incorrect username and/or password.'
+                        message: 'Error logging in. Incorrect username and/or password.'
                     };
                     res.redirect('/');
                 }
@@ -54,7 +54,7 @@ const handleLogIn = (bcrypt) => async (req, res) => {
         .catch(err => {
             req.session.notification = {
                 type: 'error',
-                message: 'Incorrect username and/or password.'
+                message: 'Error logging in. Incorrect username and/or password.'
             };
             res.redirect('/');
         });

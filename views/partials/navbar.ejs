@@ -10,7 +10,7 @@
                     <a class="nav-link nav-link-space" href="#loginModal" data-toggle="modal" data-target="#loginModal">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#regModal" data-toggle="modal" data-target="#regModal">Register</a>
+                    <a class="nav-link" href="/register">Register</a>
                 </li>
             </ul>
         </div>
@@ -44,29 +44,6 @@
                         <input class="smooth-input" type="text"  name="username" placeholder="Username" required><br>
                         <input class="smooth-input" type="password" name="password" placeholder="Password" required><br>
                         <button type="submit" class="btn">Login</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Registration Modal -->
-    <div class="modal fade" id="regModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="regModalLabel">Sign Up</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body modal-layout">
-                    <form id="register" method="post" action="/register" class="navform">
-                        <span style="opacity: 0.75">Username can only contain alphanumeric characters</span>
-                        <input class="smooth-input" type="text"  name="username" placeholder="Username" required> <br>
-                        <input class="smooth-input" type="password" name="password" placeholder="Password" required> <br>
-                        <input class="smooth-input" type="password" name="passwordConfirm" placeholder="Confirm Password" required> <br>
-                        <button type="submit" class="btn">Register</button>
                     </form>
                 </div>
             </div>

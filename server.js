@@ -77,11 +77,13 @@ app.route('/account')
         res.send('adding user courses')
     });
 
+app.route('/register')
+    .get(register.displayRegister(null))
+    .post(register.handleRegister(bcrypt));
+
 app.post('/login', login.handleLogIn(bcrypt));
 
 app.get('/logout', authenticate.auth, login.handleLogOut);
-
-app.post('/register', register.handleRegister(bcrypt));
 
 // route for handling 404 requests (unavailable routes)
 app.use(function (req, res) {

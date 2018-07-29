@@ -1,6 +1,17 @@
 const User = require('../models/User');
 const validator = require('validator');
 
+const displayRegister = data => async (req, res) => {
+    if (!data) {
+        data = {
+            notification: null,
+            user: null
+        };
+    }
+
+    res.render('pages/register', data);
+}
+
 const handleRegister = (bcrypt) => async (req, res) => {
     console.log('handle register');
     const { username, password, passwordConfirm } = req.body;
@@ -8,28 +19,36 @@ const handleRegister = (bcrypt) => async (req, res) => {
     // validation and sanitization
     if (!username || !password || !passwordConfirm) {
         console.log('invalid form data');
-        req.session.notification = {
-            type: 'error',
-            message: 'Error in submitted user credentials. Something was missing.'
-        };
-        res.redirect('/');
+        displayRegister({
+            notification: {
+                type: 'error',
+                message: 'Error in submitted user credentials. Something was missing.'
+            },
+            user: null
+        })(req, res);
     }
-    if (!validator.isAlphanumeric(username)) {
+    else if (!validator.isAlphanumeric(username)) {
         console.log('non alphanumeric username');
-        req.session.notification = {
-            type: 'error',
-            message: 'Error registering user. Username must be alphanumeric characters only.'
-        }
-        res.redirect('/');
+        displayRegister({
+            notification: {
+                type: 'error',
+                message: 'Error registering user. Username must be alphanumeric characters only.'
+            },
+            user: null
+        })(req, res);
     }
-    if (!validator.equals(password, passwordConfirm)) {
+    else if (!validator.equals(password, passwordConfirm)) {
         console.log('password & password confirmation don\'t match');
-        req.session.notification = {
-            type: 'error',
-            message: 'Error registering user. Password confirmation must match password.'
-        }
-        res.redirect('/');
+        displayRegister({
+            notification: {
+                type: 'error',
+                message: 'Error registering user. Password confirmation must match password.'
+            },
+            user: null
+        })(req, res);
     }
+
+    // check if username is unique
 
     const hash = bcrypt.hashSync(password);
     db.transaction(trx => {
@@ -58,5 +77,6 @@ const handleRegister = (bcrypt) => async (req, res) => {
 }
 
 module.exports = {
-    handleRegister: handleRegister
+    handleRegister: handleRegister,
+    displayRegister: displayRegister
 };
