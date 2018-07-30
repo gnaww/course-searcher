@@ -6,7 +6,7 @@ const handleLogIn = bcrypt => async (req, res) => {
         console.log('invalid form data');
         req.session.notification = {
             type: 'error',
-            message: 'Error in submitting user credentials. Something was missing.'
+            message: 'Error in submitting user credentials. Username and/or password was missing.'
         };
         res.redirect('/');
     }
@@ -34,6 +34,7 @@ const handleLogIn = bcrypt => async (req, res) => {
                     };
                     res.redirect('/');
                 }
+                
                 // valid === true if hash matches
                 if (valid) {
                     req.session.user = result[0].username;

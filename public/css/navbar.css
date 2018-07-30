@@ -7,7 +7,7 @@
     width: 10em;
     height: 2.5em;
     margin-bottom: 1em;
-    transition: color 0.5s ease, background-color 0.5s ease, width 0.5s ease;
+    transition: color 0.5s ease, background-color 0.5s ease, width 0.3s ease;
     border-radius: .3em;
     border-color: transparent;
     background-color: rgba(189, 219, 224, 0.51);
@@ -22,7 +22,7 @@
     width: 15em;
     background-color: rgba(189, 219, 224, 0.1);
 }
-::-webkit-input-placeholder { opacity: 1; -webkit-transition: opacity .5s; transition: opacity .5s; }  /* Chrome <=56, Safari < 10 */
+::-webkit-input-placeholder { opacity: 1; -webkit-transition: opacity .3s; transition: opacity .3s; }  /* Chrome <=56, Safari < 10 */
 :-moz-placeholder { opacity: 1; -moz-transition: opacity .5s; transition: opacity .5s; } /* FF 4-18 */
 ::-moz-placeholder { opacity: 1; -moz-transition: opacity .5s; transition: opacity .5s; } /* FF 19-51 */
 :-ms-input-placeholder { opacity: 1; -ms-transition: opacity .5s; transition: opacity .5s; } /* IE 10+ */

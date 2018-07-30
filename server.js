@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
-const saltRounds = 10;
 const cors = require('cors');
 const Knex = require('knex');
 const knexConfig = require('./knexfile');
@@ -79,7 +78,7 @@ app.route('/account')
 
 app.route('/register')
     .get(register.displayRegister(null))
-    .post(register.handleRegister(bcrypt));
+    .post(register.handleRegister(knex, bcrypt));
 
 app.post('/login', login.handleLogIn(bcrypt));
 
