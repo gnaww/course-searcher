@@ -21,9 +21,9 @@ const handleCourseGet = async (req, res, next) =>  {
             return res.status(404).json('Course not found');
         } else {
             const first_section = selected_course[0];
-            const { name, course_full_number, core_codes, credits, pre_reqs, notes, time} = first_section;
+            const { name, course_full_number, core_codes, credits, pre_reqs, notes, times} = first_section;
             let core_codes_string = '';
-            
+
             // formats the core codes
             if (Object.keys(core_codes).length === 0 && core_codes.constructor === Object) {
                 core_codes_string = 'None';
@@ -33,25 +33,48 @@ const handleCourseGet = async (req, res, next) =>  {
                 });
                 core_codes_string = core_codes_string.substring(0, core_codes_string.length - 2);
             }
-            
-            
+
+
             data.name = name;
             data.course_full_number = course_full_number;
             data.core_codes_string = core_codes_string;
             data.credits = credits;
             data.pre_reqs = pre_reqs;
             data.notes = notes;
-            
+
             // section information
             /* section object will contain the following properties:
                 *   section_number
                 *   index_number
-                *   time
-                *   location
+                *   day_time: day and am/pm time
+                *   location: campus and room
+                *   CURRENTLY UNUSED:
+                *   meeting_mode
             */
-            
-            data.sections = [];
-            
+            /*
+                *   meeting mode code:
+                *   90 -> ONLINE INSTRUCTION(INTERNET)
+                *   02 -> LEC
+            */
+
+            let sections = [];
+            for (let i = 0; i < data.length; i++) {
+              let meeting_code = data[i].meetingModeCode; // not returned
+              let section_number = data[i].section_number;
+              let index_number = data[i].section_index;
+              let full_times_and_locations = data[i].times;
+              let day = formatDay(full_times_and_locations.meetingDay); // not returned
+              let pm_code = data[i].pmCode;
+              // format time
+              let time = 'Error'; // not returned
+              if (meeting_code === '90') { // online course
+                time = 'Online Course';
+              } else {
+                let time = formatTime(start_time, end_time, pm_code);
+              }
+              let day_time = day + " " + time;
+            };
+
             console.log('DEBUGGING INFO ----------------------------------')
             console.log(name);
             console.log(course_full_number);
@@ -59,7 +82,7 @@ const handleCourseGet = async (req, res, next) =>  {
             console.log(credits);
             console.log(pre_reqs);
             console.log(notes);
-            console.log(time);
+            console.log(times);
             console.log('-------------------------------------------------')
 
             res.render('pages/course', data);
@@ -69,6 +92,55 @@ const handleCourseGet = async (req, res, next) =>  {
         return res.status(400).json('Error retrieving course data');
     }
 }
+
+const formatDay = (day) => {
+  switch (day.toLowerCase) {
+    case 'M':
+      return 'Mon';
+      break;
+    case 'T':
+      return 'Tue';
+      break;
+    case 'W':
+      return 'Wed';
+      break;
+    case 'Th':
+      return 'Thu';
+      break;
+    case 'S':
+      return 'Sat';
+      break;
+    default:
+      return 'Error';
+  }
+}
+
+/*
+    *   since there are no classes at midnight we can assume that
+    *   any time where there is a pm code of P and the start timeout
+    *   is greater than the end time, that the class goes from AM to PM
+*/
+const formatTime = (start_time, end_time, pm_code) => {
+  if (start_time > end_time) {
+    return (stripLeadingZero(start_time) + "PM - " + stripLeadingZero(end_time) + "AM");
+  } else {
+    return (stripLeadingZero(start_time) + pm_code + "M - " + stripLeadingZero(end_time) + pm_code + "M");
+  }
+}
+
+const stripLeadingZero = (str) => {
+  if (str === '') {
+    return '';
+  } else {
+    if (str.indexOf(0) == '0') {
+      return str.slice(1);
+    } else {
+      return str;
+    }
+  }
+}
+// formatTime('11:00', '12:00', 'P');
+
 
 module.exports = {
     handleCourseGet: handleCourseGet
