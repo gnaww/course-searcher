@@ -14,6 +14,7 @@ const displayRegister = data => async (req, res) => {
 
 const handleRegister = (knex, bcrypt) => async (req, res) => {
     let { username, password, passwordConfirm } = req.body;
+    let validCredentials = true;
 
     // validation and sanitization
     if (validator.isEmpty(username) || validator.isEmpty(password) || validator.isEmpty(passwordConfirm)) {
@@ -25,56 +26,60 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
             },
             user: null
         })(req, res);
-    }
-    else if (!validator.isAlphanumeric(username)) {
-        console.log('non alphanumeric username');
-        displayRegister({
-            notification: {
-                type: 'error',
-                message: 'Error registering new user. Username must contain letters or numbers only without spaces.'
-            },
-            user: null
-        })(req, res);
-    }
-    else if (!validator.isLength(password, { min: 5, max: undefined })) {
-        console.log('password under 5 characters');
-        displayRegister({
-            notification: {
-                type: 'error',
-                message: 'Error registering new user. Password must be at least 5 characters.'
-            },
-            user: null
-        })(req, res);
-    }
-    else if (!validator.equals(password, passwordConfirm)) {
-        console.log('password & password confirmation don\'t match');
-        displayRegister({
-            notification: {
-                type: 'error',
-                message: 'Error registering new user. Password confirmation must match password.'
-            },
-            user: null
-        })(req, res);
-    }
-
-    username = validator.trim(username);
-
-    // check if username is unique
-    const existingUser = await User
-        .query()
-        .where({
-            username: username
-        });
-    if (existingUser.length !== 0) {
-        console.log('user with same username already exists');
-        displayRegister({
-            notification: {
-                type: 'error',
-                message: 'Error registering new user. Username already taken.'
-            },
-            user: null
-        })(req, res);
+        validCredentials = false;
     } else {
+        username = validator.trim(username);
+
+        // check if username is unique
+        const existingUser = await User
+            .query()
+            .where({
+                username: username
+            });
+        if (existingUser.length !== 0) {
+            console.log('user with same username already exists');
+            displayRegister({
+                notification: {
+                    type: 'error',
+                    message: 'Error registering new user. Username already taken.'
+                },
+                user: null
+            })(req, res);
+            validCredentials = false;
+        } else if (!validator.isAlphanumeric(username)) {
+            console.log('non alphanumeric username');
+            displayRegister({
+                notification: {
+                    type: 'error',
+                    message: 'Error registering new user. Username must contain letters or numbers only without spaces.'
+                },
+                user: null
+            })(req, res);
+            validCredentials = false;
+        } else if (!validator.isLength(password, { min: 5, max: undefined })) {
+            console.log('password under 5 characters');
+            displayRegister({
+                notification: {
+                    type: 'error',
+                    message: 'Error registering new user. Password must be at least 5 characters.'
+                },
+                user: null
+            })(req, res);
+            validCredentials = false;
+        } else if (!validator.equals(password, passwordConfirm)) {
+            console.log('password & password confirmation don\'t match');
+            displayRegister({
+                notification: {
+                    type: 'error',
+                    message: 'Error registering new user. Password confirmation must match password.'
+                },
+                user: null
+            })(req, res);
+            validCredentials = false;
+        }
+    }
+    
+    if (validCredentials) {
         console.log('ready to register');
         bcrypt.genSalt(10, function(err, salt) {
             if (err) {
