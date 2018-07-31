@@ -21,7 +21,7 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
         displayRegister({
             notification: {
                 type: 'error',
-                message: 'Error in registering user credentials. Username and/or password was missing.'
+                message: 'Error registering new user. Username and/or password was missing.'
             },
             user: null
         })(req, res);
@@ -31,7 +31,17 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
         displayRegister({
             notification: {
                 type: 'error',
-                message: 'Error registering user. Username must be alphanumeric characters only.'
+                message: 'Error registering new user. Username must contain letters or numbers only without spaces.'
+            },
+            user: null
+        })(req, res);
+    }
+    else if (!validator.isLength(password, { min: 5, max: undefined })) {
+        console.log('password under 5 characters');
+        displayRegister({
+            notification: {
+                type: 'error',
+                message: 'Error registering new user. Password must be at least 5 characters.'
             },
             user: null
         })(req, res);
@@ -41,7 +51,7 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
         displayRegister({
             notification: {
                 type: 'error',
-                message: 'Error registering user. Password confirmation must match password.'
+                message: 'Error registering new user. Password confirmation must match password.'
             },
             user: null
         })(req, res);
@@ -60,7 +70,7 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
         displayRegister({
             notification: {
                 type: 'error',
-                message: 'Error registering user. Username already taken.'
+                message: 'Error registering new user. Username already taken.'
             },
             user: null
         })(req, res);
@@ -72,7 +82,7 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
                 displayRegister({
                     notification: {
                         type: 'error',
-                        message: 'Error registering user. Something went wrong on our end :('
+                        message: 'Error registering new user. Something went wrong on our end :('
                     },
                     user: null
                 })(req, res);
@@ -83,7 +93,7 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
                         displayRegister({
                             notification: {
                                 type: 'error',
-                                message: 'Error registering user. Something went wrong on our end :('
+                                message: 'Error registering new user. Something went wrong on our end :('
                             },
                             user: null
                         })(req, res);
@@ -104,7 +114,7 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
                                 displayRegister({
                                     notification: {
                                         type: 'error',
-                                        message: 'Error registering user. Something went wrong on our end :('
+                                        message: 'Error registering new user. Something went wrong on our end :('
                                     },
                                     user: null
                                 })(req, res);
