@@ -60,6 +60,7 @@ const handleCourseGet = async (req, res, next) =>  {
             let sections = [];
             for (let i = 0; i < data.length; i++) {
               let meeting_code = data[i].meetingModeCode; // not returned
+              let meeting_mode_desc = data[i].meetingModeDesc;
               let section_number = data[i].section_number;
               let index_number = data[i].section_index;
               let full_times_and_locations = data[i].times;
@@ -69,10 +70,15 @@ const handleCourseGet = async (req, res, next) =>  {
               let time = 'Error'; // not returned
               if (meeting_code === '90') { // online course
                 time = 'Online Course';
+                location = 'Online Course';
               } else {
                 let time = formatTime(start_time, end_time, pm_code);
               }
               let day_time = day + " " + time;
+              // format loaction
+              let campus
+              let room
+              let location = campus + " " + room;
             };
 
             console.log('DEBUGGING INFO ----------------------------------')
@@ -107,6 +113,9 @@ const formatDay = (day) => {
     case 'Th':
       return 'Thu';
       break;
+    case 'F':
+      return 'Fri';
+      break;
     case 'S':
       return 'Sat';
       break;
@@ -119,10 +128,12 @@ const formatDay = (day) => {
     *   since there are no classes at midnight we can assume that
     *   any time where there is a pm code of P and the start timeout
     *   is greater than the end time, that the class goes from AM to PM
+    *   or if the end time takes place from 12:00 - 12:59 because classes
+    *   are always longer than 59 minutes
 */
 const formatTime = (start_time, end_time, pm_code) => {
-  if (start_time > end_time) {
-    return (stripLeadingZero(start_time) + "PM - " + stripLeadingZero(end_time) + "AM");
+  if (parseInt(start_time) > parseInt(end_time) || (parseInt(end_time) >= 1200 && parseInt(end_time) <= 1259)) {
+    return (stripLeadingZero(start_time) + "AM - " + stripLeadingZero(end_time) + "PM");
   } else {
     return (stripLeadingZero(start_time) + pm_code + "M - " + stripLeadingZero(end_time) + pm_code + "M");
   }
@@ -132,6 +143,7 @@ const stripLeadingZero = (str) => {
   if (str === '') {
     return '';
   } else {
+    str = addColon(str);
     if (str.indexOf(0) == '0') {
       return str.slice(1);
     } else {
@@ -139,8 +151,15 @@ const stripLeadingZero = (str) => {
     }
   }
 }
+
+const addColon = (str) => {
+    return str.slice(0,2) + ":" + str.slice(2,4);
+}
 // formatTime('11:00', '12:00', 'P');
 
+const formatLocation = (campus_abbrev, building_code, room_number) => {
+  return campus_abbrev + " " + building_code + " " + room_number;
+}
 
 module.exports = {
     handleCourseGet: handleCourseGet
