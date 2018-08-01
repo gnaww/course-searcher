@@ -138,6 +138,12 @@ $("#transcript-upload").on('change', function() {
                     }
                 }
 
+                /********************************** NOTES ************************/
+                // parse class names in addition to course numbers????
+                // how to submit custom data through a form POST request
+                /********************END NOTES ************************************/
+
+                
                 // Show save button
                 $('.save-button').show();
                 // remove loading icon
