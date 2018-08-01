@@ -16,7 +16,6 @@ const handleCourseGet = async (req, res, next) =>  {
     try {
         // course information
         const selected_course = await Course.query().where('course_full_number', course_id);
-        console.log(selected_course);
         if (selected_course === undefined || selected_course.length === 0) {
             return res.status(404).json('Course not found');
         } else {
@@ -55,40 +54,87 @@ const handleCourseGet = async (req, res, next) =>  {
                 *   meeting mode code:
                 *   90 -> ONLINE INSTRUCTION(INTERNET)
                 *   02 -> LEC
+                *   03 -> RECIT
+                *   04 -> SEM
+                *   19 -> PROJ-IND
             */
-
+            console.log('SECTION DEBUTTING INFO ----------------------------------');
+            console.log('Amount of sections: ' + selected_course.length);
             let sections = [];
-            for (let i = 0; i < data.length; i++) {
-              let meeting_code = data[i].meetingModeCode; // not returned
-              let meeting_mode_desc = data[i].meetingModeDesc;
-              let section_number = data[i].section_number;
-              let index_number = data[i].section_index;
-              let full_times_and_locations = data[i].times;
-              let day = formatDay(full_times_and_locations.meetingDay); // not returned
-              let pm_code = data[i].pmCode;
-              // format time
-              let time = 'Error'; // not returned
-              if (meeting_code === '90') { // online course
-                time = 'Online Course';
-                location = 'Online Course';
-              } else {
-                let time = formatTime(start_time, end_time, pm_code);
-              }
-              let day_time = day + " " + time;
-              // format loaction
-              let campus
-              let room
-              let location = campus + " " + room;
-            };
+            for (let i = 0; i < selected_course.length; i++) {
+              let section_number = selected_course[i].section_number;
+              let index_number = selected_course[i].section_index;
 
-            console.log('DEBUGGING INFO ----------------------------------')
-            console.log(name);
-            console.log(course_full_number);
-            console.log(core_codes_string);
-            console.log(credits);
-            console.log(pre_reqs);
-            console.log(notes);
-            console.log(times);
+              let section_times = selected_course[i].times;
+
+              let day_times = [];
+              let locations = [];
+              let meeting_codes = [];
+              let meeting_mode_descs = [];
+
+              console.log('Amount of classes for section' + i +': ' + section_times.length);
+              for (let j = 0; j < section_times.length; j++) {
+                let pm_code = section_times[i].pmCode; // not returned
+                let day_time = 'Error';
+
+                // format location
+                let location = 'Error'
+
+                // meeting mode
+                let meeting_code = section_times[i].meetingModeCode;
+                let meeting_mode_desc = section_times[i].meetingModeDesc;
+
+                // take care of time and location
+                if (meeting_code === '90') { // online course
+                  let time = 'Online Course';
+                  location = 'Online Course';
+                } else if(meeting_code === '19') {
+                  let time = 'Project/Independent';
+                  location = 'Project/Independent';
+                } else {
+                  // time
+                  let start_time = section_times[i].startTime;
+                  let end_time = section_times[i].endTime;
+                  let day = formatDay(section_times[i].meetingDay);
+                  let time = formatTime(start_time, end_time, pm_code);
+                  day_time = day + " " + time;
+                  // loaction
+                  let campus = section_times[i].campusAbbrev;
+                  let building = section_times[i].buildingCode;
+                  let room = section_times[i].roomNumber;
+                  location = campus + ' ' + building + ' ' + room;
+
+                  day_times.push(day_time);
+                  locations.push(location);
+                  meeting_codes.push(meeting_code);
+                  meeting_mode_descs.push(meeting_mode_desc);
+                }
+              }
+
+
+              let section = {
+                section_number: section_number,
+                index_number: index_number,
+                day_times: day_times, // is array
+                locations: locations, // is array
+                meeting_codes: meeting_codes, // is array
+                meeting_mode_descs: meeting_mode_descs // is array
+              }
+              console.log('section' + i);
+              console.log(section);
+              sections.push(section);
+            }
+            console.log('-------------------------------------------------')
+
+            console.log('CLASS DEBUGGING INFO ----------------------------------')
+            console.log('name: ' + name);
+            console.log('course_full_number: ' + course_full_number);
+            console.log('core_codes_string: ' + core_codes_string);
+            console.log('credits: ' + credits);
+            console.log('pre_reqs: ' + pre_reqs);
+            console.log('notes: ' + notes);
+            console.log('times: ' + times);
+            console.log('sections: ' + sections);
             console.log('-------------------------------------------------')
 
             res.render('pages/course', data);
@@ -100,7 +146,7 @@ const handleCourseGet = async (req, res, next) =>  {
 }
 
 const formatDay = (day) => {
-  switch (day.toLowerCase) {
+  switch (day) {
     case 'M':
       return 'Mon';
       break;
@@ -110,7 +156,7 @@ const formatDay = (day) => {
     case 'W':
       return 'Wed';
       break;
-    case 'Th':
+    case 'TH':
       return 'Thu';
       break;
     case 'F':
@@ -120,7 +166,7 @@ const formatDay = (day) => {
       return 'Sat';
       break;
     default:
-      return 'Error';
+      return 'Day Error';
   }
 }
 
