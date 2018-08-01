@@ -12,10 +12,9 @@ const displayAccount = (knex) => async (req, res) => {
     }
     const userCourses = await User
         .query()
-        .innerJoin('users_courses', 'courses.course_full_number', 'users_courses.course')
         .eager('courses')
         .modifyEager('courses', builder => {
-            builder.distinct('course_full_number', 'name');
+            builder.groupBy('course_full_number');
         })
         .where({
             username: username

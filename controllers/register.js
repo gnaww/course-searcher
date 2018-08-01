@@ -78,7 +78,7 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
             validCredentials = false;
         }
     }
-    
+
     if (validCredentials) {
         console.log('ready to register');
         bcrypt.genSalt(10, function(err, salt) {
