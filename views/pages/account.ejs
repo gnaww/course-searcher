@@ -102,15 +102,15 @@
         </div>
         <div class="semesters-container">
             <%
-                Object.keys(semesters).forEach(function(semester) {
+                Object.keys(semesters).forEach(function(semesterName) {
             %>
                     <div class="semester">
-                        <h2><%= semester %></h2>
+                        <h2><%= semesterName %></h2>
                         <ul>
             <%
-                    for (let i = 0; i < semesters[semester].length; i++) {
+                    for (let i = 0; i < semesters[semesterName].length; i++) {
             %>
-                            <li><%= semesters[semester][i] %></li>
+                            <li><%= semesters[semesterName][i] %></li>
             <%
                     }
             %>
