@@ -74,6 +74,7 @@ const handleCourseGet = async (req, res, next) => {
         let section_index = selected_course[i].section_index;
         let notes = selected_course[i].notes;
 
+
         let section_times = selected_course[i].times;
 
         let day_times = [];
@@ -120,7 +121,7 @@ const handleCourseGet = async (req, res, next) => {
       console.log('core_codes_string: ' + core_codes_string);
       console.log('credits: ' + credits);
       console.log('pre_reqs: ' + pre_reqs);
-      console.log('notes: ' + notes);
+      console.log('description: ' + data.description);
       console.log('times: ' + times);
       console.log('sections:');
       console.log(sections);
