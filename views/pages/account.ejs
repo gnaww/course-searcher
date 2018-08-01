@@ -96,15 +96,24 @@
             <h1>My Completed Courses</h1>
         </div>
         <div class="semesters-container">
-            <div class="semester">
-                <h2>External Examinations</h2>
-                <ul>
-                    <li>Introduction to Database Systems</li>
-                    <li>Class 2</li>
-                    <li>Class 3</li>
-                    <li>Class 4</li>
-                </ul>
-            </div>
+            <%
+                Object.keys(semesters).forEach(function(semester) {
+            %>
+                    <div class="semester">
+                        <h2><%= semester %></h2>
+                        <ul>
+            <%
+                    for (let i = 0; i < semesters[semester].length; i++) {
+            %>
+                            <li><%= semesters[semester][i] %></li>
+            <%
+                    }
+            %>
+                        </ul>
+                    </div>
+            <%
+                });
+            %>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
