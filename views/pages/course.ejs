@@ -2,359 +2,376 @@
 <!--This is the landing page-->
 <html>
 
-<head>
-    <title>Rutgers Course Planner++</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/resources.css">
-    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
-    <link rel="stylesheet" type="text/css" href="/css/course.css">
-</head>
+    <head>
+        <title>Rutgers Course Planner++</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/css/resources.css">
+        <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+        <link rel="stylesheet" type="text/css" href="/css/course.css">
+    </head>
 
-<body>
-    <header>
-        <% include ../partials/navbar %>
-    </header>
-    <div class="container-fluid">
-        <div class="column-left">
-            <div class="class-header">
-                <span class="header-text"><%= name %></span>
-                <!-- status: open -->
-                <span class="status open">
-                  <i class="fas fa-check-circle"></i>
-                </span>
-                <!-- status: closed -->
-                <span class="status closed">
-                    <i class="fas fa-times-circle "></i>
-                </span>
-            </div>
-            <div class="class-metadata">
-                <span class="subsubheader-text">Course #:</span><span class="metadata-number course-info-text"><%= course_full_number %></span>
-                <span class="subsubheader-text">Core Codes:</span><span class="metadata-number course-info-text"><%= core_codes_string %></span>
-                <span class="subsubheader-text">Credits:</span><span class="metadata-number course-info-text"><%= credits %></span>
-            </div>
-            <div class="class-prerequisites">
-                <span class="subheader-text">Required Prerequisites</span>
-                <br>
-                <span class="prereqs"><%= pre_reqs %></span>
-            </div>
-            <div class="class-description">
-                <span class="subheader-text bold">Description</span>
-                <div class="subheader-text spacer"></div>
-            </div>
-            <div class="description">
-                <p><%= description %></p>
-            </div>
-            <div class="class-sections table-responsive">
-                <span class="subheader-text bold">Sections</span>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Sec</th>
-                            <th>Index</th>
-                            <th>Day/Time</th>
-                            <th>Location</th>
-                            <th>Instructor</th>
-                            <th class="status-header">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>12345</td>
-                            <td>Tue 4:45 PM - 5:40 PM<br>Wed 8:25 AM - 9:20 AM<br>Thu 10:45 PM - 10:50 PM</td>
-                            <td>CAC VH-105<br><br>CAC VH-105</td>
-                            <td>Jane Doe</td>
-                            <td class="text-center">
-                                <span class="status open sections" data-toggle="tooltip" data-placement="top" title="Class is open! Click to toggle register button & class status">
-                                    <i class="fas fa-check-circle class-open"></i>
-                                </span>
-                                <a class="btn btn-primary register-button bold" href="https://google.com" role="button" target="_blank" data-toggle="tooltip" data-placement="top" title="Click to toggle register button & class status">Register</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>12345</td>
-                            <td>4:45 PM - 5:40 PM<br>8:25 AM - 9:20 AM<br>10:45 PM - 10:50 PM</td>
-                            <td>CAC VH-105<br><br>CAC VH-105</td>
-                            <td>John Doe</td>
-                            <td class="text-center">
-                                <span class="status closed sections" data-toggle="tooltip" data-placement="top" title="Class is closed! Can't register.">
-                                    <i class="fas fa-times-circle"></i>
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="column-right divider">
-            <div class="class-rating">
-                <span class="header-text bold">Overall Course Rating</span>
-                <span class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                    <i class="far fa-star"></i>
-                </span>
-            </div>
-            <div class="add-comments border rounded">
-                <span class="subheader-text bold">Comment on this course</span>
-                <form action="/comments" method="post">
-                    <textarea class="form-control" name="new-comment" type="text" placeholder="Enter your own thoughts and opinions about this course here!" required></textarea>
-                    <span class="subsubheader-text">Rate this course:</span>
-                    <span class="rating align-middle">
-                        <label>
-                            <input type="radio" name="new-rating" value="1" required/>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                        </label>
-                        <label>
-                            <input type="radio" name="new-rating" value="2" required/>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                        </label>
-                        <label>
-                            <input type="radio" name="new-rating" value="3" required/>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                        </label>
-                        <label>
-                            <input type="radio" name="new-rating" value="4" required/>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                        </label>
-                        <label>
-                            <input type="radio" name="new-rating" value="5" required/>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                        </label>
+    <body>
+        <header>
+            <% include ../partials/navbar %>
+        </header>
+        <div class="container-fluid">
+            <div class="column-left">
+                <div class="class-header">
+                    <span class="header-text"><%= name %></span>
+                    <!-- status: open -->
+                    <span class="status open">
+                        <i class="fas fa-check-circle"></i>
                     </span>
-                    <button type="submit" class="btn btn-primary comment-button bold">Post Comment</button>
-                </form>
+                    <!-- status: closed -->
+                    <span class="status closed">
+                        <i class="fas fa-times-circle "></i>
+                    </span>
+                </div>
+                <div class="class-metadata">
+                    <span class="subsubheader-text">Course #:</span><span class="metadata-number course-info-text"><%= course_full_number %></span>
+                    <span class="subsubheader-text">Core Codes:</span><span class="metadata-number course-info-text"><%= core_codes_string %></span>
+                    <span class="subsubheader-text">Credits:</span><span class="metadata-number course-info-text"><%= credits %></span>
+                </div>
+                <div class="class-prerequisites">
+                    <span class="subheader-text">Required Prerequisites</span>
+                    <br>
+                    <span class="prereqs"><%- pre_reqs %></span>
+                </div>
+                <div class="class-description">
+                    <span class="subheader-text bold">Description</span>
+                    <div class="subheader-text spacer"></div>
+                </div>
+                <div class="description">
+                    <p><%= description %></p>
+                </div>
+                <div class="class-sections table-responsive">
+                    <span class="subheader-text bold">Sections</span>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Sec</th>
+                                <th>Index</th>
+                                <th>Day/Time</th>
+                                <th>Location</th>
+                                <th>Instructor</th>
+                                <th class="status-header">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% sections.forEach(function(section) { %>
+                                <tr>
+                                    <td><%= section.section_number %></td>
+                                    <td><%= section.section_index %></td>
+                                    <td>
+                                        <% section.day_times.forEach(function(day_time) { %>
+                                            <%= day_time %> <br>               
+                                        <% }); %>
+                                    </td>
+                                    <td>
+                                        <% section.locations.forEach(function(location) { %>
+                                            <%= location %> <br>                            
+                                        <% }); %>
+                                    </td>
+                                    <td><%= section.instructors %></td>
+                                </tr>
+                            <% }); %>
+                            <tr>
+                                <td>1</td>
+                                <td>12345</td>
+                                <td>Tue 4:45 PM - 5:40 PM<br>Wed 8:25 AM - 9:20 AM<br>Thu 10:45 PM - 10:50 PM</td>
+                                <td>CAC VH-105<br><br>CAC VH-105</td>
+                                <td>Jane Doe</td>
+                                <td class="text-center">
+                                    <span class="status open sections" data-toggle="tooltip" data-placement="top" title="Class is open! Click to toggle register button & class status">
+                                        <i class="fas fa-check class-open"></i>
+                                    </span>
+                                    <a class="btn btn-primary register-button bold" href="https://google.com" role="button" target="_blank" data-toggle="tooltip" data-placement="top" title="Click to toggle register button & class status">Register</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>12345</td>
+                                <td>4:45 PM - 5:40 PM<br>8:25 AM - 9:20 AM<br>10:45 PM - 10:50 PM</td>
+                                <td>CAC VH-105<br><br>CAC VH-105</td>
+                                <td>John Doe</td>
+                                <td class="text-center">
+                                    <span class="status closed sections" data-toggle="tooltip" data-placement="top" title="Class is closed! Can't register.">
+                                        <i class="fas fa-times"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="comments-header header-text">
-                <span>Comments</span>
-            </div>
-            <div class="class-comments">
-                <div class="comment">
-                    <div class="comment-text">
-                        <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                        reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                        fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                    </div>
-                    <div class="comment-metadata">
-                        <span class="comment-date">28 days ago</span>
-                        <span class="stars comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </span>
-                    </div>
+            <div class="column-right divider">
+                <div class="class-rating">
+                    <span class="header-text bold">Overall Course Rating</span>
+                    <span class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <i class="far fa-star"></i>
+                    </span>
                 </div>
-                <div class="comment">
-                    <div class="comment-text">
-                        <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                        reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                        fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                    </div>
-                    <div class="comment-metadata">
-                        <span class="comment-date">28 days ago</span>
-                        <span class="stars comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                <div class="add-comments border rounded">
+                    <span class="subheader-text bold">Comment on this course</span>
+                    <form action="/comments" method="post">
+                        <textarea class="form-control" name="new-comment" type="text" placeholder="Enter your own thoughts and opinions about this course here!" required></textarea>
+                        <span class="subsubheader-text">Rate this course:</span>
+                        <span class="rating align-middle">
+                            <label>
+                                <input type="radio" name="new-rating" value="1" required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="new-rating" value="2" required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="new-rating" value="3" required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="new-rating" value="4" required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="new-rating" value="5" required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
                         </span>
-                    </div>
+                        <button type="submit" class="btn btn-primary comment-button bold">Post Comment</button>
+                    </form>
                 </div>
-                <div class="comment">
-                    <div class="comment-text">
-                        <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                        reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                        fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                    </div>
-                    <div class="comment-metadata">
-                        <span class="comment-date">28 days ago</span>
-                        <span class="stars comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </span>
-                    </div>
+                <div class="comments-header header-text">
+                    <span>Comments</span>
                 </div>
-                <div class="comment">
-                    <div class="comment-text">
-                        <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                        reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                        fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                <div class="class-comments">
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
+                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
+                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                        </div>
+                        <div class="comment-metadata">
+                            <span class="comment-date">28 days ago</span>
+                            <span class="stars comment-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
                     </div>
-                    <div class="comment-metadata">
-                        <span class="comment-date">28 days ago</span>
-                        <span class="stars comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </span>
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
+                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
+                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                        </div>
+                        <div class="comment-metadata">
+                            <span class="comment-date">28 days ago</span>
+                            <span class="stars comment-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="comment">
-                    <div class="comment-text">
-                        <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                        reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                        fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
+                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
+                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                        </div>
+                        <div class="comment-metadata">
+                            <span class="comment-date">28 days ago</span>
+                            <span class="stars comment-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
                     </div>
-                    <div class="comment-metadata">
-                        <span class="comment-date">28 days ago</span>
-                        <span class="stars comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </span>
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
+                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
+                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                        </div>
+                        <div class="comment-metadata">
+                            <span class="comment-date">28 days ago</span>
+                            <span class="stars comment-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="comment">
-                    <div class="comment-text">
-                        <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                        reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                        fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
+                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
+                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                        </div>
+                        <div class="comment-metadata">
+                            <span class="comment-date">28 days ago</span>
+                            <span class="stars comment-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
                     </div>
-                    <div class="comment-metadata">
-                        <span class="comment-date">28 days ago</span>
-                        <span class="stars comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </span>
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
+                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
+                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                        </div>
+                        <div class="comment-metadata">
+                            <span class="comment-date">28 days ago</span>
+                            <span class="stars comment-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="comment">
-                    <div class="comment-text">
-                        <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                        reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                        fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
+                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
+                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                        </div>
+                        <div class="comment-metadata">
+                            <span class="comment-date">28 days ago</span>
+                            <span class="stars comment-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
                     </div>
-                    <div class="comment-metadata">
-                        <span class="comment-date">28 days ago</span>
-                        <span class="stars comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </span>
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
+                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
+                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                        </div>
+                        <div class="comment-metadata">
+                            <span class="comment-date">28 days ago</span>
+                            <span class="stars comment-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="comment">
-                    <div class="comment-text">
-                        <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                        reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                        fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
+                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
+                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                        </div>
+                        <div class="comment-metadata">
+                            <span class="comment-date">28 days ago</span>
+                            <span class="stars comment-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
                     </div>
-                    <div class="comment-metadata">
-                        <span class="comment-date">28 days ago</span>
-                        <span class="stars comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </span>
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
+                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
+                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                        </div>
+                        <div class="comment-metadata">
+                            <span class="comment-date">28 days ago</span>
+                            <span class="stars comment-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="comment">
-                    <div class="comment-text">
-                        <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                        reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                        fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
+                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
+                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                        </div>
+                        <div class="comment-metadata">
+                            <span class="comment-date">28 days ago</span>
+                            <span class="stars comment-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
                     </div>
-                    <div class="comment-metadata">
-                        <span class="comment-date">28 days ago</span>
-                        <span class="stars comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="comment">
-                    <div class="comment-text">
-                        <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                        reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                        fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                    </div>
-                    <div class="comment-metadata">
-                        <span class="comment-date">28 days ago</span>
-                        <span class="stars comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="comment">
-                    <div class="comment-text">
-                        <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                        reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                        fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                    </div>
-                    <div class="comment-metadata">
-                        <span class="comment-date">28 days ago</span>
-                        <span class="stars comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="comment">
-                    <div class="comment-text">
-                        <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                        reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                        fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                    </div>
-                    <div class="comment-metadata">
-                        <span class="comment-date">28 days ago</span>
-                        <span class="stars comment-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </span>
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
+                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
+                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
+                        </div>
+                        <div class="comment-metadata">
+                            <span class="comment-date">28 days ago</span>
+                            <span class="stars comment-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <script src="/js/course.js"></script>
-</body>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+        <script src="/js/course.js"></script>
+    </body>
 
 </html>
