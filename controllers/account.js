@@ -1,6 +1,5 @@
 const displayAccount = (knex, data) => (req, res) => {
     const username = req.session.user
-    console.log(data)
     if (!data) {
         if (req.session.notification) {
             data = {
@@ -21,7 +20,6 @@ const displayAccount = (knex, data) => (req, res) => {
                 ON courses.course_full_number = users_courses.course
                 WHERE users_courses.username = '${username}'`)
         .then(results => {
-            console.log('here')
             let semesters = {};
             results.rows.forEach(course => {
                 let sem = course.semester;
@@ -47,7 +45,6 @@ const displayAccount = (knex, data) => (req, res) => {
 
 const handleAccount = knex => (req,res) => {
     console.log(req.body);
-    console.log('redisplaying');
     displayAccount(knex, {
         notification: {
             type: 'success',

@@ -2,26 +2,46 @@
 
 // Path to PDF file
 var PDF_URL;
-
+let userCoursesObj;
 // Open file upload input when user clicks button
 $(".upload-button").on('click', function() {
     $("#transcript-upload").trigger('click');
 });
 
-// When save button clicked save user data to DB
+// When auto submission save button clicked save user data to DB
 $(".save-button").on('click', function() {
-    // Insert courses from array userCourses into DB
-
-    // refresh page to see changes
-    window.location.reload();
+    fetch('http://localhost:3000/account',
+        {
+            method: 'POST',
+            credentials: 'include',
+            headers: {"Content-Type": "application/json"},
+            body: userCoursesObj
+        })
+        .then(res => {
+            $( `<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                    Successfully saved completed classes! Refresh the page to view the changes.
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>` ).insertBefore( ".container-fluid" );
+            $('#auto-modal').modal('toggle');
+            $('.save-button').hide();
+        })
+        .catch(err => {
+            $( `<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                    Something went wrong :(. Refresh the page and try again.
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>` ).insertBefore( ".container-fluid" );
+            $('#auto-modal').modal('toggle');
+            $('.save-button').hide();
+        })
 });
 
-// When save button clicked save user data to DB
+// When manual submission save button clicked save user data to DB
 $(".submit-button").on('click', function() {
-    // Insert courses from array userCourses into DB
 
-    // refresh page to see changes
-    window.location.reload();
 });
 
 // Every section of the transcript ends with this string
@@ -107,7 +127,7 @@ const getSemester = transcript => {
 const appendSemester = (semesterName, semesterCourses) => {
     let coursesList = "";
     for (let i = 0; i < semesterCourses.length; i++) {
-        coursesList += "<li>" + semesterCourses[i] + "</li>";
+        coursesList += `<li>(${semesterCourses[i].id}) ${semesterCourses[i].name}</li>`;
     }
     $(".modal-body").append(`<div class="new-semester"><h2>${semesterName}</h2><ul>${coursesList}</ul></div>`);
 }
@@ -155,7 +175,7 @@ $("#transcript-upload").on('change', function() {
                         break;
                     } else {
                         transcript = transcript.slice(special.endIndex + sectionEnd.length);
-                        // appendSemester(special.name, special.courses);
+                        appendSemester(special.name, special.courses);
                         userCourses.set(special.name, special.courses);
                     }
                 }
@@ -167,22 +187,17 @@ $("#transcript-upload").on('change', function() {
                         break;
                     } else {
                         transcript = transcript.slice(sem.endIndex + sectionEnd.length);
-                        // appendSemester(sem.name, sem.courses);
+                        appendSemester(sem.name, sem.courses);
                         userCourses.set(sem.name, sem.courses);
                     }
                 }
 
-                let userCoursesObj = JSON.stringify([...userCourses])
+                userCoursesObj = JSON.stringify([...userCourses])
                 let test = JSON.parse(userCoursesObj);
-                for (let i = 0; i < test.length; i++) {
-                    console.log(test[i][0]);
-                    console.log(test[i][1]);
-                }
-                /********************************** NOTES ************************/
-                // how to submit custom data through a form POST request
-                /********************END NOTES ************************************/
-
-                fetch('http://localhost:3000/account', {method: 'POST', credentials: 'include', headers: {"Content-Type": "application/json"}, body: JSON.stringify(userCourses)}).then(res => console.log(res)).catch(err => { console.log('hi'); console.log(err);})
+                // for (let i = 0; i < test.length; i++) {
+                //     console.log(test[i][0]);
+                //     console.log(test[i][1]);
+                // }
 
                 // Show save button
                 $('.save-button').show();
