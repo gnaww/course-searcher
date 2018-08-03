@@ -19,7 +19,7 @@ $(".save-button").on('click', function() {
         })
         .then(res => {
             $( `<div class='alert alert-success alert-dismissible fade show' role='alert'>
-                    Successfully saved completed classes! Refresh the page to view the changes.
+                    Successfully saved completed classes! <a href="/account" class="alert-link">Refresh</a> the page to view the changes.
                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                         <span aria-hidden='true'>&times;</span>
                     </button>
@@ -29,7 +29,7 @@ $(".save-button").on('click', function() {
         })
         .catch(err => {
             $( `<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                    Something went wrong :(. Refresh the page and try again.
+                    Something went wrong :(. <a href="/account" class="alert-link">Refresh</a> the page and try again.
                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                         <span aria-hidden='true'>&times;</span>
                     </button>
