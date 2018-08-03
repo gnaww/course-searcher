@@ -75,10 +75,13 @@ const handleCourseGet = async (req, res, next) => {
                 let section_number = selected_course[i].section_number;
                 let section_index = selected_course[i].section_index;
                 let notes = selected_course[i].notes;
+                let section_open_status = selected_course[i].section_open_status;
                 
                 let instructors = selected_course[i].instructors;
                 if (instructors == null) {
                     instructors = 'None';
+                } else {
+                    instructors = formatInstructors(instructors);
                 }
 
                 let section_times = selected_course[i].times;
@@ -114,7 +117,8 @@ const handleCourseGet = async (req, res, next) => {
                     locations: locations, // is array
                     instructors: instructors,
                     meeting_codes: meeting_codes, // is array
-                    meeting_mode_descs: meeting_mode_descs // is array
+                    meeting_mode_descs: meeting_mode_descs, // is array
+                    section_open_status: section_open_status
                 }
                 console.log('section' + i);
                 console.log(section);
@@ -248,6 +252,9 @@ const formatLocation = (times, meeting_code) => {
     }
 }
 
+const formatInstructors = (instructors) => {
+    return instructors.replace(/ and /, '<br>');
+}
 module.exports = {
     handleCourseGet: handleCourseGet
 }

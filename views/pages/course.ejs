@@ -61,24 +61,42 @@
                         </thead>
                         <tbody>
                             <% sections.forEach(function(section) { %>
-                                <tr>
-                                    <td><%= section.section_number %></td>
-                                    <td><%= section.section_index %></td>
-                                    <td>
-                                        <% section.day_times.forEach(function(day_time) { %>
-                                            <%= day_time %> <br>               
-                                        <% }); %>
-                                    </td>
-                                    <td>
-                                        <% section.locations.forEach(function(location) { %>
-                                            <%= location %> <br>                            
-                                        <% }); %>
-                                    </td>
-                                    <td><%= section.instructors %></td>
-                                </tr>
+                            <tr>
+                                <td><a class="btn section-num" href="#" data-content="<%= section.notes %>" rel="popover" data-placement="bottom" data-original-title="Notes" data-trigger="hover" data-toggle="popover"><%= section.section_number %></a></td>
+                                <td><%= section.section_index %></td>
+                                <td>
+                                    <% let i = 0; %>
+                                    <% let meeting_d = section.meeting_mode_descs; %>
+                                    <% let meeting_c = section.meeting_codes; %>
+                                    <% section.day_times.forEach(function(day_time) { %>
+                                        <a class="section-num" href="#" data-content="<%= meeting_d[i] %> : <%= meeting_c[i] %>" rel="popover" data-placement="right" data-original-title="Meeting-Mode/Code" data-trigger="hover" data-toggle="popover"><%= day_time %> <br></a>
+                                        <% i++; %>
+                                    <% }); %>
+                                </td>
+                                <td>
+                                    <% section.locations.forEach(function(location) { %>
+                                    <%= location %> <br>                            
+                                    <% }); %>
+                                </td>
+                                <td><%- section.instructors %></td>
+                                <td class="text-center">
+                                    <% if (section.section_open_status === 'OPEN') {%>
+                                        <span class="status open sections" data-toggle="tooltip" data-placement="top" title="Class is open! Click to toggle register button & class status">
+                                        <i class="fas fa-check class-open"></i>
+                                        </span>
+                                        <a class="btn btn-primary register-button bold" href="https://google.com" role="button" target="_blank" data-toggle="tooltip" data-placement="top" title="Click to toggle register button & class status">Register</a>
+                                    <% } else { %>
+                                        <span class="status closed sections" data-toggle="tooltip" data-placement="top" title="Class is closed! Can't register.">
+                                        <i class="fas fa-times"></i>
+                                        </span>
+                                    <% } %>
+                                </td>
+                                
+                                    
+                            </tr>
                             <% }); %>
                             <tr>
-                                <td>1</td>
+                                <td><a id="popoverData" class="btn section-num" href="#" data-content="This section is only availible to 3rd year students." rel="popover" data-placement="bottom" data-original-title="Notes" data-trigger="hover" data-toggle="popover">1</a></td>
                                 <td>12345</td>
                                 <td>Tue 4:45 PM - 5:40 PM<br>Wed 8:25 AM - 9:20 AM<br>Thu 10:45 PM - 10:50 PM</td>
                                 <td>CAC VH-105<br><br>CAC VH-105</td>
@@ -372,6 +390,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
         <script src="/js/course.js"></script>
+        <script>
+            $(function () {
+                $('[data-toggle="popover"]').popover()
+            });
+        </script>
     </body>
 
 </html>

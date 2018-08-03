@@ -293,3 +293,13 @@
         overflow: auto;
     }
 }
+
+.section-num {
+    font-size: 1em;
+    color: #89b0b7;
+}
+
+.section-num:hover {
+    color: #0F436D
+}
+
