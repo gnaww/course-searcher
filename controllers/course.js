@@ -1,4 +1,5 @@
 const Course = require('../models/Course.js');
+const Comment = require('../models/Comment.js');
 
 const handleCourseGet = async (req, res, next) => {
     let data = {
@@ -60,7 +61,6 @@ const handleCourseGet = async (req, res, next) => {
                *   day_time: day and am/pm time
                *   location: campus and room
                *   instructors
-               *   CURRENTLY UNUSED:
                *   meeting_mode
                *   notes
             */
@@ -155,7 +155,16 @@ const handleCourseGet = async (req, res, next) => {
             console.log('sections:');
             console.log(sections);
             console.log('-------------------------------------------------')
-
+            
+            // handle comments
+            const comments = await Comment.query().where('course', course_id);
+            
+            data.comments = comments;
+            
+            console.log('COMMENT DEBUGGING INFO ----------------------------------')
+            console.log(comments);
+            console.log('-------------------------------------------------')
+            
             res.render('pages/course', data);
         }
     } catch (error) {

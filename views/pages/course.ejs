@@ -181,212 +181,26 @@
                 <div class="comments-header header-text">
                     <span>Comments</span>
                 </div>
-                <div class="class-comments">
-                    <div class="comment">
-                        <div class="comment-text">
-                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                        </div>
-                        <div class="comment-metadata">
-                            <span class="comment-date">28 days ago</span>
-                            <span class="stars comment-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-text">
-                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                        </div>
-                        <div class="comment-metadata">
-                            <span class="comment-date">28 days ago</span>
-                            <span class="stars comment-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
+                <% for(comment of comments) { %>
+                    <div class="class-comments">
+                        <div class="comment">
+                            <div class="comment-text">
+                                <p><%= comment.comment %></p>
+                            </div>
+                            <div class="comment-metadata">
+                                <span class="comment-date"><%= comment.date %></span>
+                                <span class="stars comment-stars">
+                                    <% for(let i = 0; i < comment.rating; i++) { %>
+                                    <i class="fas fa-star"></i>
+                                    <% } %>
+                                    <% for(let i = comment.rating; i < 5; i++) { %>
+                                    <i class="far fa-star"></i>
+                                    <% } %>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <div class="comment">
-                        <div class="comment-text">
-                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                        </div>
-                        <div class="comment-metadata">
-                            <span class="comment-date">28 days ago</span>
-                            <span class="stars comment-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-text">
-                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                        </div>
-                        <div class="comment-metadata">
-                            <span class="comment-date">28 days ago</span>
-                            <span class="stars comment-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-text">
-                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                        </div>
-                        <div class="comment-metadata">
-                            <span class="comment-date">28 days ago</span>
-                            <span class="stars comment-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-text">
-                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                        </div>
-                        <div class="comment-metadata">
-                            <span class="comment-date">28 days ago</span>
-                            <span class="stars comment-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-text">
-                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                        </div>
-                        <div class="comment-metadata">
-                            <span class="comment-date">28 days ago</span>
-                            <span class="stars comment-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-text">
-                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                        </div>
-                        <div class="comment-metadata">
-                            <span class="comment-date">28 days ago</span>
-                            <span class="stars comment-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-text">
-                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                        </div>
-                        <div class="comment-metadata">
-                            <span class="comment-date">28 days ago</span>
-                            <span class="stars comment-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-text">
-                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                        </div>
-                        <div class="comment-metadata">
-                            <span class="comment-date">28 days ago</span>
-                            <span class="stars comment-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-text">
-                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                        </div>
-                        <div class="comment-metadata">
-                            <span class="comment-date">28 days ago</span>
-                            <span class="stars comment-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-text">
-                            <p>despicationes et proident non ex exquisitaque probant offendit commodo
-                                reprehenderit litteris eram et iis eruditionem quorum est enim tempor quo ne in
-                                fabulas quae iudicem qui sint doctrina ipsum enim</p>
-                        </div>
-                        <div class="comment-metadata">
-                            <span class="comment-date">28 days ago</span>
-                            <span class="stars comment-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                <% } %>
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
