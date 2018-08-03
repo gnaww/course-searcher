@@ -27,7 +27,8 @@ const handleCourseGet = async (req, res, next) => {
                 core_codes,
                 credits,
                 pre_reqs,
-                times
+                times,
+                url
             } = first_section;
 
             // formats the core codes
@@ -40,14 +41,17 @@ const handleCourseGet = async (req, res, next) => {
                 });
                 core_codes_string = core_codes_string.substring(0, core_codes_string.length - 2);
             }
-
+            let description = url;
+            if (description == null) {
+                description = 'Coming Soon';
+            }
 
             data.name = name;
             data.course_full_number = course_full_number;
             data.core_codes_string = core_codes_string;
             data.credits = credits;
             data.pre_reqs = pre_reqs;
-            data.description = 'Coming Soon';
+            data.description = description;
 
             // section information
             /* section object will contain the following properties:
