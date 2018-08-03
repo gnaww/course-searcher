@@ -20,14 +20,17 @@
             <div class="column-left">
                 <div class="class-header">
                     <span class="header-text"><%= name %></span>
-                    <!-- status: open -->
-                    <span class="status open">
-                        <i class="fas fa-check-circle"></i>
-                    </span>
-                    <!-- status: closed -->
-                    <span class="status closed">
-                        <i class="fas fa-times-circle "></i>
-                    </span>
+                    <% if(course_open_status === 'OPEN') { %>
+                        <!-- status: open -->
+                        <span class="status open">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                    <% } else { %>
+                        <!-- status: closed -->
+                        <span class="status closed">
+                            <i class="fas fa-times-circle "></i>
+                        </span>
+                    <% } %>
                 </div>
                 <div class="class-metadata">
                     <span class="subsubheader-text">Course #:</span><span class="metadata-number course-info-text"><%= course_full_number %></span>
@@ -62,14 +65,14 @@
                         <tbody>
                             <% sections.forEach(function(section) { %>
                             <tr>
-                                <td><a class="btn section-num" href="#" data-content="<%= section.notes %>" rel="popover" data-placement="bottom" data-original-title="Notes" data-trigger="hover" data-toggle="popover"><%= section.section_number %></a></td>
-                                <td><%= section.section_index %></td>
+                                <td><a class="btn table-link" href="#" data-content="<%= section.notes %>" rel="popover" data-placement="bottom" data-original-title="Notes" data-trigger="hover" data-toggle="popover"><%= section.section_number %></a></td>
+                                <td><a class="btn table-link" href="#" data-content="<%= section.exam_code %>" rel="popover" data-placement="bottom" data-original-title="Notes" data-trigger="hover" data-toggle="popover"><%= section.section_index %></a></td>
                                 <td>
                                     <% let i = 0; %>
                                     <% let meeting_d = section.meeting_mode_descs; %>
                                     <% let meeting_c = section.meeting_codes; %>
                                     <% section.day_times.forEach(function(day_time) { %>
-                                        <a class="section-num" href="#" data-content="<%= meeting_d[i] %> : <%= meeting_c[i] %>" rel="popover" data-placement="right" data-original-title="Meeting-Mode/Code" data-trigger="hover" data-toggle="popover"><%= day_time %> <br></a>
+                                        <a class="table-link" href="#" data-content="<%= meeting_d[i] %> : <%= meeting_c[i] %>" rel="popover" data-placement="right" data-original-title="Meeting-Mode/Code" data-trigger="hover" data-toggle="popover"><%= day_time %> <br></a>
                                         <% i++; %>
                                     <% }); %>
                                 </td>
@@ -84,7 +87,7 @@
                                         <span class="status open sections" data-toggle="tooltip" data-placement="top" title="Class is open! Click to toggle register button & class status">
                                         <i class="fas fa-check class-open"></i>
                                         </span>
-                                        <a class="btn btn-primary register-button bold" href="https://google.com" role="button" target="_blank" data-toggle="tooltip" data-placement="top" title="Click to toggle register button & class status">Register</a>
+                                        <a class="btn btn-primary register-button bold" href="https://sims.rutgers.edu/webreg/editSchedule.htm?&indexList=<%= section.section_index %>" role="button" target="_blank" data-toggle="tooltip" data-placement="top" title="Click to toggle register button & class status">Register</a>
                                     <% } else { %>
                                         <span class="status closed sections" data-toggle="tooltip" data-placement="top" title="Class is closed! Can't register.">
                                         <i class="fas fa-times"></i>

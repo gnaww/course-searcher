@@ -80,6 +80,7 @@ const handleCourseGet = async (req, res, next) => {
                 let section_index = selected_course[i].section_index;
                 let notes = selected_course[i].notes;
                 let section_open_status = selected_course[i].section_open_status;
+                let exam_code = selected_course[i].exam_code;
                 
                 let instructors = selected_course[i].instructors;
                 if (instructors == null) {
@@ -122,13 +123,24 @@ const handleCourseGet = async (req, res, next) => {
                     instructors: instructors,
                     meeting_codes: meeting_codes, // is array
                     meeting_mode_descs: meeting_mode_descs, // is array
-                    section_open_status: section_open_status
+                    section_open_status: section_open_status,
+                    exam_code: exam_code
                 }
                 console.log('section' + i);
                 console.log(section);
                 sections.push(section);
             }
             data.sections = sections;
+            
+            let course_open_status = 'CLOSED';
+            for(let s of sections) {
+                if (s.section_open_status === 'OPEN') {
+                    course_open_status = 'OPEN';
+                    break;
+                }
+            }
+            data.course_open_status = course_open_status;
+            
             console.log('-------------------------------------------------')
 
             console.log('CLASS DEBUGGING INFO ----------------------------------')
@@ -139,6 +151,7 @@ const handleCourseGet = async (req, res, next) => {
             console.log('pre_reqs: ' + pre_reqs);
             console.log('description: ' + data.description);
             console.log('times: ' + times);
+            console.log('course_open_status: ' + course_open_status);
             console.log('sections:');
             console.log(sections);
             console.log('-------------------------------------------------')
