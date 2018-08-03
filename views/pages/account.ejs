@@ -19,6 +19,7 @@
     <div class="container-fluid">
         <div class="container border rounded">
             <h1 id="completed-courses-header">Update Your Completed Courses</h1>
+            <span>* Updating your completed courses will overwrite ALL your previously saved completed courses</span>
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".upload-modal-auto">Auto</button>
             <button type="button" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target=".upload-modal-manual">Manual</button>
         </div>
@@ -36,7 +37,7 @@
                     <div class="modal-body">
                         <div class="upload">
                             <form action="account.html" method="post" enctype="multipart/form-data" id="upload-auto-form">
-                                <button type="button" class="btn btn-primary btn-lg upload-button" data-toggle="tooltip" data-placement="bottom" title="Upload your official Rutgers transcript here!">Upload New Transcript</button>
+                                <button type="button" class="btn btn-primary btn-lg upload-button" data-toggle="tooltip" data-placement="bottom" title="Upload your official Rutgers transcript here!">Upload Unofficial Transcript</button>
                                 <input id="transcript-upload" name="new-transcript" type="file" accept="application/pdf"/>
                             </form>
                         </div>
@@ -65,11 +66,11 @@
                                     <h6>Template</h6>
                                     <p>
                                         Semester Name <br>
-                                        -1:111:111 <br>
-                                        -2:222:222 <br>
+                                        -(1:111:111) COURSE NAME <br>
+                                        -(2:222:222) COURSE NAME <br>
                                         Semester Name <br>
-                                        -3:333:333 <br>
-                                        -4:444:444 <br>
+                                        -(3:333:333) COURSE NAME <br>
+                                        -(4:444:444) COURSE NAME <br>
                                     </p>
                                 </div>
                             </div>
@@ -78,10 +79,10 @@
                                     <h6>Example</h6>
                                     <p>
                                         Spring 2018 <br>
-                                        -33:010:272 <br>
+                                        -(33:010:272) INTRO FINANCIAL ACCT <br>
                                         Fall 2019 <br>
-                                        -33:010:451 <br>
-                                        -01:013:192
+                                        -(33:010:451) COST ACCOUNTING <br>
+                                        -(01:013:192) ELEMENTARY TWI I
                                     </p>
                                 </div>
                             </div>

@@ -1,12 +1,19 @@
-const displayAccount = (knex) => async (req, res) => {
+const displayAccount = (knex, data) => (req, res) => {
     const username = req.session.user
-    let data = {
-        notification: null,
-        user: username
-    };
-    if (req.session.notification) {
-        data.notification = req.session.notification;
-        req.session.notification = null;
+    console.log(data)
+    if (!data) {
+        if (req.session.notification) {
+            data = {
+                notification: req.session.notification,
+                user: username
+            };
+            req.session.notification = null;
+        } else {
+            data = {
+                notification: null,
+                user: username
+            };
+        }
     }
     knex.raw(`SELECT DISTINCT ON (course_full_number)
                 course_full_number, name, users_courses.semester
@@ -14,6 +21,7 @@ const displayAccount = (knex) => async (req, res) => {
                 ON courses.course_full_number = users_courses.course
                 WHERE users_courses.username = '${username}'`)
         .then(results => {
+            console.log('here')
             let semesters = {};
             results.rows.forEach(course => {
                 let sem = course.semester;
@@ -37,6 +45,19 @@ const displayAccount = (knex) => async (req, res) => {
         });
 }
 
+const handleAccount = knex => (req,res) => {
+    console.log(req.body);
+    console.log('redisplaying');
+    displayAccount(knex, {
+        notification: {
+            type: 'success',
+            message: 'yay'
+        },
+        user: req.session.user
+    })(req, res);
+}
+
 module.exports = {
-    displayAccount: displayAccount
+    displayAccount: displayAccount,
+    handleAccount: handleAccount
 }

@@ -125,8 +125,10 @@ h1 {
     font-weight: 300;
 }
 
-#completed-courses-header {
-    margin-bottom: .5em;
+.container span {
+    opacity: 0.8;
+    display: block;
+    margin-bottom: 2em;
 }
 
 li {

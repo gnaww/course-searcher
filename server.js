@@ -72,9 +72,7 @@ app.route('/course')
 app.route('/account')
     .all(authenticate.auth)
     .get(account.displayAccount(knex))
-    .post(function (req, res) {
-        res.send('adding user courses')
-    });
+    .post(account.handleAccount(knex));
 
 app.route('/register')
     .get(register.displayRegister(null))
