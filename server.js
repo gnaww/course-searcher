@@ -8,6 +8,8 @@ const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 const { Model } = require('objection');
 const morgan = require('morgan');
+const pdfjsLib = require('pdfjs-dist');
+const fileUpload = require('express-fileupload');
 
 // controllers for routes
 const login = require('./controllers/login');
@@ -36,6 +38,7 @@ app.set('view engine', 'ejs');
 
 // middleware
 app.use(cors());
+app.use(fileUpload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
@@ -71,8 +74,8 @@ app.route('/course')
 
 app.route('/account')
     .all(authenticate.auth)
-    .get(account.displayAccount(knex))
-    .post(account.handleAccount(knex));
+    .get(account.displayAccount(knex, null))
+    .post(account.handleAccount(knex, pdfjsLib));
 
 app.route('/register')
     .get(register.displayRegister(null))

@@ -20,84 +20,66 @@
         <div class="container border rounded">
             <h1 id="completed-courses-header">Update Your Completed Courses</h1>
             <span>* Updating your completed courses will overwrite ALL your previously saved completed courses</span>
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".upload-modal-auto">Auto</button>
-            <button type="button" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target=".upload-modal-manual">Manual</button>
+            <div class="upload border rounded">
+                <h5 class="bold">Upload your unofficial transcript to automatically fill in your courses. You can also manually type in your courses yourself if you do not wish to upload your transcript. Use the template below or it will not be saved properly. </h5>
+                <form action="/account" method="post" enctype="multipart/form-data" id="upload-auto-form">
+                    <input id="transcript-upload" name="transcript" type="file" accept="application/pdf" required/>
+                    <button type="reset" class="btn btn-outline-primary" data-dismiss="reset">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+            <div>
+                <div class="template">
+                    <div class="tut-aside">
+                        <div>
+                            <h6>Template</h6>
+                            <p>
+                                Semester Name <br>
+                                -(1:111:111) COURSE NAME <br>
+                                -(2:222:222) COURSE NAME <br>
+                                Semester Name <br>
+                                -(3:333:333) COURSE NAME <br>
+                                -(4:444:444) COURSE NAME <br>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="tut-aside">
+                        <div>
+                            <h6>Example</h6>
+                            <p>
+                                Spring 2018 <br>
+                                -(33:010:272) INTRO FINANCIAL ACCT <br>
+                                Fall 2019 <br>
+                                -(33:010:451) COST ACCOUNTING <br>
+                                -(01:013:192) ELEMENTARY TWI I
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <form action="/account" method="post" id="upload-form">
+                    <%
+                    let str = '';
+                    if (form) {
+                        form.forEach(semester => {
+                            str += semester[0] + '&#013;';
+                            semester[1].forEach(course => {
+                                str += `-(${course.id}) ${course.name}&#013;`;
+                            });
+                        });
+                        str = str.trim();
+                        // remove last &#013;
+                        str = str.slice(0, str.length - 6)
+                    }
+                    %>
+                    <textarea class="manual-add" name="courses" type="text" placeholder="Enter the semester names, course numbers, and course names of the courses you took that semester. Follow the template above!!" required><%- str %></textarea>
+                    <br>
+                    <button type="reset" class="btn btn-outline-primary btn-lg cancel-button" data-dismiss="reset">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-lg submit-button">Save Changes</button>
+                </form>
+            </div>
         </div>
 
 
-        <div class="modal fade upload-modal-auto" id="auto-modal" tabindex="-1" role="dialog" aria-labelledby="Upload New Transcript" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="update-header">Automatically Update Completed Courses</h2>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="upload">
-                            <form action="account.html" method="post" enctype="multipart/form-data" id="upload-auto-form">
-                                <button type="button" class="btn btn-primary btn-lg upload-button" data-toggle="tooltip" data-placement="bottom" title="Upload your official Rutgers transcript here!">Upload Unofficial Transcript</button>
-                                <input id="transcript-upload" name="new-transcript" type="file" accept="application/pdf"/>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-primary btn-lg cancel-button" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary btn-lg save-button">Save Changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade upload-modal-manual" id="manual-modal" tabindex="-1" role="dialog" aria-labelledby="Upload New Transcript" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="update-header">Manually Update Completed Courses</h2>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h5>Manually enter your completed courses here. Use this format when entering your coursework or else it will not save properly. </h5> <br>
-                        <div class="modal-tutorial">
-                            <div class="tut-aside">
-                                <div>
-                                    <h6>Template</h6>
-                                    <p>
-                                        Semester Name <br>
-                                        -(1:111:111) COURSE NAME <br>
-                                        -(2:222:222) COURSE NAME <br>
-                                        Semester Name <br>
-                                        -(3:333:333) COURSE NAME <br>
-                                        -(4:444:444) COURSE NAME <br>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="tut-aside">
-                                <div>
-                                    <h6>Example</h6>
-                                    <p>
-                                        Spring 2018 <br>
-                                        -(33:010:272) INTRO FINANCIAL ACCT <br>
-                                        Fall 2019 <br>
-                                        -(33:010:451) COST ACCOUNTING <br>
-                                        -(01:013:192) ELEMENTARY TWI I
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <form action="account.html" method="post" enctype="multipart/form-data" id="upload-form">
-                            <textarea class="manual-add" name="new-courses" type="text" placeholder="Enter the semester names, course numbers, and course names of the courses you took that semester." required></textarea>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-primary btn-lg cancel-button" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary btn-lg submit-button">Save Changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="username-header">
             <h1>My Completed Courses</h1>
         </div>
@@ -125,7 +107,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <script src="/js/pdf.min.js"></script>
     <script src="/js/account.js"></script>
 </body>
 
