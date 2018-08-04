@@ -1,3 +1,5 @@
+const validator = require('validator');
+
 const displayAccount = (knex, form) => (req, res) => {
     let username = req.session.user;
     let data = {
@@ -110,7 +112,34 @@ const handleAccount = (knex, pdfjsLib) => (req, res) => {
             res.redirect('/account');
         });
     } else {
-        console.log(req.body);
+        let courses = req.body.courses;
+        if (courses) {
+            console.log(req.body);
+            console.log(courses);
+            let endsWithNewLine = validator.matches(courses.slice(courses.length - 6),/\r|\n/);
+            // console.log('end with new line', endsWithNewLine);
+            // if (!endsWithNewLine) {
+            //     courses += '\n';
+            // }
+            let test = /(((Spring|Fall|Summer)\s[0-9]{4}|External Examinations|Transfer Courses)\n([-(\d{2}:\d{3}:\d{3})]+\s.*?\n)+)+/;
+
+            let regex = /(((Spring|Fall|Summer)\s[0-9]{4}|External Examinations|Transfer Courses)\n([-(\d{2}:\d{3}:\d{3})]+\s.*?\n)+)+/;
+
+            let regex2 = /(((Spring|Fall|Summer)\s[0-9]{4}|External Examinations|Transfer Courses)[\n|\r|\r\n]([-(\d{2}:\d{3}:\d{3})]+\s.*?[\n|\r|\r\n])+)+/;
+
+            let regex3 = /(((Spring|Fall|Summer)\s[0-9]{4}|External Examinations|Transfer Courses)\s([-(\d{2}:\d{3}:\d{3})]+\s.*?[\n|\r|\r\n])+)+/;
+
+            let validFormat = validator.matches(courses, regex3);
+            console.log('valid format', validFormat);
+            console.log('test format validity', courses.match(regex3));
+        } else {
+            console.log('empty transcript text submission')
+            req.session.notification = {
+                type: 'error',
+                message: 'Error while saving completed courses. No text was submitted.'
+            };
+            res.redirect('/account');
+        }
     }
 }
 
