@@ -28,6 +28,7 @@
     resize: none;
     height: 12em;
     width: 100%;
+    margin-bottom: 1em;
 }
 
 .submit-button {
@@ -42,6 +43,7 @@
 
 .upload {
     padding: 1em 2em;
+    margin-bottom: 1em;
 }
 
 .upload form {

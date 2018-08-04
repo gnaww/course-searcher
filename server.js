@@ -74,7 +74,7 @@ app.route('/course')
 
 app.route('/account')
     .all(authenticate.auth)
-    .get(account.displayAccount(knex))
+    .get(account.displayAccount(knex, null))
     .post(account.handleAccount(knex, pdfjsLib));
 
 app.route('/register')

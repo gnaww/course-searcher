@@ -1,4 +1,4 @@
-const displayAccount = knex => (req, res) => {
+const displayAccount = (knex, form) => (req, res) => {
     let username = req.session.user;
     let data = {
         notification: null,
@@ -7,6 +7,11 @@ const displayAccount = knex => (req, res) => {
     if (req.session.notification) {
         data.notification = req.session.notification;
         req.session.notification = null;
+    }
+    if (form) {
+        data.form = form;
+    } else {
+        data.form = null;
     }
     knex('users_courses').where({ username: username }).select('courses')
         .then(result => {
@@ -32,13 +37,12 @@ const displayAccount = knex => (req, res) => {
         });
 }
 
-const handleAccount = (knex, pdfjsLib, fs) => (req, res) => {
-    if (req.files.transcript) {
+const handleAccount = (knex, pdfjsLib) => (req, res) => {
+    if (req.files) {
         let transcript = req.files.transcript;
         var data = new Uint8Array(transcript.data);
 
         pdfjsLib.getDocument(data).then(function (pdf) {
-            var pdfDocument = pdf;
             // Create an array that will contain our promises
             var pagesPromises = [];
 
@@ -46,10 +50,9 @@ const handleAccount = (knex, pdfjsLib, fs) => (req, res) => {
                 // Required to prevent that i is always the total of pages
                 (function (pageNumber) {
                     // Store the promise of getPageText that returns the text of a page
-                    pagesPromises.push(getPageText(pageNumber, pdfDocument));
+                    pagesPromises.push(getPageText(pageNumber, pdf));
                 })(i + 1);
             }
-
             // Execute all the promises
             Promise.all(pagesPromises).then(function (pagesText) {
                 /* Rutger Transcript PDF order:
@@ -83,17 +86,32 @@ const handleAccount = (knex, pdfjsLib, fs) => (req, res) => {
                     }
                 }
 
-                userCoursesObj = JSON.stringify([...userCourses])
-                let test = JSON.parse(userCoursesObj);
-                for (let i = 0; i < test.length; i++) {
-                    console.log(test[i][0], test[i][1]);
-                }
+                userCoursesJSONStringified = JSON.stringify([...userCourses])
+                let userCoursesJSON = JSON.parse(userCoursesJSONStringified);
+                // for (let i = 0; i < userCoursesJSON.length; i++) {
+                //     console.log(userCoursesJSON[i][0], userCoursesJSON[i][1]);
+                // }
+                return displayAccount(knex, userCoursesJSON)(req,res);
             });
         }, function (reason) {
             console.error(reason);
+            req.session.notification = {
+                type: 'error',
+                message: 'Error while parsing transcript. Something went wrong on our end :('
+            };
+            res.redirect('/account');
+        })
+        .catch(err => {
+            console.log('error while parsing transcript', err);
+            req.session.notification = {
+                type: 'error',
+                message: 'Error while parsing transcript. Something went wrong on our end :('
+            };
+            res.redirect('/account');
         });
+    } else {
+        console.log(req.body);
     }
-    // console.log(req.body);
 }
 
 const getPageText = (pageNum, PDFDocumentInstance) => {
@@ -197,15 +215,6 @@ const getSemester = transcript => {
         return { name: semesterName, courses: courses, endIndex: semesterEndIndex};
     }
 };
-
-// /* Add a single semester to newly uploaded section */
-// const appendSemester = (semesterName, semesterCourses) => {
-//     let coursesList = "";
-//     for (let i = 0; i < semesterCourses.length; i++) {
-//         coursesList += `<li>(${semesterCourses[i].id}) ${semesterCourses[i].name}</li>`;
-//     }
-//     $(".modal-body").append(`<div class="new-semester"><h2>${semesterName}</h2><ul>${coursesList}</ul></div>`);
-// }
 
 module.exports = {
     displayAccount: displayAccount,

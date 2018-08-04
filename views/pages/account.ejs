@@ -21,9 +21,8 @@
             <h1 id="completed-courses-header">Update Your Completed Courses</h1>
             <span>* Updating your completed courses will overwrite ALL your previously saved completed courses</span>
             <div class="upload border rounded">
-                <h5 class="bold">This will be automatically filled by uploading an unofficial transcript. You can also manually type in your courses yourself. Use this format or it will not be saved properly. </h5>
+                <h5 class="bold">Upload your unofficial transcript to automatically fill in your courses. You can also manually type in your courses yourself if you do not wish to upload your transcript. Use the template below or it will not be saved properly. </h5>
                 <form action="/account" method="post" enctype="multipart/form-data" id="upload-auto-form">
-                    <input type="hidden" name="formType" value="transcript">
                     <input id="transcript-upload" name="transcript" type="file" accept="application/pdf" required/>
                     <button type="reset" class="btn btn-outline-primary" data-dismiss="reset">Cancel</button>
                     <button type="submit" class="btn btn-primary">Upload</button>
@@ -57,9 +56,22 @@
                         </div>
                     </div>
                 </div>
-                <form action="account.html" method="post" id="upload-form">
-                    <input type="hidden" name="formType" value="courses">
-                    <textarea class="manual-add" name="new-courses" type="text" placeholder="Enter the semester names, course numbers, and course names of the courses you took that semester." required></textarea>
+                <form action="/account" method="post" id="upload-form">
+                    <%
+                    let str = '';
+                    if (form) {
+                        form.forEach(semester => {
+                            str += semester[0] + '&#013;';
+                            semester[1].forEach(course => {
+                                str += `-(${course.id}) ${course.name}&#013;`;
+                            });
+                        });
+                        str = str.trim();
+                        // remove last &#013;
+                        str = str.slice(0, str.length - 6)
+                    }
+                    %>
+                    <textarea class="manual-add" name="courses" type="text" placeholder="Enter the semester names, course numbers, and course names of the courses you took that semester. Follow the template above!!" required><%- str %></textarea>
                     <br>
                     <button type="reset" class="btn btn-outline-primary btn-lg cancel-button" data-dismiss="reset">Cancel</button>
                     <button type="submit" class="btn btn-primary btn-lg submit-button">Save Changes</button>
@@ -95,7 +107,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <script src="/js/pdf.min.js"></script>
     <script src="/js/account.js"></script>
 </body>
 
