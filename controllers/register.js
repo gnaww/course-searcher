@@ -86,7 +86,6 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
     }
 
     if (validCredentials) {
-        console.log('ready to register');
         bcrypt.genSalt(10, function(err, salt) {
             if (err) {
                 console.log('error generating salt: ', err);
@@ -111,7 +110,6 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
                             form: username
                         })(req, res);
                     } else {
-                        console.log('inserting user');
                         knex('users').insert({ username: username, password: hash })
                             .then(newUser => {
                                 req.session.user = username;
