@@ -38,33 +38,8 @@ class Course extends Model {
         const User = require('./User');
         const Comment = require('./Comment');
         const Rating = require('./Rating');
-        
+
         return {
-            users: {
-                relation: Model.ManyToManyRelation,
-                modelClass: User,
-                join: {
-                    from: 'courses.course_full_number',
-                    through: {
-                        from: 'users_courses.course',
-                        to: 'users_courses.username'
-
-                        // If you have a model class for the join table
-                        // you can specify it like this:
-                        //
-                        // modelClass: PersonMovie,
-
-                        // Columns listed here are automatically joined
-                        // to the related models on read and written to
-                        // the join table instead of the related table
-                        // on insert.
-                        //
-                        // extra: ['someExtra']
-                    },
-                    to: 'users.username'
-                }
-            },
-            
             requirements: {
                 relation: Model.ManyToManyRelation,
                 modelClass: Requirement,
@@ -89,7 +64,7 @@ class Course extends Model {
                     to: 'requirements.code'
                 }
             },
-            
+
             comments: {
                 relation: Model.HasManyRelation,
                 modelClass: Comment,
@@ -98,7 +73,7 @@ class Course extends Model {
                     to: 'comments.course'
                 }
             },
-            
+
             ratings: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: Rating,

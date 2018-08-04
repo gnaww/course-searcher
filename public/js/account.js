@@ -41,7 +41,7 @@ $(".save-button").on('click', function() {
 
 // When manual submission save button clicked save user data to DB
 $(".submit-button").on('click', function() {
-
+    // parse submitted courses in the textarea
 });
 
 // Every section of the transcript ends with this string
@@ -194,6 +194,7 @@ $("#transcript-upload").on('change', function() {
 
                 userCoursesObj = JSON.stringify([...userCourses])
                 let test = JSON.parse(userCoursesObj);
+                console.log(test);
                 // for (let i = 0; i < test.length; i++) {
                 //     console.log(test[i][0]);
                 //     console.log(test[i][1]);
@@ -235,7 +236,7 @@ function getPageText(pageNum, PDFDocumentInstance) {
                     finalString += item.str + " ";
                 }
 
-                // Solve promise with the text retrieven from the page
+                // Solve promise with the text retrieved from the page
                 resolve(finalString);
             });
         });

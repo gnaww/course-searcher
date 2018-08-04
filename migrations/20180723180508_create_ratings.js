@@ -2,7 +2,7 @@
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('ratings', function(t) {
         t.text('course').notNullable();
-        t.integer('average_rating').notNullable();
+        t.decimal('average_rating').notNullable();
     });
 };
 
