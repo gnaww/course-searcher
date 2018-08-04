@@ -18,14 +18,16 @@ const displayAccount = (knex, form) => (req, res) => {
     knex('users_courses').where({ username: username }).select('courses')
         .then(result => {
             let semesters = {};
-            result[0].courses.forEach(semester => {
-                let semesterName = semester[0];
-                let courses = [];
-                semester[1].forEach(course => {
-                    courses.push(`(${course.id}) ${course.name}`)
+            if (result[0]) {
+                result[0].courses.forEach(semester => {
+                    let semesterName = semester[0];
+                    let courses = [];
+                    semester[1].forEach(course => {
+                        courses.push(`(${course.id}) ${course.name}`)
+                    });
+                    semesters[semesterName] = courses;
                 });
-                semesters[semesterName] = courses;
-            });
+            }
             data.semesters = semesters;
             res.render('pages/account', data);
         })
@@ -93,6 +95,10 @@ const handleAccount = (knex, pdfjsLib) => (req, res) => {
                 // for (let i = 0; i < userCoursesJSON.length; i++) {
                 //     console.log(userCoursesJSON[i][0], userCoursesJSON[i][1]);
                 // }
+                req.session.notification = {
+                    type: 'success',
+                    message: 'Successfully parsed transcript!'
+                };
                 return displayAccount(knex, userCoursesJSON)(req,res);
             });
         }, function (reason) {
@@ -114,24 +120,75 @@ const handleAccount = (knex, pdfjsLib) => (req, res) => {
     } else {
         let courses = req.body.courses;
         if (courses) {
-            console.log(req.body);
-            console.log(courses);
             let endsWithNewLine = validator.matches(courses.slice(courses.length - 6),/\r|\n/);
-            // console.log('end with new line', endsWithNewLine);
-            // if (!endsWithNewLine) {
-            //     courses += '\n';
-            // }
-            let test = /(((Spring|Fall|Summer)\s[0-9]{4}|External Examinations|Transfer Courses)\n([-(\d{2}:\d{3}:\d{3})]+\s.*?\n)+)+/;
+            if (!endsWithNewLine) {
+                courses += '\n';
+            }
 
-            let regex = /(((Spring|Fall|Summer)\s[0-9]{4}|External Examinations|Transfer Courses)\n([-(\d{2}:\d{3}:\d{3})]+\s.*?\n)+)+/;
+            let courseRegex = /-\([0-9]{2}:[0-9]{3}:[0-9]{3}\).*?[\r\n|\n|\r]/gi;
+            let semesterNameRegex = /Spring\s\d{4}|Fall\s\d{4}|Summer\s\d{4}|External Examinations|Transfer Courses/gi;
 
-            let regex2 = /(((Spring|Fall|Summer)\s[0-9]{4}|External Examinations|Transfer Courses)[\n|\r|\r\n]([-(\d{2}:\d{3}:\d{3})]+\s.*?[\n|\r|\r\n])+)+/;
+            let coursesValidate = courses.replace(courseRegex, '').replace(semesterNameRegex, '');
+            let coursesIsValid = validator.isEmpty(coursesValidate.trim());
 
-            let regex3 = /(((Spring|Fall|Summer)\s[0-9]{4}|External Examinations|Transfer Courses)\s([-(\d{2}:\d{3}:\d{3})]+\s.*?[\n|\r|\r\n])+)+/;
+            if (coursesIsValid) {
+                let semesterNames = courses.match(semesterNameRegex);
+                let semesters = courses.split(semesterNameRegex);
+                semesters.shift();
+                let insertSemesters = [];
+                if (semesterNames.length === semesters.length) {
+                    for (let i = 0; i  < semesterNames.length; i++) {
+                        let insertSemester = [];
+                        let insertSemesterCourses = [];
+                        let semesterCourses = semesters[i].split(/\r\n|\n|\r/g);
+                        semesterCourses.pop();
+                        semesterCourses.shift();
+                        // console.log(semesterNames[i], semesterCourses);
 
-            let validFormat = validator.matches(courses, regex3);
-            console.log('valid format', validFormat);
-            console.log('test format validity', courses.match(regex3));
+                        insertSemester.push(semesterNames[i]);
+                        semesterCourses.forEach(course => {
+                            let id = course.slice(2, 12);
+                            let name = course.slice(14);
+                            insertSemesterCourses.push({ id: id, name: name });
+                        })
+                        insertSemester.push(insertSemesterCourses);
+                        insertSemesters.push(insertSemester);
+                    }
+                    knex.raw(`INSERT INTO users_courses
+                              (username, courses) VALUES (:uname, :c)
+                              ON CONFLICT (username)
+                              DO UPDATE SET courses = :c;`, { uname: req.session.user, c: JSON.stringify(insertSemesters) })
+                    .then(response => {
+                        req.session.notification = {
+                            type: 'success',
+                            message: 'Successfully saved completed courses!'
+                        };
+                        res.redirect('/account');
+                    })
+                    .catch(err => {
+                        console.log('error while upserting users_courses', err);
+                        req.session.notification = {
+                            type: 'error',
+                            message: 'Error saving completed courses. Something went wong on our end :('
+                        };
+                        res.redirect('/account');
+                    });
+                } else {
+                    console.log('number of semester names and grouped courses didn\'t match');
+                    req.session.notification = {
+                        type: 'error',
+                        message: 'Error saving completed courses. Something went wrong on our end :('
+                    };
+                    res.redirect('/account');
+                }
+            } else {
+                console.log('submitted text didn\'t pass format validation');
+                req.session.notification = {
+                    type: 'error',
+                    message: 'Error saving completed courses. The template was not followed.'
+                };
+                res.redirect('/account');
+            }
         } else {
             console.log('empty transcript text submission')
             req.session.notification = {

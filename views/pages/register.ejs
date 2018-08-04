@@ -23,7 +23,7 @@
             <div class="form-group row">
                 <label for="inputUsername" class="col-form-label">Username</label>
                 <div class="form-input">
-                    <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username" required>
+                    <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username" value="<%= form ? form : '' %>" required>
                     <span style="opacity: 0.85">Username can contain any letters or numbers, no spaces.</span>
                 </div>
             </div>

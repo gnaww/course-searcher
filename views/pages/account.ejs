@@ -83,22 +83,29 @@
         </div>
         <div class="semesters-container">
             <%
-                Object.keys(semesters).forEach(function(semesterName) {
+                // check if semesters is empty or not
+                if (!(Object.keys(semesters).length === 0 && semesters.constructor === Object)) {
+                    Object.keys(semesters).forEach(function(semesterName) {
             %>
-                    <div class="semester">
-                        <h2><%= semesterName %></h2>
-                        <ul>
+                        <div class="semester">
+                            <h2><%= semesterName %></h2>
+                            <ul>
             <%
-                    for (let i = 0; i < semesters[semesterName].length; i++) {
+                        for (let i = 0; i < semesters[semesterName].length; i++) {
             %>
-                            <li><%= semesters[semesterName][i] %></li>
+                                <li><%= semesters[semesterName][i] %></li>
             <%
-                    }
+                        }
             %>
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
             <%
-                });
+                    });
+                } else {
+            %>
+                    <h3>No saved completed courses yet!</h3>
+            <%
+                }
             %>
         </div>
     </div>

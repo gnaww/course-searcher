@@ -5,7 +5,8 @@ const displayRegister = data => async (req, res) => {
     if (!data) {
         data = {
             notification: null,
-            user: null
+            user: null,
+            form: null
         };
     }
 
@@ -24,7 +25,8 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
                 type: 'error',
                 message: 'Error registering new user. Username and/or password was missing.'
             },
-            user: null
+            user: null,
+            form: null
         })(req, res);
         validCredentials = false;
     } else {
@@ -43,7 +45,8 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
                     type: 'error',
                     message: 'Error registering new user. Username already taken.'
                 },
-                user: null
+                user: null,
+                form: username
             })(req, res);
             validCredentials = false;
         } else if (!validator.isAlphanumeric(username)) {
@@ -53,7 +56,8 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
                     type: 'error',
                     message: 'Error registering new user. Username must contain letters or numbers only without spaces.'
                 },
-                user: null
+                user: null,
+                form: username
             })(req, res);
             validCredentials = false;
         } else if (!validator.isLength(password, { min: 5, max: undefined })) {
@@ -63,7 +67,8 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
                     type: 'error',
                     message: 'Error registering new user. Password must be at least 5 characters.'
                 },
-                user: null
+                user: null,
+                form: username
             })(req, res);
             validCredentials = false;
         } else if (!validator.equals(password, passwordConfirm)) {
@@ -73,7 +78,8 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
                     type: 'error',
                     message: 'Error registering new user. Password confirmation must match password.'
                 },
-                user: null
+                user: null,
+                form: username
             })(req, res);
             validCredentials = false;
         }
@@ -89,7 +95,8 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
                         type: 'error',
                         message: 'Error registering new user. Something went wrong on our end :('
                     },
-                    user: null
+                    user: null,
+                    form: username
                 })(req, res);
             } else {
                 bcrypt.hash(password, salt, function(err, hash) {
@@ -100,13 +107,13 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
                                 type: 'error',
                                 message: 'Error registering new user. Something went wrong on our end :('
                             },
-                            user: null
+                            user: null,
+                            form: username
                         })(req, res);
                     } else {
                         console.log('inserting user');
                         knex('users').insert({ username: username, password: hash })
                             .then(newUser => {
-                                console.log(newUser);
                                 req.session.user = username;
                                 req.session.notification = {
                                     type: 'success',
@@ -121,7 +128,8 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
                                         type: 'error',
                                         message: 'Error registering new user. Something went wrong on our end :('
                                     },
-                                    user: null
+                                    user: null,
+                                    form: user
                                 })(req, res);
                             });
                     }
