@@ -1,16 +1,11 @@
 .container-fluid {
-    padding: 2em 5em 2em 5em;
+    padding: 2em 5em 5em 5em;
 }
 
 .container {
     text-align: center;
-    width: auto;
+    width: 50%;
     padding: 2em 3em;
-}
-
-.container .btn {
-    margin: 0 1em;
-    width: 25%;
 }
 
 .semesters-container {
@@ -29,14 +24,6 @@
     align-self: center;
 }
 
-.modal-body {
-    padding: 2em;
-
-}
-.modal-content semester {
-    width: 50%;
-}
-
 .manual-add {
     resize: none;
     height: 12em;
@@ -44,26 +31,37 @@
 }
 
 .submit-button {
-    height: 60%;
+    margin-left: 1em;
+    width: 10em;
+}
+
+.cancel-button {
+    margin-right: 1em;
+    width: 10em;
+}
+
+.upload {
+    padding: 1em 2em;
 }
 
 .upload form {
-    width: 100%;
-    height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 1em;
+    text-align: left;
 }
-.upload form input[type="file"] {
-    display: none;
+
+.upload form input {
+    flex-grow: 1;
+}
+
+.upload form .btn {
+    margin: 0 0.5em;
 }
 
 .upload-button {
     height: 70%;
     font-weight: normal;
     font-size: 1.7em;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
 }
 
 .new-semester {
@@ -84,43 +82,6 @@
     font-size: 1.2em;
 }
 
-.save-button {
-    height: 60%;
-    display: none;
-}
-
-.cancel-button {
-    height: 60%;
-}
-
-/* loading.io loading icon*/
-.lds-dual-ring {
-    grid-area: load;
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-    margin-bottom: 2em;
-}
-.lds-dual-ring:after {
-    content: " ";
-    display: block;
-    width: 100px;
-    height: 100px;
-    margin: 1px;
-    border-radius: 50%;
-    border: 5px solid #1768AC;
-    border-color: #1768AC transparent #1768AC transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
-}
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 h1 {
     font-weight: 300;
 }
@@ -128,7 +89,7 @@ h1 {
 .container span {
     opacity: 0.8;
     display: block;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
 }
 
 li {
@@ -155,7 +116,7 @@ p {
     font-size: .9em;
 }
 
-.modal-tutorial {
+.template {
     display: flex;
     padding-bottom: 1em;
 }
@@ -163,7 +124,7 @@ p {
 .tut-aside {
     flex-basis: 100%;
     display: flex;
-    padding-left: 10%;
+    text-align: left;
 }
 
 .modal-title {
@@ -179,20 +140,20 @@ p {
         display: block;
     }
 
-    .upload {
-        padding: 0 1em;
-    }
-
     .semester {
         width: 50%;
         padding-right: 0;
+    }
+
+    .container {
+        width: 70%;
     }
 }
 
 /* mobile screens */
 @media only screen and (max-width: 992px) {
-    .upload {
-        padding: 1em;
+    .container-fluid {
+        padding: 2em 2em 5em 2em;
     }
 
     .semester {
@@ -209,5 +170,9 @@ p {
         width: 70%;
         margin: auto;
         text-align: left;
+    }
+
+    .container {
+        width: 100%;
     }
 }
