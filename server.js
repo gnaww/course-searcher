@@ -65,9 +65,7 @@ app.route('/')
 
 app.route('/course')
     .get(course.handleCourseGet)
-    .post(function (req, res) {
-        res.send('posting a new comment')
-    });
+    .post(course.handleCoursePost);
 
 app.route('/account')
     .all(authenticate.auth)

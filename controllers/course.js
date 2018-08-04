@@ -1,5 +1,11 @@
 const Course = require('../models/Course.js');
 const Comment = require('../models/Comment.js');
+const knexfile = require('../knexfile.js');
+const knex = require('knex')(knexfile);
+
+const handleCoursePost = async (req, res, next) => {
+
+}
 
 const handleCourseGet = async (req, res, next) => {
     let data = {
@@ -42,17 +48,24 @@ const handleCourseGet = async (req, res, next) => {
                 });
                 core_codes_string = core_codes_string.substring(0, core_codes_string.length - 2);
             }
+
+            // formats descriptions
             let description = url;
             if (description == null) {
                 description = 'Coming Soon';
             }
 
+            // handles course rating
+            const course_rating = await knex('comments').avg('rating').where('course', course_full_number).then(result => {
+                return (Math.round(result[0].avg * 2) / 2).toFixed(1);
+            });
             data.name = name;
             data.course_full_number = course_full_number;
             data.core_codes_string = core_codes_string;
             data.credits = credits;
             data.pre_reqs = pre_reqs;
             data.description = description;
+            data.course_rating = course_rating;
 
             // section information
             /* section object will contain the following properties:
@@ -81,7 +94,7 @@ const handleCourseGet = async (req, res, next) => {
                 let notes = selected_course[i].notes;
                 let section_open_status = selected_course[i].section_open_status;
                 let exam_code = selected_course[i].exam_code;
-                
+
                 let instructors = selected_course[i].instructors;
                 if (instructors == null) {
                     instructors = 'None';
@@ -131,7 +144,7 @@ const handleCourseGet = async (req, res, next) => {
                 sections.push(section);
             }
             data.sections = sections;
-            
+
             let course_open_status = 'CLOSED';
             for(let s of sections) {
                 if (s.section_open_status === 'OPEN') {
@@ -140,7 +153,7 @@ const handleCourseGet = async (req, res, next) => {
                 }
             }
             data.course_open_status = course_open_status;
-            
+
             console.log('-------------------------------------------------')
 
             console.log('CLASS DEBUGGING INFO ----------------------------------')
@@ -152,19 +165,20 @@ const handleCourseGet = async (req, res, next) => {
             console.log('description: ' + data.description);
             console.log('times: ' + times);
             console.log('course_open_status: ' + course_open_status);
+            console.log('course_rating: ' + course_rating);
             console.log('sections:');
             console.log(sections);
             console.log('-------------------------------------------------')
-            
+
             // handle comments
             const comments = await Comment.query().where('course', course_id);
-            
+
             data.comments = comments;
-            
+
             console.log('COMMENT DEBUGGING INFO ----------------------------------')
             console.log(comments);
             console.log('-------------------------------------------------')
-            
+
             res.render('pages/course', data);
         }
     } catch (error) {
@@ -282,5 +296,6 @@ const formatInstructors = (instructors) => {
     return instructors.replace(/ and /, '<br>');
 }
 module.exports = {
-    handleCourseGet: handleCourseGet
+    handleCourseGet: handleCourseGet,
+    handleCoursePost: handleCoursePost
 }
