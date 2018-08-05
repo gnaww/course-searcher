@@ -88,7 +88,7 @@ app.use(function (req, res) {
 // route for handling everything else that can go wrong
 app.use(function (err, req, res) {
     console.error(err.stack)
-    res.status(500).send('Invalid API route or something broke :(');
+    res.status(500).send('Something broke :(');
 });
 
 const PORT = process.env.PORT || 3000;
