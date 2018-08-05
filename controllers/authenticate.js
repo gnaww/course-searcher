@@ -1,9 +1,12 @@
 const auth = (req, res, next) => {
-    console.log(req.session.user);
-    if (req.session) {
+    if (req.session.user) {
         return next();
     } else {
-        return res.status(401).send('Must be logged in to access this page');
+        req.session.notification = { 
+            type: 'error',
+            message: 'Error authenticating. Must be logged in.'
+        };
+        res.redirect('/');
     }
 };
 

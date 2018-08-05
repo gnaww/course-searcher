@@ -15,6 +15,19 @@
         <header>
             <% include ../partials/navbar %>
         </header>
+        <% 
+        if (notification) { 
+            if (notification.type === 'success') { %>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <% } else { %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <% } %>        
+                    <%= notification.message %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+        <% } %>
         <section>
             <h3 class="dir-search-h"> Direct Search </h3>
             <p class="dir-search-p">Quickly find a class by keyword, index #, or course ID.</p>

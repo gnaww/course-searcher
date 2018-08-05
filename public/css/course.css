@@ -269,21 +269,37 @@
 
 /* laptop/desktop screens with 125%+ page zoom. same layout for mobile */
 @media only screen and (max-width: 1538px) {
+    .container-fluid {
+        padding: 2em;
+    }
+
     .column-left {
         width: 100%;
         padding-bottom: 2em;
+        padding-right: 0;
     }
-    
+
     .column-right {
         width: 100%;
         padding-top: 2em;
+        padding-left: 0;
     }
     .divider {
         border-top: 2px solid #d3d3d3;
         border-left: 0;
     }
-    
+
     .class-comments {
         overflow: auto;
     }
 }
+
+.table-link {
+    font-size: 1em;
+    color: #89b0b7;
+}
+
+.table-link:hover {
+    color: #0F436D
+}
+

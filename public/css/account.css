@@ -31,7 +31,7 @@
 
 .modal-body {
     padding: 2em;
-    
+
 }
 .modal-content semester {
     width: 50%;
@@ -85,12 +85,12 @@
 }
 
 .save-button {
-    height 60%;
+    height: 60%;
     display: none;
 }
 
 .cancel-button {
-    height 60%;
+    height: 60%;
 }
 
 /* loading.io loading icon*/
@@ -175,11 +175,11 @@ p {
         width: 100%;
         display: block;
     }
-    
+
     .upload {
         padding: 0 1em;
     }
-    
+
     .semester {
         width: 50%;
         padding-right: 0;
@@ -191,7 +191,7 @@ p {
     .upload {
         padding: 1em;
     }
-    
+
     .semester {
         text-align: center;
         width: 100%;
@@ -200,7 +200,7 @@ p {
     .username-header {
         text-align: center;
     }
-  
+
     .semester ul {
         width: 70%;
         margin: auto;

@@ -7,8 +7,6 @@ const Knex = require('knex');
 const knexConfig = require('./knexfile');
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
-const { check, validationResult } = require('express-validator/check');
-const { matchedData, sanitize } = require('express-validator/filter');
 const { Model } = require('objection');
 const morgan = require('morgan');
 
@@ -38,10 +36,10 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 // middleware
-app.use(cors())
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 
 // user sessions middleware
 app.use(session({
@@ -51,15 +49,15 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     unset: 'destroy',
-    cookie: { 
-        maxAge: 3600000 // 1 hour 
+    cookie: {
+        maxAge: 3600000 // 1 hour
     }
 }));
 
 // routes
 app.route('/')
     .get(function (req, res) {
-        res.render('pages/index');
+        index.displayHomepage(req, res);
     })
     .post(function (req, res) {
         res.send('searching for classes')
@@ -67,15 +65,14 @@ app.route('/')
 
 app.route('/course')
     .get(course.handleCourseGet)
-    .post(function (req, res) {
-        res.send('posting a new comment')
-    });
+    .post(course.handleCoursePost);
 
 app.route('/account')
-    .get(authenticate.auth, function (req, res) {
+    .all(authenticate.auth)
+    .get(function (req, res) {
         res.render('pages/account');
     })
-    .post(authenticate.auth, function (req, res) {
+    .post(function (req, res) {
         res.send('adding user courses')
     });
 
@@ -84,10 +81,16 @@ app.post('/login', login.handleLogIn(bcrypt));
 app.get('/logout', authenticate.auth, function (req, res) {
     req.session.destroy(function (err) {
         if (err) {
-            console.log('error logging out', err);
-            return res.status(500).send('Error logging out');
+            console.log('error logging out: ', err);
+            req.session.notification = {
+                type: 'error',
+                message: 'Error logging out. Something went wrong on our end :('
+            };
+            res.redirect('/');
+            //return res.status(500).send('Error logging out');
         } else {
-            res.send('Successfully logged out')
+            res.redirect('/');
+            //res.send('Successfully logged out')
         }
     })
 });
@@ -109,5 +112,5 @@ app.use(function (err, req, res) {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=> {
-  console.log('Backend server running on port ' + PORT);
+  console.log('Server running on port ' + PORT);
 })
