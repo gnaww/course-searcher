@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
-const saltRounds = 10;
 const cors = require('cors');
 const Knex = require('knex');
 const knexConfig = require('./knexfile');
@@ -9,6 +8,8 @@ const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 const { Model } = require('objection');
 const morgan = require('morgan');
+const pdfjsLib = require('pdfjs-dist');
+const fileUpload = require('express-fileupload');
 
 // controllers for routes
 const login = require('./controllers/login');
@@ -37,6 +38,7 @@ app.set('view engine', 'ejs');
 
 // middleware
 app.use(cors());
+app.use(fileUpload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
@@ -50,15 +52,13 @@ app.use(session({
     saveUninitialized: false,
     unset: 'destroy',
     cookie: {
-        maxAge: 3600000 // 1 hour
+        maxAge: 1000 * 60 * 60 * 24 // 1 day
     }
 }));
 
 // routes
 app.route('/')
-    .get(function (req, res) {
-        index.displayHomepage(req, res);
-    })
+    .get(index.displayHomepage)
     .post(function (req, res) {
         res.send('searching for classes')
     });
@@ -69,35 +69,16 @@ app.route('/course')
 
 app.route('/account')
     .all(authenticate.auth)
-    .get(function (req, res) {
-        res.render('pages/account');
-    })
-    .post(function (req, res) {
-        res.send('adding user courses')
-    });
+    .get(account.displayAccount(knex, null))
+    .post(account.handleAccount(knex, pdfjsLib));
+
+app.route('/register')
+    .get(register.displayRegister(null))
+    .post(register.handleRegister(knex, bcrypt));
 
 app.post('/login', login.handleLogIn(bcrypt));
 
-app.get('/logout', authenticate.auth, function (req, res) {
-    req.session.destroy(function (err) {
-        if (err) {
-            console.log('error logging out: ', err);
-            req.session.notification = {
-                type: 'error',
-                message: 'Error logging out. Something went wrong on our end :('
-            };
-            res.redirect('/');
-            //return res.status(500).send('Error logging out');
-        } else {
-            res.redirect('/');
-            //res.send('Successfully logged out')
-        }
-    })
-});
-
-app.post('/register', function (req, res) {
-    res.send('register account');
-})
+app.get('/logout', authenticate.auth, login.handleLogOut);
 
 // route for handling 404 requests (unavailable routes)
 app.use(function (req, res) {

@@ -293,13 +293,3 @@
         overflow: auto;
     }
 }
-
-.table-link {
-    font-size: 1em;
-    color: #89b0b7;
-}
-
-.table-link:hover {
-    color: #0F436D
-}
-

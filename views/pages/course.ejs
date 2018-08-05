@@ -78,7 +78,7 @@
                                 </td>
                                 <td>
                                     <% section.locations.forEach(function(location) { %>
-                                    <%= location %> <br>                            
+                                    <%= location %> <br>
                                     <% }); %>
                                 </td>
                                 <td><%- section.instructors %></td>
@@ -134,13 +134,13 @@
                         <% let full_stars = Math.floor(course_rating); %>
                         <% let half_stars = course_rating - full_stars; %>
                         <% let empty_stars = 5 - course_rating - 1; %>
-                        <% for (let i = 0; i < full_stars; i++) { %> 
+                        <% for (let i = 0; i < full_stars; i++) { %>
                             <i class="fas fa-star"></i>
                         <% } %>
-                        <% for (let i = 0.0; i < half_stars; i+=.5) { %> 
+                        <% for (let i = 0.0; i < half_stars; i+=.5) { %>
                             <i class="fas fa-star-half-alt"></i>
                         <% } %>
-                        <% for (let i = 0; i < empty_stars; i++) { %> 
+                        <% for (let i = 0; i < empty_stars; i++) { %>
                             <i class="far fa-star"></i>
                         <% } %>
                     </span>

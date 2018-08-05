@@ -21,7 +21,7 @@ class Comment extends Model {
     }
 
     static get relationMappings() {
-        const Course = require('Course');
+        const Course = require('./Course');
 
         return {
             courses: {

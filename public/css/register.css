@@ -1,0 +1,56 @@
+.container-fluid {
+    width: 50%;
+    margin: auto;
+    padding-top: 3em;
+}
+
+.register-form .btn {
+    border: 1px solid #13446B;
+    color: #13446B;
+    width: 10em;
+    height: 1.9em;
+    font-size: 1.2em;
+    transition: color .5s ease, background-color .5s ease;
+    line-height: 1.2em;
+    background-color: white;
+    margin-left: 30%;
+}
+
+.register-form .btn:hover {
+    color: #BBDAE0;
+    background-color: #13446B;
+}
+
+.register-form .btn:active {
+    color: white;
+    background-color: #3472a3;
+}
+
+.register-form label {
+    text-align: right;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    width: 30%;
+    padding-right: 2em;
+}
+
+.register-form .form-input {
+    width: 60%;
+}
+
+h1 {
+    padding-bottom: 0.2em;
+    border-bottom: 2px solid #d3d3d3;
+}
+
+h5 {
+    padding-bottom: 1em;
+}
+
+/* media queries */
+
+@media only screen and (max-width: 1300px) {
+    .container-fluid {
+        width: 80%;
+    }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rutgers Course Planner++</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/resources.css">
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="/css/register.css">
+</head>
+
+<body>
+    <header>
+        <% include ../partials/navbar %>
+    </header>
+    <% include ../partials/notification %>
+    <div class="container-fluid">
+        <h1>Register New Account</h1>
+        <h5>Create an account to save your completed classes and filter search results by fulfilled prerequisites!</h5>
+        <form id="register" method="post" action="/register" class="register-form">
+            <div class="form-group row">
+                <label for="inputUsername" class="col-form-label">Username</label>
+                <div class="form-input">
+                    <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username" value="<%= form ? form : '' %>" required>
+                    <span style="opacity: 0.85">Username can contain any letters or numbers, no spaces.</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPassword" class="col-form-label">Password</label>
+                <div class="form-input">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" required>
+                    <span style="opacity: 0.85">Password should be at least 5 characters.</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPasswordConfirm" class="col-form-label">Confirm Password</label>
+                <div class="form-input">
+                    <input type="password" class="form-control" id="inputPasswordConfirm" placeholder="Confirm Password" name="passwordConfirm" required>
+                    <span style="opacity: 0.85">Please confirm your password.</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <button type="submit" class="btn">Register</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+
+</html>
