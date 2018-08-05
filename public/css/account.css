@@ -22,6 +22,14 @@
     align-self: center;
 }
 
+.modal-body {
+    padding: 2em;
+
+}
+.modal-content semester {
+    width: 50%;
+}
+
 .manual-add {
     resize: none;
     height: 12em;

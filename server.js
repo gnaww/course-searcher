@@ -64,13 +64,8 @@ app.route('/')
     });
 
 app.route('/course')
-    .get(function (req, res) {
-        console.log(req.query)
-        res.render('pages/course', { user: null, notification: null });
-    })
-    .post(function (req, res) {
-        res.send('posting a new comment')
-    });
+    .get(course.handleCourseGet)
+    .post(course.handleCoursePost);
 
 app.route('/account')
     .all(authenticate.auth)
