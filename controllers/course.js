@@ -24,7 +24,11 @@ const handleCourseGet = async (req, res, next) => {
         // course information
         const selected_course = await Course.query().where('course_full_number', course_id);
         if (selected_course === undefined || selected_course.length === 0) {
-            return res.status(404).json('Course not found');
+            if (req.session.user) {
+                res.render('pages/error', { error: 'course', user: req.session.user });
+            } else {
+                res.render('pages/error', { error: 'course', user: null });
+            }
         } else {
             const first_section = selected_course[0];
             // destructuring
@@ -183,7 +187,12 @@ const handleCourseGet = async (req, res, next) => {
         }
     } catch (error) {
         console.log(error);
-        return res.status(400).json('Error retrieving course data');
+        // return res.status(400).json('Error retrieving course data');
+        if (req.session.user) {
+            res.render('pages/error', { error: 'course', user: req.session.user });
+        } else {
+            res.render('pages/error', { error: 'course', user: null });
+        }
     }
 }
 
