@@ -9,13 +9,13 @@
 
 .column-left {
     padding-right: 2em;
-    width: 50%;
+    width: 55%;
     height: auto;
 }
 
 .column-right {
     padding-left: 2em;
-    width: 50%;
+    width: 45%;
     height: 0;
 }
 
@@ -80,6 +80,9 @@
     display: flex;
 }
 
+.class-rating .header-text {
+    flex-grow: 1;
+}
 .class-metadata {
     font-size: 1.5em;
     padding-bottom: 1em;
@@ -90,8 +93,8 @@
 }
 
 .prereqs {
-    font-size: 1em;
-    font-weight: 300;
+    font-size: 1.2em;
+    /* font-weight: 300; */
 }
 
 .comments-header {
@@ -105,6 +108,7 @@
     font-size: 3em;
     color: gold;
     align-self: center;
+    margin-right: 0.5em;
 }
 
 .class-prerequisites {
@@ -138,7 +142,7 @@
 }
 
 .class-comments {
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     font-size: .9em;
 }
 

@@ -81,14 +81,23 @@ app.post('/login', login.handleLogIn(bcrypt));
 app.get('/logout', authenticate.auth, login.handleLogOut);
 
 // route for handling 404 requests (unavailable routes)
-app.use(function (req, res) {
-    res.status(404).send('404 Page Not Found');
+app.use((req, res) => {
+    if (req.session.user) {
+        res.render('pages/error', { error: 404, user: req.session.user });
+    } else {
+        res.render('pages/error', { error: 404, user: null });
+    }
 });
 
 // route for handling everything else that can go wrong
-app.use(function (err, req, res) {
-    console.error(err.stack)
-    res.status(500).send('Something broke :(');
+app.use((err, req, res) => {
+    console.log('something really broke :(');
+    console.error(err.stack);
+    if (req.session.user) {
+        res.render('pages/error', { error: 500, user: req.session.user });
+    } else {
+        res.render('pages/error', { error: 500, user: null });
+    }
 });
 
 const PORT = process.env.PORT || 3000;

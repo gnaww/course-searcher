@@ -1,6 +1,7 @@
-body {
+html, body {
     font-family: 'Lato', sans-serif;
     color: #13446B;
+    height: 100%;
 }
 
 .btn-primary {
@@ -35,4 +36,20 @@ body {
 .alert {
     margin: 2em auto 0 auto;
     width: 50%;
+}
+
+.error-container {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error {
+    font-weight: 300;
+    font-size: 5em;
+    height: auto;
+    text-align: center;
+    align-self: middle;
 }

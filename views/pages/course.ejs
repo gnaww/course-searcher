@@ -66,13 +66,13 @@
                             <% sections.forEach(function(section) { %>
                             <tr>
                                 <td><a class="btn table-link" href="#" data-content="<%= section.notes %>" rel="popover" data-placement="bottom" data-original-title="Notes" data-trigger="hover" data-toggle="popover"><%= section.section_number %></a></td>
-                                <td><a class="btn table-link" href="#" data-content="<%= section.exam_code %>" rel="popover" data-placement="bottom" data-original-title="Notes" data-trigger="hover" data-toggle="popover"><%= section.section_index %></a></td>
+                                <td><a class="btn table-link" href="#" data-content="<%= section.exam_code %>" rel="popover" data-placement="bottom" data-original-title="Exam Code" data-trigger="hover" data-toggle="popover"><%= section.section_index %></a></td>
                                 <td>
                                     <% let i = 0; %>
                                     <% let meeting_d = section.meeting_mode_descs; %>
                                     <% let meeting_c = section.meeting_codes; %>
                                     <% section.day_times.forEach(function(day_time) { %>
-                                    <a class="table-link" href="#" data-content="<%= meeting_d[i] %> : <%= meeting_c[i] %>" rel="popover" data-placement="right" data-original-title="Meeting-Mode/Code" data-trigger="hover" data-toggle="popover"><%= day_time %> <br></a>
+                                    <a class="table-link" href="#" data-content="<%= meeting_d[i] %> : <%= meeting_c[i] %>" rel="popover" data-placement="right" data-original-title="Meeting Mode/Code" data-trigger="hover" data-toggle="popover"><%= day_time %> <br></a>
                                     <% i++; %>
                                     <% }); %>
                                 </td>
@@ -84,52 +84,25 @@
                                 <td><%- section.instructors %></td>
                                 <td class="text-center">
                                     <% if (section.section_open_status === 'OPEN') {%>
-                                    <span class="status open sections" data-toggle="tooltip" data-placement="top" title="Class is open! Click to toggle register button & class status">
+                                    <span class="status open sections" data-toggle="tooltip" data-placement="top" title="Section is open! Click to toggle register button & class status">
                                         <i class="fas fa-check class-open"></i>
                                     </span>
                                     <a class="btn btn-primary register-button bold" href="https://sims.rutgers.edu/webreg/editSchedule.htm?&indexList=<%= section.section_index %>" role="button" target="_blank" data-toggle="tooltip" data-placement="top" title="Click to toggle register button & class status">Register</a>
                                     <% } else { %>
-                                    <span class="status closed sections" data-toggle="tooltip" data-placement="top" title="Class is closed! Can't register.">
+                                    <span class="status closed sections" data-toggle="tooltip" data-placement="top" title="Section is closed! Can't register.">
                                         <i class="fas fa-times"></i>
                                     </span>
                                     <% } %>
                                 </td>
-
-
                             </tr>
                             <% }); %>
-                            <tr>
-                                <td><a id="popoverData" class="btn section-num" href="#" data-content="This section is only availible to 3rd year students." rel="popover" data-placement="bottom" data-original-title="Notes" data-trigger="hover" data-toggle="popover">1</a></td>
-                                <td>12345</td>
-                                <td>Tue 4:45 PM - 5:40 PM<br>Wed 8:25 AM - 9:20 AM<br>Thu 10:45 PM - 10:50 PM</td>
-                                <td>CAC VH-105<br><br>CAC VH-105</td>
-                                <td>Jane Doe</td>
-                                <td class="text-center">
-                                    <span class="status open sections" data-toggle="tooltip" data-placement="top" title="Class is open! Click to toggle register button & class status">
-                                        <i class="fas fa-check class-open"></i>
-                                    </span>
-                                    <a class="btn btn-primary register-button bold" href="https://google.com" role="button" target="_blank" data-toggle="tooltip" data-placement="top" title="Click to toggle register button & class status">Register</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>12345</td>
-                                <td>4:45 PM - 5:40 PM<br>8:25 AM - 9:20 AM<br>10:45 PM - 10:50 PM</td>
-                                <td>CAC VH-105<br><br>CAC VH-105</td>
-                                <td>John Doe</td>
-                                <td class="text-center">
-                                    <span class="status closed sections" data-toggle="tooltip" data-placement="top" title="Class is closed! Can't register.">
-                                        <i class="fas fa-times"></i>
-                                    </span>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="column-right divider">
                 <div class="class-rating">
-                    <span class="header-text bold">Overall Course Rating</span>
+                    <span class="header-text bold">Overall Rating</span>
                     <span class="stars">
                         <% let full_stars = Math.floor(course_rating); %>
                         <% let half_stars = course_rating - full_stars; %>
@@ -145,71 +118,70 @@
                         <% } %>
                     </span>
                 </div>
-            </div>
-            <div class="add-comments border rounded">
-                <span class="subheader-text bold">Comment on this course</span>
-                <form action="/comments" method="post">
-                    <textarea class="form-control" name="new-comment" type="text" placeholder="Enter your own thoughts and opinions about this course here!" required></textarea>
-                    <span class="subsubheader-text">Rate this course:</span>
-                    <span class="rating align-middle">
-                        <label>
-                            <input type="radio" name="new-rating" value="1" required/>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                        </label>
-                        <label>
-                            <input type="radio" name="new-rating" value="2" required/>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                        </label>
-                        <label>
-                            <input type="radio" name="new-rating" value="3" required/>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                        </label>
-                        <label>
-                            <input type="radio" name="new-rating" value="4" required/>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                        </label>
-                        <label>
-                            <input type="radio" name="new-rating" value="5" required/>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                            <span class="icon"><i class="fas fa-star"></i></span>
-                        </label>
-                    </span>
-                    <button type="submit" class="btn btn-primary comment-button bold">Post Comment</button>
-                </form>
-            </div>
-            <div class="comments-header header-text">
-                <span>Comments</span>
-            </div>
-            <% for(comment of comments) { %>
-            <div class="class-comments">
-                <div class="comment">
-                    <div class="comment-text">
-                        <p><%= comment.comment %></p>
-                    </div>
-                    <div class="comment-metadata">
-                        <span class="comment-date"><%= comment.date %></span>
-                        <span class="stars comment-stars">
-                            <% for(let i = 0; i < comment.rating; i++) { %>
-                            <i class="fas fa-star"></i>
-                            <% } %>
-                            <% for(let i = comment.rating; i < 5; i++) { %>
-                            <i class="far fa-star"></i>
-                            <% } %>
+                <div class="add-comments border rounded">
+                    <span class="subheader-text bold">Comment on this course</span>
+                    <form action="/comments" method="post">
+                        <textarea class="form-control" name="new-comment" type="text" placeholder="Enter your own thoughts and opinions about this course here!" required></textarea>
+                        <span class="subsubheader-text">Rate this course:</span>
+                        <span class="rating align-middle">
+                            <label>
+                                <input type="radio" name="new-rating" value="1" required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="new-rating" value="2" required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="new-rating" value="3" required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="new-rating" value="4" required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="new-rating" value="5" required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
                         </span>
+                        <button type="submit" class="btn btn-primary comment-button bold">Post Comment</button>
+                    </form>
+                </div>
+                <div class="comments-header header-text">
+                    <span>Comments</span>
+                </div>
+                <% for(comment of comments) { %>
+                <div class="class-comments">
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p><%= comment.comment %></p>
+                        </div>
+                        <div class="comment-metadata">
+                            <span class="comment-date"><%= comment.date %></span>
+                            <span class="stars comment-stars">
+                                <% for(let i = 0; i < comment.rating; i++) { %>
+                                    <i class="fas fa-star"></i>
+                                <% } %>
+                                <% for(let i = comment.rating; i < 5; i++) { %>
+                                    <i class="far fa-star"></i>
+                                <% } %>
+                            </span>
+                        </div>
                     </div>
                 </div>
+                <% } %>
             </div>
-            <% } %>
-        </div>
         </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>

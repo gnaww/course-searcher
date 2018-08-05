@@ -288,7 +288,7 @@ const formatLocation = (times, meeting_code) => {
         if (room_number == null) {
             room_number = 'N/A';
         }
-        return campus_abbrev + " " + building_code + " " + room_number;
+        return campus_abbrev + "-" + building_code + "-" + room_number;
     }
 }
 
