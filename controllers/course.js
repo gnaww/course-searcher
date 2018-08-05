@@ -3,8 +3,8 @@ const Comment = require('../models/Comment.js');
 const knexfile = require('../knexfile.js');
 const knex = require('knex')(knexfile);
 
-const handleCoursePost = async (req, res, next) => {
-
+const handleCoursePost = async (req, res) => {
+    const { user, time, rating, comment } = req.body;
 }
 
 const handleCourseGet = async (req, res, next) => {
