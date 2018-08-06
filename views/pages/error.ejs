@@ -22,6 +22,8 @@
                 <h1 class="error">Error 500! <br> Something broke internally <br> :(</h1>
         <%  } else if (error === 'course') { %>
                 <h1 class="error">Error! <br> Course not found</h1>
+        <%  }  else if (error === 'course-error') { %>
+                <h1 class="error">Error! <br> Could not retrieve course information</h1>
         <%  }  %>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

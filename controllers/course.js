@@ -206,9 +206,9 @@ const handleCourseGet = async (req, res, next) => {
         console.log(error);
         // return res.status(400).json('Error retrieving course data');
         if (req.session.user) {
-            res.render('pages/error', { error: 'course', user: req.session.user });
+            res.render('pages/error', { error: 'course-error', user: req.session.user });
         } else {
-            res.render('pages/error', { error: 'course', user: null });
+            res.render('pages/error', { error: 'course-error', user: null });
         }
     }
 }
@@ -314,7 +314,7 @@ const formatLocation = (times, meeting_code) => {
         if (room_number == null) {
             room_number = 'N/A';
         }
-        return campus_abbrev + " " + building_code + " " + room_number;
+        return campus_abbrev + "-" + building_code + "-" + room_number;
     }
 }
 

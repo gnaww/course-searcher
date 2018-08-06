@@ -142,7 +142,7 @@
 }
 
 .class-comments {
-    /* overflow-y: scroll; */
+    overflow-y: auto;
     font-size: .9em;
 }
 
@@ -291,9 +291,5 @@
     .divider {
         border-top: 2px solid #d3d3d3;
         border-left: 0;
-    }
-
-    .class-comments {
-        overflow: auto;
     }
 }
