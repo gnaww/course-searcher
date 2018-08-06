@@ -11,10 +11,10 @@ const displayHomepage = (req, res) => {
         data.user = req.session.user;
     }
 
-    if (req.query.searchType === 'requirement') {
+    if (req.query.search === 'requirement') {
         data = requirementSearch(req.query, data);
     }
-    else if (req.query.searchType === 'direct') {
+    else if (req.query.search === 'direct') {
         data = directSearch(req.query, data);
     }
 
