@@ -20,7 +20,7 @@
             <div class="column-left">
                 <div class="class-header">
                     <span class="header-text"><%= name %></span>
-                    <% if(course_open_status === 'OPEN') { %>
+                    <% if(courseOpenStatus === 'OPEN') { %>
                     <!-- status: open -->
                     <span class="status open">
                         <i class="fas fa-check-circle"></i>
@@ -33,14 +33,14 @@
                     <% } %>
                 </div>
                 <div class="class-metadata">
-                    <span class="subsubheader-text">Course #:</span><span class="metadata-number course-info-text"><%= course_full_number %></span>
-                    <span class="subsubheader-text">Core Codes:</span><span class="metadata-number course-info-text"><%= core_codes_string %></span>
+                    <span class="subsubheader-text">Course #:</span><span class="metadata-number course-info-text"><%= courseFullNumber %></span>
+                    <span class="subsubheader-text">Core Codes:</span><span class="metadata-number course-info-text"><%= coreCodesString %></span>
                     <span class="subsubheader-text">Credits:</span><span class="metadata-number course-info-text"><%= credits %></span>
                 </div>
                 <div class="class-prerequisites">
                     <span class="subheader-text">Required Prerequisites</span>
                     <br>
-                    <span class="prereqs"><%- pre_reqs %></span>
+                    <span class="prereqs"><%- preReqs %></span>
                 </div>
                 <div class="class-description">
                     <span class="subheader-text bold">Description</span>
@@ -65,14 +65,14 @@
                         <tbody>
                             <% sections.forEach(function(section) { %>
                             <tr>
-                                <td><a class="btn table-link" href="#" data-content="<%= section.notes %>" rel="popover" data-placement="bottom" data-original-title="Notes" data-trigger="hover" data-toggle="popover"><%= section.section_number %></a></td>
-                                <td><a class="btn table-link" href="#" data-content="<%= section.exam_code %>" rel="popover" data-placement="bottom" data-original-title="Exam Code" data-trigger="hover" data-toggle="popover"><%= section.section_index %></a></td>
+                                <td><a class="btn table-link" href="#" data-content="<%= section.notes %>" rel="popover" data-placement="bottom" data-original-title="Notes" data-trigger="hover" data-toggle="popover"><%= section.sectionNumber %></a></td>
+                                <td><a class="btn table-link" href="#" data-content="<%= section.examCode %>" rel="popover" data-placement="bottom" data-original-title="Exam Code" data-trigger="hover" data-toggle="popover"><%= section.sectionIndex %></a></td>
                                 <td>
                                     <% let i = 0; %>
-                                    <% let meeting_d = section.meeting_mode_descs; %>
-                                    <% let meeting_c = section.meeting_codes; %>
-                                    <% section.day_times.forEach(function(day_time) { %>
-                                    <a class="table-link" href="#" data-content="<%= meeting_d[i] %> : <%= meeting_c[i] %>" rel="popover" data-placement="right" data-original-title="Meeting Mode/Code" data-trigger="hover" data-toggle="popover"><%= day_time %> <br></a>
+                                    <% let meetingD = section.meetingModeDescs; %>
+                                    <% let meetingC = section.meetingCodes; %>
+                                    <% section.dayTimes.forEach(function(dayTime) { %>
+                                    <a class="table-link" href="#" data-content="<%= meetingD[i] %> : <%= meetingC[i] %>" rel="popover" data-placement="right" data-original-title="Meeting Mode/Code" data-trigger="hover" data-toggle="popover"><%= dayTime %> <br></a>
                                     <% i++; %>
                                     <% }); %>
                                 </td>
@@ -83,11 +83,11 @@
                                 </td>
                                 <td><%- section.instructors %></td>
                                 <td class="text-center">
-                                    <% if (section.section_open_status === 'OPEN') {%>
+                                    <% if (section.sectionOpenStatus === 'OPEN') {%>
                                     <span class="status open sections" data-toggle="tooltip" data-placement="top" title="Section is open! Click to toggle register button & class status">
                                         <i class="fas fa-check class-open"></i>
                                     </span>
-                                    <a class="btn btn-primary register-button bold" href="https://sims.rutgers.edu/webreg/editSchedule.htm?&indexList=<%= section.section_index %>" role="button" target="_blank" data-toggle="tooltip" data-placement="top" title="Click to toggle register button & class status">Register</a>
+                                    <a class="btn btn-primary register-button bold" href="https://sims.rutgers.edu/webreg/editSchedule.htm?&indexList=<%= section.sectionIndex %>" role="button" target="_blank" data-toggle="tooltip" data-placement="top" title="Click to toggle register button & class status">Register</a>
                                     <% } else { %>
                                     <span class="status closed sections" data-toggle="tooltip" data-placement="top" title="Section is closed! Can't register.">
                                         <i class="fas fa-times"></i>
@@ -104,16 +104,16 @@
                 <div class="class-rating">
                     <span class="header-text bold">Overall Rating</span>
                     <span class="stars">
-                        <% let full_stars = Math.floor(course_rating); %>
-                        <% let half_stars = course_rating - full_stars; %>
-                        <% let empty_stars = 5 - course_rating - 1; %>
-                        <% for (let i = 0; i < full_stars; i++) { %>
+                        <% let fullStars = Math.floor(courseRating); %>
+                        <% let halfStars = courseRating - fullStars; %>
+                        <% let emptyStars = 5 - courseRating - 1; %>
+                        <% for (let i = 0; i < fullStars; i++) { %>
                             <i class="fas fa-star"></i>
                         <% } %>
-                        <% for (let i = 0.0; i < half_stars; i+=.5) { %>
+                        <% for (let i = 0.0; i < halfStars; i+=.5) { %>
                             <i class="fas fa-star-half-alt"></i>
                         <% } %>
-                        <% for (let i = 0; i < empty_stars; i++) { %>
+                        <% for (let i = 0; i < emptyStars; i++) { %>
                             <i class="far fa-star"></i>
                         <% } %>
                     </span>

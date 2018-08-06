@@ -297,3 +297,17 @@
         overflow: auto;
     }
 }
+
+.table-link {
+    color: #1768AC;
+    font-size: 1em;
+}
+.table-link:hover {
+    color: #0F436D;
+}
+.table-link:active {
+    color: #293651;
+}
+.table-link:visted {
+    color: #1768AC;
+}
