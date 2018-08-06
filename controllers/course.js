@@ -4,7 +4,38 @@ const knexfile = require('../knexfile.js');
 const knex = require('knex')(knexfile);
 
 const handleCoursePost = async (req, res, next) => {
+    let data = {
+        notification: null,
+        user: null
+    };
+    if (req.session.notification) {
+        data.notification = req.session.notification;
+        req.session.notification = null;
+    }
+    if (req.session.user) {
+        data.user = req.session.user;
+    }
+    if (req.session.user) { // logged in
+        const { comment_text, rating, date, course, user } = req.body;
 
+        // check if user has commented/rated before
+        const comment = await Comment.query().where('user', user);
+        if (comment == null) {
+            knex('comments').where('user', req.session.user).update({ comment_text: comment_text, rating: rating });
+            res.redirect('/course?id=' + course);
+        } else {
+            knex('comments').insert({ comment_text: comment_text, rating: rating, date: date, course: course, user: user });
+            res.redirect('/course?id=' + course);
+        }
+
+    } else { // not logged in
+        console.log('non-logged in user tried to rate/comment');
+        req.session.notification = {
+            type: 'error',
+            message: 'Please login or register to rate and comment on courses.'
+        };
+        res.redirect('/course?id=' + course);
+    }
 }
 
 const handleCourseGet = async (req, res, next) => {
