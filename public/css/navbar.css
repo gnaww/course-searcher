@@ -104,6 +104,7 @@
 .reg-link {
     text-align: center;
     color: #0F436D;
+    padding-bottom: 1em;
 }
 .reg-link:visited {
     color: #0F436D;
