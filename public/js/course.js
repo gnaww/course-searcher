@@ -33,3 +33,8 @@ $( document ).ready(function() {
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
+
+// Turn on Bootstrap popovers
+$(function () {
+    $('[data-toggle="popover"]').popover()
+})

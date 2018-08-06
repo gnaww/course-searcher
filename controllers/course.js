@@ -2,6 +2,7 @@ const Course = require('../models/Course.js');
 const Comment = require('../models/Comment.js');
 const knexfile = require('../knexfile.js');
 const knex = require('knex')(knexfile);
+const moment = require('moment');
 
 const handleCoursePost = async (req, res) => {
   let data = {
@@ -195,6 +196,7 @@ const handleCourseGet = async (req, res, next) => {
             const comments = await Comment.query().where('course', course_id);
 
             data.comments = comments;
+            data.moment = moment;
 
             console.log('COMMENT DEBUGGING INFO ----------------------------------')
             console.log(comments);

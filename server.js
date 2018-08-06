@@ -58,10 +58,7 @@ app.use(session({
 
 // routes
 app.route('/')
-    .get(index.displayHomepage)
-    .post(function (req, res) {
-        res.send('searching for classes')
-    });
+    .get(index.displayHomepage);
 
 app.route('/course')
     .get(course.handleCourseGet)

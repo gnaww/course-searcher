@@ -162,13 +162,23 @@
                     <span>Comments</span>
                 </div>
                 <div class="class-comments">
-                <% for(comment of comments) { %>
+                <%
+                  let year, day, month;
+                  for(comment of comments) { %>
                     <div class="comment">
                         <div class="comment-text">
                             <p><%= comment.comment %></p>
                         </div>
                         <div class="comment-metadata">
-                            <span class="comment-date"><%= comment.date %></span>
+                            <%
+                                year = comment.date.getFullYear();
+                                day = comment.date.getDate();
+                                // pad with 0s
+                                day = (day < 10 ? '0' : '') + day
+                                month = comment.date.getMonth()+1;
+                                month = (month < 10 ? '0' : '') + month
+                            %>
+                            <span class="comment-date" data-toggle="tooltip" data-placement="top" title="<%= comment.date.toDateString() %>"><%= moment(`${year}${month}${day}`, "YYYYMMDD").fromNow() %></span>
                             <span class="stars comment-stars">
                                 <% for(let i = 0; i < comment.rating; i++) { %>
                                     <i class="fas fa-star"></i>
