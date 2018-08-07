@@ -5,103 +5,77 @@ const knex = require('knex')(knexfile);
 const moment = require('moment');
 
 const handleCoursePost = async (req, res, next) => {
-    let data = {
-        notification: null,
-        user: null
-    };
-    if (req.session.notification) {
-        data.notification = req.session.notification;
-        req.session.notification = null;
-    }
-    if (req.session.user) {
-        data.user = req.session.user;
-    }
-    if (req.session.user) { // logged in
-        const { newComment: commentText, newRating, rating, date, course, user } = req.body;
-
-        // check if user has commented/rated before
-        try {
+    try {
+        let data = {
+            notification: null,
+            user: null
+        };
+        if (req.session.notification) {
+            data.notification = req.session.notification;
+            req.session.notification = null;
+        }
+        if (req.session.user) {
+            data.user = req.session.user;
+        }
+        if (req.session.user) { // logged in
+            const { newComment: commentText, newRating: rating, user } = req.body;
+            const course = req.query.id;
+            const date = new Date();
+            
+            comm
+            console.log('commentText: ' + commentText);
+            console.log('newRating: ' + newRating);
+            
+            // check if user has commented/rated before
             const comment = await Comment.query().where('user', user);
             if (comment == null) {
                 knex('comments').where('user', req.session.user).update({ comment_text: commentText, rating: rating, date: date });
-                res.redirect('/course?id=' + course);
+                res.redirect('course/?id=' + course);
             } else {
                 knex('comments').insert({ comment_text: commentText, rating: rating, date: date, course: course, user: user });
-                res.redirect('/course?id=' + course);
+                res.redirect('course/?id=' + course);
             }
-        } catch (error) {
-            console.log(error);
+        } else { // not logged in
+            console.log('non-logged in user tried to rate/comment');
             req.session.notification = {
                 type: 'error',
-                message: 'There was a problem on our end :('
+                message: 'Please login or register to rate and comment on courses.'
             };
-            res.redirect('/error');
+            res.redirect('course/?id=' + course);
         }
-
-    } else { // not logged in
-        console.log('non-logged in user tried to rate/comment');
+    } catch (error) {
+        console.log('There is a problem with posting comment/rating');
+        console.log(error);
         req.session.notification = {
             type: 'error',
-            message: 'Please login or register to rate and comment on courses.'
+            message: 'Error posting evaluation. Something went wrong on our end :('
         };
-        res.redirect('/course?id=' + course);
+        res.redirect('course/?id=' + course);
     }
-
-const handleCoursePost = async (req, res) => {
-  let data = {
-      notification: null,
-      user: null
-  };
-  if (req.session.notification) {
-      data.notification = req.session.notification;
-      req.session.notification = null;
-  }
-  if (req.session.user) {
-      data.user = req.session.user;
-  }
-  if (req.session.user) { // logged in
-      const { comment_text, rating, date, course, user } = req.body;
-      // check if user has commented/rated before
-      const comment = await Comment.query().where('user', user);
-  } else { // not logged in
-      return res.status(400).json('To leave a comment you must login');
-  }
->>>>>>> master
 }
 
 const handleCourseGet = async (req, res, next) => {
-    let data = {
-        notification: null,
-        user: null
-    };
-    if (req.session.notification) {
-        data.notification = req.session.notification;
-        req.session.notification = null;
-    }
-    if (req.session.user) {
-        data.user = req.session.user;
-    }
-    const courseId = req.query.id;
     try {
+        let data = {
+            notification: null,
+            user: null
+        };
+        if (req.session.notification) {
+            data.notification = req.session.notification;
+            req.session.notification = null;
+        }
+        if (req.session.user) {
+            data.user = req.session.user;
+        }
+        const courseId = req.query.id;
         // course information
-<<<<<<< HEAD
         const selectedCourse = await Course.query().where('course_full_number', courseId);
         if (selectedCourse === undefined || selectedCourse.length === 0) {
-            console.log('user tried to access course that does not exist in db');
-            req.session.notification = {
-                type: 'error',
-                message: 'Hmm, this course doesnt seem to exist.'
-            };
-            res.status(404).redirect('/error');
-=======
-        const selected_course = await Course.query().where('course_full_number', course_id);
-        if (selected_course === undefined || selected_course.length === 0) {
             if (req.session.user) {
                 res.render('pages/error', { error: 'course', user: req.session.user });
             } else {
                 res.render('pages/error', { error: 'course', user: null });
             }
->>>>>>> master
         } else {
             const firstSection = selectedCourse[0];
             // destructuring
@@ -260,8 +234,12 @@ const handleCourseGet = async (req, res, next) => {
             res.render('pages/course', data);
         }
     } catch (error) {
+        console.log("there was a problem retrieving course data")
         console.log(error);
-        // return res.status(400).json('Error retrieving course data');
+        req.session.notification = {
+            type: 'error',
+            message: 'There was a problem retrieving course data. :/'
+        };
         if (req.session.user) {
             res.render('pages/error', { error: 'course-error', user: req.session.user });
         } else {
@@ -378,6 +356,7 @@ const formatLocation = (times, meeting_code) => {
 const formatInstructors = (instructors) => {
     return instructors.replace(/ and /, '<br>');
 }
+
 module.exports = {
     handleCourseGet: handleCourseGet,
     handleCoursePost: handleCoursePost
