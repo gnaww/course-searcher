@@ -18,13 +18,18 @@ const handleCoursePost = async (req, res, next) => {
             data.user = req.session.user;
         }
         if (req.session.user) { // logged in
-            const { newComment: commentText, newRating: rating, user } = req.body;
+            const { newComment: commentText, newRating: rating } = req.body;
+            const user = data.user;
             const course = req.query.id;
             const date = new Date();
             
-            comm
+            console.log('comment posting debugging ------------------------------');
             console.log('commentText: ' + commentText);
-            console.log('newRating: ' + newRating);
+            console.log('rating: ' + rating);
+            console.log('user: ' + user);
+            console.log('course: ' + course);
+            console.log('date: ' + date);
+            console.log('--------------------------------------------------------');
             
             // check if user has commented/rated before
             const comment = await Comment.query().where('user', user);
