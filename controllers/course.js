@@ -248,7 +248,7 @@ const handleCourseGet = async (req, res, next) => {
             
             let userComment = undefined;
             if (req.session.user) {
-                userComment = await Comment.query().where('user', req.session.user);
+                userComment = await Comment.query().where('course', courseId).where('user', req.session.user);
             }
             
             data.userComment = userComment;
