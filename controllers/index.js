@@ -1,4 +1,7 @@
-const displayHomepage = (req, res) => {
+const Requirement = require('../models/Requirement');
+const dump = require('dumper.js/src/dump');
+
+const displayHomepage = async (req, res) => {
     let data = {
         notification: null,
         user: null
@@ -22,7 +25,10 @@ const displayHomepage = (req, res) => {
 }
 
 const requirementSearch = (params, data) => {
-    console.log('req search');
+    dump(params);
+    const requirement = await Requirement
+      .query()
+      .eager('pets');
     return data;
 }
 
