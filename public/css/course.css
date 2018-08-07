@@ -314,8 +314,3 @@
     margin-top: 0.5em;
     margin-right: 1em;
 }
-
-#disabled-button-wrapper  .btn[disabled] {
-  /* don't let button block mouse events from reaching wrapper */
-  pointer-events: none;
-}
