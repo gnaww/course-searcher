@@ -10,6 +10,8 @@ const { Model } = require('objection');
 const morgan = require('morgan');
 const pdfjsLib = require('pdfjs-dist');
 const fileUpload = require('express-fileupload');
+const favicon = require('serve-favicon')
+const path = require('path')
 
 // controllers for routes
 const login = require('./controllers/login');
@@ -32,11 +34,12 @@ const store = new KnexSessionStore({
 const app = express();
 
 // EJS templating engine setup
-app.use(express.static(__dirname + '/public'));
-app.set('views', __dirname + '/views');
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // middleware
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(cors());
 app.use(fileUpload());
 app.use(bodyParser.json());
