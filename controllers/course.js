@@ -35,10 +35,10 @@ const handleCoursePost = async (req, res, next) => {
             const comment = await Comment.query().where('user', user);
             if (comment == null) {
                 knex('comments').where('user', req.session.user).update({ comment_text: commentText, rating: rating, date: date });
-                res.redirect('course/?id=' + course);
+                res.redirect('/course?id=' + course);
             } else {
                 knex('comments').insert({ comment_text: commentText, rating: rating, date: date, course: course, user: user });
-                res.redirect('course/?id=' + course);
+                res.redirect('/course?id=' + course);
             }
         } else { // not logged in
             console.log('non-logged in user tried to rate/comment');
@@ -46,7 +46,7 @@ const handleCoursePost = async (req, res, next) => {
                 type: 'error',
                 message: 'Please login or register to rate and comment on courses.'
             };
-            res.redirect('course/?id=' + course);
+            res.redirect('/course?id=' + course);
         }
     } catch (error) {
         console.log('There is a problem with posting comment/rating');
@@ -55,7 +55,7 @@ const handleCoursePost = async (req, res, next) => {
             type: 'error',
             message: 'Error posting evaluation. Something went wrong on our end :('
         };
-        res.redirect('course/?id=' + course);
+        res.redirect('/course?id=' + course);
     }
 }
 
@@ -241,10 +241,6 @@ const handleCourseGet = async (req, res, next) => {
     } catch (error) {
         console.log("there was a problem retrieving course data")
         console.log(error);
-        req.session.notification = {
-            type: 'error',
-            message: 'There was a problem retrieving course data. :/'
-        };
         if (req.session.user) {
             res.render('pages/error', { error: 'course-error', user: req.session.user });
         } else {
