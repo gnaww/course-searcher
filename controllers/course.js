@@ -32,14 +32,15 @@ const handleCoursePost = async (req, res, next) => {
             console.log('--------------------------------------------------------');
             
             // check if user has commented/rated before
-            const comment = await Comment.query().where('user', user);
-            if (comment == null) {
-                knex('comments').where('user', req.session.user).update({ comment_text: commentText, rating: rating, date: date });
-                res.redirect('/course?id=' + course);
-            } else {
-                knex('comments').insert({ comment_text: commentText, rating: rating, date: date, course: course, user: user });
-                res.redirect('/course?id=' + course);
-            }
+            const comment = await knex.raw(`INSERT INTO comments
+                                          (comment, rating, date, course, user) VALUES (:comment, :r, :d, :course, :u)
+                                          ON CONFLICT (comment, rating, date)
+                                          DO UPDATE SET comment = :comment, rating = :r, date = :d;`, { comment: commentText, r: rating, d: date, course: course, u: user });
+            req.session.notification = {
+                type: 'success',
+                message: 'Successfully added evaluation!'
+            };
+            res.redirect('/course?id=' + course);
         } else { // not logged in
             console.log('non-logged in user tried to rate/comment');
             req.session.notification = {
