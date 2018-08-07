@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--This is the landing page-->
 <html>
 
     <head>
@@ -16,6 +15,7 @@
         <header>
             <% include ../partials/navbar %>
         </header>
+        <% include ../partials/notification %>
         <div class="container-fluid">
             <div class="column-left">
                 <div class="class-header">
@@ -108,17 +108,57 @@
                         <% let halfStars = courseRating - fullStars; %>
                         <% let emptyStars = 5 - courseRating - halfStars; %>
                         <% for (let i = 0; i < fullStars; i++) { %>
-                            <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                         <% } %>
                         <% for (let i = 0.0; i < halfStars; i+=.5) { %>
-                            <i class="fas fa-star-half-alt"></i>
+                        <i class="fas fa-star-half-alt"></i>
                         <% } %>
                         <% for (let i = 0; i < emptyStars; i++) { %>
-                            <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
                         <% } %>
                     </span>
                 </div>
                 <div class="add-comments border rounded">
+                    <% if (user && (userComment !== undefined && userComment.length !== 0)) { %>
+                    <span class="subheader-text bold">Update your comment</span>
+                    <form action="#" method="post">
+                        <textarea class="form-control" name="newComment" type="text" placeholder="Enter your own thoughts and opinions about this course here!" required><%= userComment[0].comment %></textarea>
+                        <span class="subsubheader-text">Update rating:</span>
+                        <span class="rating align-middle">
+                            <label>
+                                <input type="radio" name="newRating" value="1" <% if (userComment[0].rating === 1) {%> checked <% } %> required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="newRating" value="2" <% if (userComment[0].rating === 2) {%> checked <% } %> required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="newRating" value="3" <% if (userComment[0].rating === 3) {%> checked <% } %> required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="newRating" value="4" <% if (userComment[0].rating === 4) {%> checked <% } %> required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="newRating" value="5" <% if (userComment[0].rating === 5) {%> checked <% } %> required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                        </span>
+                        <button type="submit" class="btn btn-primary comment-button ">Update Comment</button>
+                    </form>
+                    <% } else { %>
                     <span class="subheader-text bold">Comment on this course</span>
                     <form action="#" method="post">
                         <textarea class="form-control" name="newComment" type="text" placeholder="Enter your own thoughts and opinions about this course here!" required></textarea>
@@ -155,41 +195,48 @@
                                 <span class="icon"><i class="fas fa-star"></i></span>
                             </label>
                         </span>
-                        <button type="submit" class="btn btn-primary comment-button bold">Post Comment</button>
+                        <% if (user) { %>
+                        <button type="submit" class="btn btn-primary comment-button ">Post Comment</button>
+                        <% } else { %>
+                        <span class="disabled-button-wrapper" data-toggle="tooltip" data-placement="auto" title="please login to commnent!">
+                          <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>Post Comment</button>
+                        </span>
+                        <% } %>
                     </form>
+                    <% } %>
                 </div>
                 <div class="comments-header header-text">
                     <span>Comments</span>
                 </div>
                 <div class="class-comments">
-                <%
-                  let year, day, month;
-                  for(comment of comments) { %>
+                    <%
+                    let year, day, month;
+                    for(comment of comments) { %>
                     <div class="comment">
                         <div class="comment-text">
                             <p><%= comment.comment %></p>
                         </div>
                         <div class="comment-metadata">
                             <%
-                                year = comment.date.getFullYear();
-                                day = comment.date.getDate();
-                                // pad with 0s
-                                day = (day < 10 ? '0' : '') + day
-                                month = comment.date.getMonth()+1;
-                                month = (month < 10 ? '0' : '') + month
+                            year = comment.date.getFullYear();
+                            day = comment.date.getDate();
+                            // pad with 0s
+                            day = (day < 10 ? '0' : '') + day
+                            month = comment.date.getMonth()+1;
+                            month = (month < 10 ? '0' : '') + month
                             %>
                             <span class="comment-date" data-toggle="tooltip" data-placement="top" title="<%= comment.date.toDateString() %>"><%= moment(`${year}${month}${day}`, "YYYYMMDD").fromNow() %></span>
                             <span class="stars comment-stars">
                                 <% for(let i = 0; i < comment.rating; i++) { %>
-                                    <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
                                 <% } %>
                                 <% for(let i = comment.rating; i < 5; i++) { %>
-                                    <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
                                 <% } %>
                             </span>
                         </div>
                     </div>
-                <% } %>
+                    <% } %>
                 </div>
             </div>
         </div>

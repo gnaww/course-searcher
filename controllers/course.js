@@ -23,23 +23,39 @@ const handleCoursePost = async (req, res, next) => {
             const course = req.query.id;
             const date = new Date();
             
-            console.log('comment posting debugging ------------------------------');
+            // check if user has commented/rated before
+            const oldComment = await Comment.query().where('user', user);
+            
+            let isNewComment = false;
+            
+            if (oldComment === undefined || oldComment.length == 0) { // new comment
+                isNewComment = true;
+                const newComment = await knex('comments').insert({comment: commentText, rating: rating, date: date, course: course, user: user});
+            } else { // update comment
+                const updatedComment = await knex('comments').where('user', user).update({comment: commentText, rating: rating, date: date});
+            }
+            
+            console.log('COMMENT POSTING DEBUGGING ------------------------------');
             console.log('commentText: ' + commentText);
             console.log('rating: ' + rating);
             console.log('user: ' + user);
             console.log('course: ' + course);
             console.log('date: ' + date);
+            console.log('oldComment:')
+            console.log(oldComment);
             console.log('--------------------------------------------------------');
+            if (isNewComment) {
+                req.session.notification = {
+                    type: 'success',
+                    message: 'Successfully added comment!'
+                };
+            } else {
+                req.session.notification = {
+                    type: 'success',
+                    message: 'Successfully updated comment!'
+                };
+            }
             
-            // check if user has commented/rated before
-            const comment = await knex.raw(`INSERT INTO comments
-                                          (comment, rating, date, course, user) VALUES (:comment, :r, :d, :course, :u)
-                                          ON CONFLICT (comment, rating, date)
-                                          DO UPDATE SET comment = :comment, rating = :r, date = :d;`, { comment: commentText, r: rating, d: date, course: course, u: user });
-            req.session.notification = {
-                type: 'success',
-                message: 'Successfully added evaluation!'
-            };
             res.redirect('/course?id=' + course);
         } else { // not logged in
             console.log('non-logged in user tried to rate/comment');
@@ -228,12 +244,23 @@ const handleCourseGet = async (req, res, next) => {
             console.log('-------------------------------------------------')
 
             // handle comments
-            const comments = await Comment.query().where('course', courseId).orderBy('date', 'asc');
-
+            const comments = await Comment.query().where('course', courseId).orderBy('date', 'desc');
+            
+            let userComment = undefined;
+            if (req.session.user) {
+                userComment = await Comment.query().where('user', req.session.user);
+            }
+            
+            data.userComment = userComment;
             data.comments = comments;
             data.moment = moment;
-
-            console.log('COMMENT DEBUGGING INFO ----------------------------------')
+            
+            
+            
+            console.log('COMMENT GETTING DEBUGGING INFO ----------------------------------')
+            console.log('userComment: ');
+            console.log(userComment);
+            console.log('all comments: ');
             console.log(comments);
             console.log('-------------------------------------------------')
 
