@@ -100,3 +100,15 @@
 .navbar-light .navbar-toggler {
     color: #C3DFE4;
 }
+
+.reg-link {
+    text-align: center;
+    color: #0F436D;
+    padding-bottom: 1em;
+}
+.reg-link:visited {
+    color: #0F436D;
+}
+.reg-link:hover {
+    color: #1768AC;
+}

@@ -53,3 +53,22 @@ html, body {
     text-align: center;
     align-self: middle;
 }
+
+.back-to-top {
+    background: none;
+    margin: 0;
+    position: fixed;
+    bottom: 20px;
+    right: 0;
+    width: 70px;
+    height: 70px;
+    z-index: 100;
+    display: none;
+    text-decoration: none;
+    color: #ffffff;
+    color: #13446B;
+}
+
+.back-to-top i {
+    font-size: 60px;
+}

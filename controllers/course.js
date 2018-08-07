@@ -2,6 +2,7 @@ const Course = require('../models/Course.js');
 const Comment = require('../models/Comment.js');
 const knexfile = require('../knexfile.js');
 const knex = require('knex')(knexfile);
+const moment = require('moment');
 
 const handleCoursePost = async (req, res, next) => {
     let data = {
@@ -45,6 +46,27 @@ const handleCoursePost = async (req, res, next) => {
         };
         res.redirect('/course?id=' + course);
     }
+
+const handleCoursePost = async (req, res) => {
+  let data = {
+      notification: null,
+      user: null
+  };
+  if (req.session.notification) {
+      data.notification = req.session.notification;
+      req.session.notification = null;
+  }
+  if (req.session.user) {
+      data.user = req.session.user;
+  }
+  if (req.session.user) { // logged in
+      const { comment_text, rating, date, course, user } = req.body;
+      // check if user has commented/rated before
+      const comment = await Comment.query().where('user', user);
+  } else { // not logged in
+      return res.status(400).json('To leave a comment you must login');
+  }
+>>>>>>> master
 }
 
 const handleCourseGet = async (req, res, next) => {
@@ -62,6 +84,7 @@ const handleCourseGet = async (req, res, next) => {
     const courseId = req.query.id;
     try {
         // course information
+<<<<<<< HEAD
         const selectedCourse = await Course.query().where('course_full_number', courseId);
         if (selectedCourse === undefined || selectedCourse.length === 0) {
             console.log('user tried to access course that does not exist in db');
@@ -70,6 +93,15 @@ const handleCourseGet = async (req, res, next) => {
                 message: 'Hmm, this course doesnt seem to exist.'
             };
             res.status(404).redirect('/error');
+=======
+        const selected_course = await Course.query().where('course_full_number', course_id);
+        if (selected_course === undefined || selected_course.length === 0) {
+            if (req.session.user) {
+                res.render('pages/error', { error: 'course', user: req.session.user });
+            } else {
+                res.render('pages/error', { error: 'course', user: null });
+            }
+>>>>>>> master
         } else {
             const firstSection = selectedCourse[0];
             // destructuring
@@ -219,6 +251,7 @@ const handleCourseGet = async (req, res, next) => {
             const comments = await Comment.query().where('course', courseId).orderBy('date', 'asc');
 
             data.comments = comments;
+            data.moment = moment;
 
             console.log('COMMENT DEBUGGING INFO ----------------------------------')
             console.log(comments);
@@ -228,7 +261,12 @@ const handleCourseGet = async (req, res, next) => {
         }
     } catch (error) {
         console.log(error);
-        return res.status(400).json('Error retrieving course data');
+        // return res.status(400).json('Error retrieving course data');
+        if (req.session.user) {
+            res.render('pages/error', { error: 'course-error', user: req.session.user });
+        } else {
+            res.render('pages/error', { error: 'course-error', user: null });
+        }
     }
 }
 
