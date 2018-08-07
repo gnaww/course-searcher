@@ -4,71 +4,122 @@ const knexfile = require('../knexfile.js');
 const knex = require('knex')(knexfile);
 const moment = require('moment');
 
-const handleCoursePost = async (req, res) => {
-  let data = {
-      notification: null,
-      user: null
-  };
-  if (req.session.notification) {
-      data.notification = req.session.notification;
-      req.session.notification = null;
-  }
-  if (req.session.user) {
-      data.user = req.session.user;
-  }
-  if (req.session.user) { // logged in
-      const { comment_text, rating, date, course, user } = req.body;
-      // check if user has commented/rated before
-      const comment = await Comment.query().where('user', user);
-  } else { // not logged in
-      return res.status(400).json('To leave a comment you must login');
-  }
+const handleCoursePost = async (req, res, next) => {
+    try {
+        let data = {
+            notification: null,
+            user: null
+        };
+        if (req.session.notification) {
+            data.notification = req.session.notification;
+            req.session.notification = null;
+        }
+        if (req.session.user) {
+            data.user = req.session.user;
+        }
+        if (req.session.user) { // logged in
+            const { newComment: commentText, newRating: rating } = req.body;
+            const user = data.user;
+            const course = req.query.id;
+            const date = new Date();
+            
+            // check if user has commented/rated before
+            const oldComment = await Comment.query().where('user', user);
+            
+            let isNewComment = false;
+            
+            if (oldComment === undefined || oldComment.length == 0) { // new comment
+                isNewComment = true;
+                const newComment = await knex('comments').insert({comment: commentText, rating: rating, date: date, course: course, user: user});
+            } else { // update comment
+                const updatedComment = await knex('comments').where('user', user).update({comment: commentText, rating: rating, date: date});
+            }
+            
+            console.log('COMMENT POSTING DEBUGGING ------------------------------');
+            console.log('commentText: ' + commentText);
+            console.log('rating: ' + rating);
+            console.log('user: ' + user);
+            console.log('course: ' + course);
+            console.log('date: ' + date);
+            console.log('oldComment:')
+            console.log(oldComment);
+            console.log('--------------------------------------------------------');
+            if (isNewComment) {
+                req.session.notification = {
+                    type: 'success',
+                    message: 'Successfully added comment!'
+                };
+            } else {
+                req.session.notification = {
+                    type: 'success',
+                    message: 'Successfully updated comment!'
+                };
+            }
+            
+            res.redirect('/course?id=' + course);
+        } else { // not logged in
+            console.log('non-logged in user tried to rate/comment');
+            req.session.notification = {
+                type: 'error',
+                message: 'Please login or register to rate and comment on courses.'
+            };
+            res.redirect('/course?id=' + course);
+        }
+    } catch (error) {
+        console.log('There is a problem with posting comment/rating');
+        console.log(error);
+        req.session.notification = {
+            type: 'error',
+            message: 'Error posting evaluation. Something went wrong on our end :('
+        };
+        res.redirect('/course?id=' + course);
+    }
 }
 
 const handleCourseGet = async (req, res, next) => {
-    let data = {
-        notification: null,
-        user: null
-    };
-    if (req.session.notification) {
-        data.notification = req.session.notification;
-        req.session.notification = null;
-    }
-    if (req.session.user) {
-        data.user = req.session.user;
-    }
-    const course_id = req.query.id;
     try {
+        let data = {
+            notification: null,
+            user: null
+        };
+        if (req.session.notification) {
+            data.notification = req.session.notification;
+            req.session.notification = null;
+        }
+        if (req.session.user) {
+            data.user = req.session.user;
+        }
+        const courseId = req.query.id;
         // course information
-        const selected_course = await Course.query().where('course_full_number', course_id);
-        if (selected_course === undefined || selected_course.length === 0) {
+        const selectedCourse = await Course.query().where('course_full_number', courseId);
+        if (selectedCourse === undefined || selectedCourse.length === 0) {
             if (req.session.user) {
                 res.render('pages/error', { error: 'course', user: req.session.user });
             } else {
                 res.render('pages/error', { error: 'course', user: null });
             }
         } else {
-            const first_section = selected_course[0];
+            const firstSection = selectedCourse[0];
             // destructuring
             const {
                 name,
-                course_full_number,
-                core_codes,
+                course_full_number: courseFullNumber,
+                core_codes: coreCodes,
                 credits,
-                pre_reqs,
+                pre_reqs: preReqs,
                 times,
                 url
-            } = first_section;
+            } = firstSection;
 
             // formats the core codes
-            let core_codes_string = '';
-            if (Object.keys(core_codes).length === 0 && core_codes.constructor === Object) {
-                core_codes_string = 'None';
+            let coreCodesString = '';
+            if (Object.keys(coreCodes).length === 0 && coreCodes.constructor === Object) {
+                coreCodesString = 'None';
             } else {
-                core_codes.forEach(function(element) {
-                    core_codes_string += element.code + ', ';
+                coreCodes.forEach(function(element) {
+                    coreCodesString += element.code + ', ';
                 });
-                core_codes_string = core_codes_string.substring(0, core_codes_string.length - 2);
+                coreCodesString = coreCodesString.substring(0, coreCodesString.length - 2);
             }
 
             // formats descriptions
@@ -77,17 +128,17 @@ const handleCourseGet = async (req, res, next) => {
                 description = 'Coming Soon';
             }
 
-            // handles course rating
-            const course_rating = await knex('comments').avg('rating').where('course', course_full_number).then(result => {
+            // formats course rating
+            const courseRating = await knex('comments').avg('rating').where('course', courseFullNumber).then(result => {
                 return (Math.round(result[0].avg * 2) / 2).toFixed(1);
             });
             data.name = name;
-            data.course_full_number = course_full_number;
-            data.core_codes_string = core_codes_string;
+            data.courseFullNumber = courseFullNumber;
+            data.coreCodesString = coreCodesString;
             data.credits = credits;
-            data.pre_reqs = pre_reqs;
+            data.preReqs = preReqs;
             data.description = description;
-            data.course_rating = course_rating;
+            data.courseRating = courseRating;
 
             // section information
             /* section object will contain the following properties:
@@ -108,58 +159,58 @@ const handleCourseGet = async (req, res, next) => {
                *   19 -> PROJ-IND
             */
             console.log('SECTION DEBUGGING INFO ----------------------------------');
-            console.log('Amount of sections: ' + selected_course.length);
+            console.log('Amount of sections: ' + selectedCourse.length);
             let sections = [];
-            for (let i = 0; i < selected_course.length; i++) {
-                let section_number = selected_course[i].section_number;
-                let section_index = selected_course[i].section_index;
-                let notes = selected_course[i].notes;
-                let section_open_status = selected_course[i].section_open_status;
-                let exam_code = selected_course[i].exam_code;
+            for (let i = 0; i < selectedCourse.length; i++) {
+                let sectionNumber = selectedCourse[i].section_number;
+                let sectionIndex = selectedCourse[i].section_index;
+                let notes = selectedCourse[i].notes;
+                let sectionOpenStatus = selectedCourse[i].section_open_status;
+                let examCode = selectedCourse[i].exam_code;
 
-                let instructors = selected_course[i].instructors;
+                let instructors = selectedCourse[i].instructors;
                 if (instructors == null) {
                     instructors = 'None';
                 } else {
                     instructors = formatInstructors(instructors);
                 }
 
-                let section_times = selected_course[i].times;
+                let sectionTimes = selectedCourse[i].times;
 
-                let day_times = [];
+                let dayTimes = [];
                 let locations = [];
-                let meeting_codes = [];
-                let meeting_mode_descs = [];
+                let meetingCodes = [];
+                let meetingModeDescs = [];
 
-                console.log('Amount of classes for section' + i + ': ' + section_times.length);
-                for (let j = 0; j < section_times.length; j++) {
+                console.log('Amount of classes for section' + i + ': ' + sectionTimes.length);
+                for (let j = 0; j < sectionTimes.length; j++) {
 
                     // meeting mode
-                    let meeting_code = section_times[j].meetingModeCode;
-                    let meeting_mode_desc = section_times[j].meetingModeDesc;
+                    let meetingCode = sectionTimes[j].meetingModeCode;
+                    let meetingModeDesc = sectionTimes[j].meetingModeDesc;
 
                     // time and location
-                    let day_time = formatTimeDay(section_times[j], meeting_code);
-                    let location = formatLocation(section_times[j], meeting_code);
+                    let dayTime = formatTimeDay(sectionTimes[j], meetingCode);
+                    let location = formatLocation(sectionTimes[j], meetingCode);
 
-                    day_times.push(day_time);
+                    dayTimes.push(dayTime);
                     locations.push(location);
-                    meeting_codes.push(meeting_code);
-                    meeting_mode_descs.push(meeting_mode_desc);
+                    meetingCodes.push(meetingCode);
+                    meetingModeDescs.push(meetingModeDesc);
                 }
 
 
                 let section = {
-                    section_number: section_number,
-                    section_index: section_index,
+                    sectionNumber: sectionNumber,
+                    sectionIndex: sectionIndex,
                     notes: notes,
-                    day_times: day_times, // is array
+                    dayTimes: dayTimes, // is array
                     locations: locations, // is array
                     instructors: instructors,
-                    meeting_codes: meeting_codes, // is array
-                    meeting_mode_descs: meeting_mode_descs, // is array
-                    section_open_status: section_open_status,
-                    exam_code: exam_code
+                    meetingCodes: meetingCodes, // is array
+                    meetingModeDescs: meetingModeDescs, // is array
+                    sectionOpenStatus: sectionOpenStatus,
+                    examCode: examCode
                 }
                 console.log('section' + i);
                 console.log(section);
@@ -167,46 +218,57 @@ const handleCourseGet = async (req, res, next) => {
             }
             data.sections = sections;
 
-            let course_open_status = 'CLOSED';
+            let courseOpenStatus = 'CLOSED';
             for(let s of sections) {
-                if (s.section_open_status === 'OPEN') {
-                    course_open_status = 'OPEN';
+                if (s.sectionOpenStatus === 'OPEN') {
+                    courseOpenStatus = 'OPEN';
                     break;
                 }
             }
-            data.course_open_status = course_open_status;
+            data.courseOpenStatus = courseOpenStatus;
 
             console.log('-------------------------------------------------')
 
             console.log('CLASS DEBUGGING INFO ----------------------------------')
             console.log('name: ' + name);
-            console.log('course_full_number: ' + course_full_number);
-            console.log('core_codes_string: ' + core_codes_string);
+            console.log('courseFullNumber: ' + courseFullNumber);
+            console.log('coreCodesString: ' + coreCodesString);
             console.log('credits: ' + credits);
-            console.log('pre_reqs: ' + pre_reqs);
+            console.log('preReqs: ' + preReqs);
             console.log('description: ' + data.description);
             console.log('times: ' + times);
-            console.log('course_open_status: ' + course_open_status);
-            console.log('course_rating: ' + course_rating);
+            console.log('courseOpenStatus: ' + courseOpenStatus);
+            console.log('courseRating: ' + courseRating);
             console.log('sections:');
             console.log(sections);
             console.log('-------------------------------------------------')
 
             // handle comments
-            const comments = await Comment.query().where('course', course_id);
-
+            const comments = await Comment.query().where('course', courseId).orderBy('date', 'desc');
+            
+            let userComment = undefined;
+            if (req.session.user) {
+                userComment = await Comment.query().where('user', req.session.user);
+            }
+            
+            data.userComment = userComment;
             data.comments = comments;
             data.moment = moment;
-
-            console.log('COMMENT DEBUGGING INFO ----------------------------------')
+            
+            
+            
+            console.log('COMMENT GETTING DEBUGGING INFO ----------------------------------')
+            console.log('userComment: ');
+            console.log(userComment);
+            console.log('all comments: ');
             console.log(comments);
             console.log('-------------------------------------------------')
 
             res.render('pages/course', data);
         }
     } catch (error) {
+        console.log("there was a problem retrieving course data")
         console.log(error);
-        // return res.status(400).json('Error retrieving course data');
         if (req.session.user) {
             res.render('pages/error', { error: 'course-error', user: req.session.user });
         } else {
@@ -323,6 +385,7 @@ const formatLocation = (times, meeting_code) => {
 const formatInstructors = (instructors) => {
     return instructors.replace(/ and /, '<br>');
 }
+
 module.exports = {
     handleCourseGet: handleCourseGet,
     handleCoursePost: handleCoursePost

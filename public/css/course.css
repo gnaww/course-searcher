@@ -163,7 +163,7 @@
     margin-top: 0.2em;
 }
 
-.comment-button.bold.btn.btn-primary{
+.comment-button.btn.btn-primary{
     float: right;
     font-size: 1.2em;
     margin-top: 0.5em;
@@ -292,4 +292,25 @@
         border-top: 2px solid #d3d3d3;
         border-left: 0;
     }
+}
+
+.table-link {
+    color: #1768AC;
+    font-size: 1em;
+}
+.table-link:hover {
+    color: #0F436D;
+}
+.table-link:active {
+    color: #293651;
+}
+.table-link:visted {
+    color: #1768AC;
+}
+
+.disabled-button-wrapper {
+    display: inline-block; /* display: block works as well */
+    float: right;
+    margin-top: 0.5em;
+    margin-right: 1em;
 }
