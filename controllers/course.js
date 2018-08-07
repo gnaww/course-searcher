@@ -16,7 +16,7 @@ const handleCoursePost = async (req, res, next) => {
         data.user = req.session.user;
     }
     if (req.session.user) { // logged in
-        const { comment_text: commentText, rating, date, course, user } = req.body;
+        const { newComment: commentText, newRating, rating, date, course, user } = req.body;
 
         // check if user has commented/rated before
         try {

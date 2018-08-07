@@ -106,7 +106,7 @@
                     <span class="stars">
                         <% let fullStars = Math.floor(courseRating); %>
                         <% let halfStars = courseRating - fullStars; %>
-                        <% let emptyStars = 5 - courseRating - 1; %>
+                        <% let emptyStars = 5 - courseRating - halfStars; %>
                         <% for (let i = 0; i < fullStars; i++) { %>
                             <i class="fas fa-star"></i>
                         <% } %>
@@ -121,33 +121,33 @@
                 <div class="add-comments border rounded">
                     <span class="subheader-text bold">Comment on this course</span>
                     <form action="/comments" method="post">
-                        <textarea class="form-control" name="new-comment" type="text" placeholder="Enter your own thoughts and opinions about this course here!" required></textarea>
+                        <textarea class="form-control" name="newComment" type="text" placeholder="Enter your own thoughts and opinions about this course here!" required></textarea>
                         <span class="subsubheader-text">Rate this course:</span>
                         <span class="rating align-middle">
                             <label>
-                                <input type="radio" name="new-rating" value="1" required/>
+                                <input type="radio" name="newRating" value="1" required/>
                                 <span class="icon"><i class="fas fa-star"></i></span>
                             </label>
                             <label>
-                                <input type="radio" name="new-rating" value="2" required/>
-                                <span class="icon"><i class="fas fa-star"></i></span>
-                                <span class="icon"><i class="fas fa-star"></i></span>
-                            </label>
-                            <label>
-                                <input type="radio" name="new-rating" value="3" required/>
-                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <input type="radio" name="newRating" value="2" required/>
                                 <span class="icon"><i class="fas fa-star"></i></span>
                                 <span class="icon"><i class="fas fa-star"></i></span>
                             </label>
                             <label>
-                                <input type="radio" name="new-rating" value="4" required/>
-                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <input type="radio" name="newRating" value="3" required/>
                                 <span class="icon"><i class="fas fa-star"></i></span>
                                 <span class="icon"><i class="fas fa-star"></i></span>
                                 <span class="icon"><i class="fas fa-star"></i></span>
                             </label>
                             <label>
-                                <input type="radio" name="new-rating" value="5" required/>
+                                <input type="radio" name="newRating" value="4" required/>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                                <span class="icon"><i class="fas fa-star"></i></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="newRating" value="5" required/>
                                 <span class="icon"><i class="fas fa-star"></i></span>
                                 <span class="icon"><i class="fas fa-star"></i></span>
                                 <span class="icon"><i class="fas fa-star"></i></span>
@@ -155,7 +155,7 @@
                                 <span class="icon"><i class="fas fa-star"></i></span>
                             </label>
                         </span>
-                        <button type="submit" class="btn btn-primary comment-button bold">Post Comment</button>
+                        <button type="submit" method="post" action="/course" class="btn btn-primary comment-button bold">Post Comment</button>
                     </form>
                 </div>
                 <div class="comments-header header-text">
