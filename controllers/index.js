@@ -53,30 +53,39 @@ const requirementSearch = (params, req, res, knex) => {
     //           GROUP BY (t.course_full_number)
     //           ORDER BY COUNT(t.course_full_number)`)
                //WHERE cr.requirement = 'AHo' OR cr.requirement = 'AHp'
-    knex.raw(`SELECT * FROM
-              (
-                  SELECT DISTINCT ON (course_full_number)
-                  course_full_number, name, core_codes, pre_reqs, section_open_status, cr.count as count
-                  FROM courses AS c INNER JOIN
-                  (
-                      SELECT course, COUNT(course) AS count FROM courses_requirements
-                      WHERE requirement = 'AHp'
-                      GROUP BY course
-                  ) cr
-                  ON c.course_full_number = cr.course
-              ) t
-              ORDER BY t.count DESC`)
-        .then(result => {
-            // console.log(result.rows);
-            result.rows.forEach(course => {
-                // console.log(course.count);
-                course.core_codes.forEach(code => {
-                    process.stdout.write(code.code + ' ');
+    if (!Array.isArray(requirements) || !requirements.length) {
+        req.session.notification = {
+            type: 'error',
+            message: 'Error searching by requirement! Must select at least one requirement checkbox'
+        }
+        res.redirect('/');
+        return 'error';
+    } else {
+        knex.raw(`SELECT * FROM
+            (
+                SELECT DISTINCT ON (course_full_number)
+                course_full_number, name, core_codes, pre_reqs, section_open_status, cr.count as count
+                FROM courses AS c INNER JOIN
+                (
+                    SELECT course, COUNT(course) AS count FROM courses_requirements
+                    WHERE requirement = 'AHp'
+                    GROUP BY course
+                ) cr
+                ON c.course_full_number = cr.course
+            ) t
+            ORDER BY t.count DESC`)
+            .then(result => {
+                // console.log(result.rows);
+                result.rows.forEach(course => {
+                    // console.log(course.count);
+                    course.core_codes.forEach(code => {
+                        process.stdout.write(code.code + ' ');
+                    });
+                    process.stdout.write(course.count + ' ' + course.name + ' ' + course.course_full_number + ' ' + course.section_open_status);
+                    console.log();
                 });
-                process.stdout.write(course.count + ' ' + course.name + ' ' + course.course_full_number + ' ' + course.section_open_status);
-                console.log();
             });
-        });
+    }
 }
 
 const directSearch = (params, req, res, knex) => {
