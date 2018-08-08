@@ -14,32 +14,14 @@
         <% include ../partials/navbar %>
     </header>
     <% include ../partials/notification %>
-    <section>
-        <h3 class="dir-search-h"> Direct Search </h3>
-        <p class="dir-search-p">Quickly find a class by keyword, index #, or course ID.</p>
-        <div class="dirclass">
-            <form id="dsearch" method="get" action="/">
-                <input type="hidden" name="search" value="direct">
-                <select name="category" required>
-                    <option value="" selected disabled>Search Category</option>
-                    <option value="keyword">Keyword</option>
-                    <option value="index">Index #</option>
-                    <option value="course">Course ID</option>
-                    <option value="professor">Professor</option>
-                </select>
-                <input id="dirsearch" type="search" name="query" placeholder="Search..." required>
-                <button class="icon-btn" type="submit"><i class="fas fa-search"></i></button>
-            </form>
+    <div class="container-fluid">
+        <div class="search-select btn-group btn-group-lg" role="group" aria-label="Basic example">
+            <button type="button" id="requirement-select" class="btn btn-outline-primary btn-lg btn-active">Requirement Search</button>
+            <button type="button" id="direct-select" class="btn btn-outline-primary btn-lg">Direct Search</button>
         </div>
-    </section>
-    <section class="reqful">
-        <h1 class="bold text-center">OR</h1>
-        <h1 class="reqful-h">Requirement Search</h1>
-        <p class="reqful-p">Check up to four boxes below
-            in order to find <br> the optimal classes to fulfill your requirements.</p>
-        </section>
-
-        <section>
+        <div id="requirement-search">
+            <h1 class="reqful-h">Requirement Search</h1>
+            <p class="reqful-p">Check up to four boxes below in order to find the optimal classes to fulfill your requirements.</p>
             <form id="rsearch" method="get" action="/">
                 <div class="mid-container">
                     <div class="req-col">
@@ -105,13 +87,36 @@
                     <input class="btn" type="reset" value="Clear">
                 </div>
             </form>
-        </section>
-        <a href="#" class="back-to-top">
-            <i class="fas fa-arrow-circle-up"></i>
-        </a>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-        <script src="/js/resources.js"></script>
+        </div>
+        <div id="direct-search">
+            <h3 class="dir-search-h"> Direct Search </h3>
+            <p class="dir-search-p">Quickly find a class by keyword, index #, or course ID.</p>
+            <div class="dirclass">
+                <form id="dsearch" method="get" action="/">
+                    <input type="hidden" name="search" value="direct">
+                    <select name="category" required>
+                        <option value="" selected disabled>Search Category</option>
+                        <option value="keyword">Keyword</option>
+                        <option value="index">Index #</option>
+                        <option value="course">Course ID</option>
+                        <option value="professor">Professor</option>
+                    </select>
+                    <input id="dirsearch" type="search" name="query" placeholder="Search..." required>
+                    <button class="icon-btn" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="search-results">
+
+        </div>
+    </div>
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-circle-up"></i>
+    </a>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/resources.js"></script>
 </body>
 </html>
