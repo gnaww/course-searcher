@@ -1,7 +1,7 @@
 {
-  "name": "course-planner",
+  "name": "course-searcher",
   "version": "1.0.0",
-  "description": "Rutgers Course Planner++",
+  "description": "Rutgers Course Searcher++",
   "main": "server.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -32,12 +32,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wwang99/course-planner.git"
+    "url": "git+https://github.com/wwang99/course-searcher.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wwang99/course-planner/issues"
+    "url": "https://github.com/wwang99/course-searcher/issues"
   },
-  "homepage": "https://github.com/wwang99/course-planner#readme"
+  "homepage": "https://github.com/wwang99/course-searcher#readme"
 }
