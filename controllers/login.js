@@ -8,7 +8,7 @@ const handleLogIn = bcrypt => async (req, res) => {
             type: 'error',
             message: 'Error in submitting user credentials. Username and/or password was missing.'
         };
-        res.redirect('/');
+        res.redirect('back');
     }
 
     const user = await User
@@ -23,7 +23,7 @@ const handleLogIn = bcrypt => async (req, res) => {
                     type: 'error',
                     message: 'Error logging in. Something went wrong on our end :('
                 };
-                res.redirect('/');
+                res.redirect('back');
             }
             bcrypt.compare(password, result[0].password, function(err, valid) {
                 if (err) {
@@ -32,9 +32,9 @@ const handleLogIn = bcrypt => async (req, res) => {
                         type: 'error',
                         message: 'Error logging in. Something went wrong on our end :('
                     };
-                    res.redirect('/');
+                    res.redirect('back');
                 }
-                
+
                 // valid === true if hash matches
                 if (valid) {
                     req.session.user = result[0].username;
@@ -42,13 +42,13 @@ const handleLogIn = bcrypt => async (req, res) => {
                         type: 'success',
                         message: 'Successfully logged in!'
                     };
-                    res.redirect('/');
+                    res.redirect('back');
                 } else {
                     req.session.notification = {
                         type: 'error',
                         message: 'Error logging in. Incorrect username and/or password.'
                     };
-                    res.redirect('/');
+                    res.redirect('back');
                 }
             });
         })
@@ -57,7 +57,7 @@ const handleLogIn = bcrypt => async (req, res) => {
                 type: 'error',
                 message: 'Error logging in. Incorrect username and/or password.'
             };
-            res.redirect('/');
+            res.redirect('back');
         });
 }
 
@@ -69,11 +69,14 @@ const handleLogOut = (req, res) => {
                 type: 'error',
                 message: 'Error logging out. Something went wrong on our end :('
             };
-            res.redirect('/');
-            //return res.status(500).send('Error logging out');
+            res.redirect('back');
         } else {
-            res.redirect('/');
-            //res.send('Successfully logged out')
+            const backURL = req.header('Referer') || '/';
+            if (backURL.includes('account')) {
+                res.redirect('/');
+            } else {
+                res.redirect('back');
+            }
         }
     });
 }

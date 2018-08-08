@@ -37,7 +37,6 @@ class Course extends Model {
         const Requirement = require('./Requirement');
         const User = require('./User');
         const Comment = require('./Comment');
-        const Rating = require('./Rating');
 
         return {
             requirements: {
@@ -73,15 +72,6 @@ class Course extends Model {
                     to: 'comments.course'
                 }
             },
-
-            ratings: {
-                relation: Model.BelongsToOneRelation,
-                modelClass: Rating,
-                join: {
-                    from: 'courses.course_full_number',
-                    to: 'ratings.course'
-                }
-            }
         };
     }
 }

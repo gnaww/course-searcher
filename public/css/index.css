@@ -35,10 +35,6 @@ h1 {
     width: 30em;
 }
 
-#diresearch:hover {
-    background-color: #f4fdff;
-}
-
 .mid-container {
     width: 70%;
     margin: auto;
@@ -118,12 +114,6 @@ select {
     color: #8dbbef;
 }
 
-.school-select-heading {
-    font-weight: 400;
-    font-size: 1.25em;
-    padding-bottom: .5em;
-}
-
 label {
     font-size: 0.8em;
     font-weight: 300;
@@ -152,7 +142,7 @@ label {
     .mid-container {
         flex-direction: column;
     }
-    
+
     .req-col {
         text-align: center;
         width: auto;
@@ -180,4 +170,3 @@ label {
         padding-left: 10%;
     }
 }
-
