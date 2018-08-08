@@ -61,7 +61,7 @@ app.use(session({
 
 // routes
 app.route('/')
-    .get(index.displayHomepage);
+    .get(index.displayHomepage(knex));
 
 app.route('/course')
     .get(course.handleCourseGet)
