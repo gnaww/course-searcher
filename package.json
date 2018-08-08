@@ -22,6 +22,7 @@
     "validator": "^10.5.0"
   },
   "devDependencies": {
+    "dumper.js": "^0.1.1",
     "morgan": "^1.9.0",
     "nodemon": "^1.18.3"
   },
@@ -31,12 +32,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wwang99/Course-Planner.git"
+    "url": "git+https://github.com/wwang99/course-planner.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wwang99/Course-Planner/issues"
+    "url": "https://github.com/wwang99/course-planner/issues"
   },
-  "homepage": "https://github.com/wwang99/Course-Planner#readme"
+  "homepage": "https://github.com/wwang99/course-planner#readme"
 }

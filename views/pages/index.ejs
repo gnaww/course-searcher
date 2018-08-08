@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Rutgers Course Planner++</title>
+    <title>Rutgers Course Searcher++</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -20,20 +20,20 @@
         <div class="dirclass">
             <form id="dsearch" method="get" action="/">
                 <input type="hidden" name="search" value="direct">
-                <select>
-                    <option selected disabled>Search Category</option>
+                <select name="category" required>
+                    <option value="" selected disabled>Search Category</option>
                     <option value="keyword">Keyword</option>
                     <option value="index">Index #</option>
                     <option value="course">Course ID</option>
                     <option value="professor">Professor</option>
                 </select>
-                <input id="dirsearch" type="text" placeholder="Search...">
+                <input id="dirsearch" type="search" name="query" placeholder="Search..." required>
                 <button class="icon-btn" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
     </section>
     <section class="reqful">
-        <h1 class="reqful-h bold">OR</h1>
+        <h1 class="bold text-center">OR</h1>
         <h1 class="reqful-h">Requirement Search</h1>
         <p class="reqful-p">Check up to four boxes below
             in order to find <br> the optimal classes to fulfill your requirements.</p>
@@ -46,56 +46,56 @@
                         <input type="hidden" name="search" value="requirement">
                         <div class="reqBoxes">
                             <h4>Natural Sciences</h4>
-                            <input type="checkbox" name="NS" id="NS">
+                            <input type="checkbox" name="NS" value="true">
                             <label class="cb" for="NS">NS</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Social Analysis</h4>
-                            <input type="checkbox" name="SCL" id="SCL">
+                            <input type="checkbox" name="SCL" value="true">
                             <label class="cb" for="SCL">SCL</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Historical Analysis</h4>
-                            <input type="checkbox" name="HST" id="HST">
+                            <input type="checkbox" name="HST" value="true">
                             <label class="cb" for="HST">HST</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Writing & Communication</h4>
-                            <input type="checkbox" name="WC" id="WC">
+                            <input type="checkbox" name="WC" value="true">
                             <label class="cb" class="cb" for="WC">WC</label>
-                            <input type="checkbox" name="WCr" id="WCr">
+                            <input type="checkbox" name="WCr" value="true">
                             <label class="cb" class="cb" for="WCr">WCr</label>
-                            <input type="checkbox" name="WCd" id="WCd">
+                            <input type="checkbox" name="WCd" value="true">
                             <label class="cb" class="cb" for="WCd">WCd</label>
                         </div>
                     </div>
                     <div class="req-col">
                         <div class="reqBoxes">
                             <h4>Contemporary Challenges</h4>
-                            <input type="checkbox" name="CC" id="CC">
+                            <input type="checkbox" name="CC" value="true">
                             <label class="cb" for="CC">CC</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Quantitative & Formal Reasoning</h4>
-                            <input type="checkbox" name="QQ" id="QQ">
+                            <input type="checkbox" name="QQ" value="true">
                             <label class="cb" for="QQ">QQ</label>
-                            <input type="checkbox" name="QR" id="QR">
+                            <input type="checkbox" name="QR" value="true">
                             <label class="cb" for="QR">QR</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Arts & Humanities</h4>
-                            <input type="checkbox" name="AHo" id="AHo">
+                            <input type="checkbox" name="AHo" value="true">
                             <label class="cb" for="AHo">AHo</label>
-                            <input type="checkbox" name="AHp" id="AHp">
+                            <input type="checkbox" name="AHp" value="true">
                             <label class="cb" for="AHp">AHp</label>
-                            <input type="checkbox" name="AHq" id="AHq">
+                            <input type="checkbox" name="AHq" value="true">
                             <label class="cb" for="AHq">AHq</label>
-                            <input type="checkbox" name="AHr" id="AHr">
+                            <input type="checkbox" name="AHr" value="true">
                             <label class="cb" for="AHr">AHr</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Information Technology & Research</h4>
-                            <input type="checkbox" name="ITR" id="ITR">
+                            <input type="checkbox" name="ITR" value="true">
                             <label class="cb" for="ITR">ITR</label>
                         </div>
                     </div>

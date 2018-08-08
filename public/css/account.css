@@ -17,19 +17,6 @@
     padding: 1em 0 1em 0;
 }
 
-.header-text{
-    font-size: 3em;
-    align-self: center;
-}
-
-.modal-body {
-    padding: 2em;
-
-}
-.modal-content semester {
-    width: 50%;
-}
-
 .manual-add {
     resize: none;
     height: 12em;
@@ -65,19 +52,6 @@
     margin: 0 0.5em;
 }
 
-.upload-button {
-    height: 70%;
-    font-weight: normal;
-    font-size: 1.7em;
-    margin-bottom: 0.5em;
-}
-
-.new-semester {
-    font-size: 1.4em;
-    padding-bottom: 0.5em;
-    width: 100%;
-}
-
 .semester {
     font-size: 1.4em;
     padding-right: 1.42em;
@@ -85,7 +59,7 @@
     width: 33.33%;
 }
 
-.semester h2, .new-semester h2 {
+.semester h2 {
     font-weight: 300;
     font-size: 1.2em;
 }
@@ -104,12 +78,7 @@ li {
     font-weight: 300;
 }
 
-.update-header {
-    margin: 0;
-    font-weight: 300;
-}
-
-h5 {
+.upload h5 {
     font-weight: 300;
     font-size: 1.1em;
 }
@@ -119,7 +88,7 @@ h6 {
     font-weight: 400;
 }
 
-p {
+.tut-aside p {
     font-weight: 300;
     font-size: .9em;
 }
@@ -135,19 +104,19 @@ p {
     text-align: left;
 }
 
-.modal-title {
-    font-weight: 300;
+.delete-account {
+    text-align: center;
+    margin: 2em;
+}
+
+.delete-account .modal {
+    text-align: left;
 }
 
 /* media queries */
 
 /* laptop/desktop screens with 150% page zoom */
 @media only screen and (max-width: 1280px) {
-    .btn-primary.upload-button {
-        width: 100%;
-        display: block;
-    }
-
     .semester {
         width: 50%;
         padding-right: 0;

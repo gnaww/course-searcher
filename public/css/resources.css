@@ -38,7 +38,7 @@ html, body {
     width: 50%;
 }
 
-.error-container {
+.message-container {
     height: 80%;
     width: 100%;
     display: flex;
@@ -46,7 +46,7 @@ html, body {
     justify-content: center;
 }
 
-.error {
+.message {
     font-weight: 300;
     font-size: 5em;
     height: auto;

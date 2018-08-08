@@ -68,10 +68,6 @@
 	letter-spacing: 2px;
 }
 
-.nav-link-space {
-    margin-right: .7em;
-}
-
 .navbar-dark .navbar-brand {
 	color: #C3DFE4;
 	font-weight: 300;
@@ -87,18 +83,6 @@
 .navbar-expand-lg .navbar-nav .nav-link {
 	padding-right: 10px;
 	padding-left:20px;
-}
-
-.navbar-light .navbar-nav .nav-link {
-    color: #C3DFE4;
-}
-
-.navbar-light .navbar-brand {
-    color: #C3DFE4;
-}
-
-.navbar-light .navbar-toggler {
-    color: #C3DFE4;
 }
 
 .reg-link {
