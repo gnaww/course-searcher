@@ -24,7 +24,7 @@ const handleCoursePost = async (req, res, next) => {
             const date = new Date();
             
             // check if user has commented/rated before
-            const oldComment = await Comment.query().where('user', user);
+            const oldComment = await Comment.query().where('course', course).where('user', user);
             
             let isNewComment = false;
             
