@@ -269,6 +269,27 @@
     font-size: 1.7em;
 }
 
+.table-link {
+    color: #1768AC;
+    font-size: 1em;
+}
+
+.table-link:hover {
+    color: #0F436D;
+}
+
+.table-link:active {
+    color: #293651;
+}
+
+.table-link:visted {
+    color: #1768AC;
+}
+
+.disabled-button-wrapper {
+    float: right;
+}
+
 /* media queries */
 
 /* laptop/desktop screens with 125%+ page zoom. same layout for mobile */
@@ -292,25 +313,4 @@
         border-top: 2px solid #d3d3d3;
         border-left: 0;
     }
-}
-
-.table-link {
-    color: #1768AC;
-    font-size: 1em;
-}
-
-.table-link:hover {
-    color: #0F436D;
-}
-
-.table-link:active {
-    color: #293651;
-}
-
-.table-link:visted {
-    color: #1768AC;
-}
-
-.disabled-button-wrapper {
-    float: right;
 }
