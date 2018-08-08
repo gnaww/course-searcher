@@ -54,13 +54,23 @@ const requirementSearch = (params, req, res, knex) => {
         //     .then(results => {
         //         // console.log(results[0].courses[0].core_codes);
         //     });
-        knex.raw(`SELECT DISTINCT ON (course_full_number)
-                  course_full_number, name,
-                  FROM courses INNER JOIN courses_requirements
-                  ON courses.course_full_number = courses_requirements.course
-                  WHERE courses_requirements.requirement = '${username}'`)
-            .then(results => {
-                console.log(results);
+        knex.raw(`SELECT * FROM (
+                      SELECT DISTINCT ON (course_full_number)
+                      course_full_number, name, core_codes, pre_reqs, section_open_status
+                      FROM courses AS c INNER JOIN courses_requirements AS cr
+                      ON c.course_full_number = cr.course
+                      GROUP BY cr.course
+                      ORDER BY course_full_number
+                  ) t
+                  ORDER BY COUNT(cr.course)`)
+                   //WHERE cr.requirement = 'AHo' OR cr.requirement = 'AHp'
+            .then(result => {
+                result.rows.forEach(course => {
+                    course.core_codes.forEach(code => {
+                        process.stdout.write(code.code + ' ');
+                    });
+                    console.log();
+                });
             });
     }
 }
