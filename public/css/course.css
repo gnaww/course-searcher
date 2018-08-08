@@ -309,8 +309,5 @@
 }
 
 .disabled-button-wrapper {
-    display: inline-block; /* display: block works as well */
     float: right;
-    margin-top: 0.5em;
-    margin-right: 1em;
 }
