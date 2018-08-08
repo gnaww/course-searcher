@@ -48,18 +48,6 @@ class Course extends Model {
                     through: {
                         from: 'courses_requirements.course',
                         to: 'courses_requirements.requirement'
-
-                        // If you have a model class for the join table
-                        // you can specify it like this:
-                        //
-                        // modelClass: PersonMovie,
-
-                        // Columns listed here are automatically joined
-                        // to the related models on read and written to
-                        // the join table instead of the related table
-                        // on insert.
-                        //
-                        // extra: ['someExtra']
                     },
                     to: 'requirements.code'
                 }

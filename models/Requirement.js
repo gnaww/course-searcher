@@ -19,7 +19,7 @@ class Requirement extends Model {
 
     static get relationMappings() {
         const Course = require('./Course');
-        
+
         return {
             courses: {
                 relation: Model.ManyToManyRelation,
@@ -29,18 +29,6 @@ class Requirement extends Model {
                     through: {
                         from: 'courses_requirements.requirement',
                         to: 'courses_requirements.course'
-
-                        // If you have a model class for the join table
-                        // you can specify it like this:
-                        //
-                        // modelClass: PersonMovie,
-
-                        // Columns listed here are automatically joined
-                        // to the related models on read and written to
-                        // the join table instead of the related table
-                        // on insert.
-                        //
-                        // extra: ['someExtra']
                     },
                     to: 'courses.course_full_number'
                 }

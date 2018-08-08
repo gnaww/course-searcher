@@ -14,27 +14,25 @@ const handleCoursePost = async (req, res, next) => {
             data.notification = req.session.notification;
             req.session.notification = null;
         }
-        if (req.session.user) {
-            data.user = req.session.user;
-        }
         if (req.session.user) { // logged in
+            data.user = req.session.user;
             const { newComment: commentText, newRating: rating } = req.body;
             const user = data.user;
             const course = req.query.id;
             const date = new Date();
-            
+
             // check if user has commented/rated before
             const oldComment = await Comment.query().where('course', course).where('user', user);
-            
+
             let isNewComment = false;
-            
+
             if (oldComment === undefined || oldComment.length == 0) { // new comment
                 isNewComment = true;
                 const newComment = await knex('comments').insert({comment: commentText, rating: rating, date: date, course: course, user: user});
             } else { // update comment
-                const updatedComment = await knex('comments').where('user', user).update({comment: commentText, rating: rating, date: date});
+                const updatedComment = await knex('comments').where('course', course).where('user', user).update({comment: commentText, rating: rating, date: date});
             }
-            
+
             console.log('COMMENT POSTING DEBUGGING ------------------------------');
             console.log('commentText: ' + commentText);
             console.log('rating: ' + rating);
@@ -55,7 +53,7 @@ const handleCoursePost = async (req, res, next) => {
                     message: 'Successfully updated comment!'
                 };
             }
-            
+
             res.redirect('/course?id=' + course);
         } else { // not logged in
             console.log('non-logged in user tried to rate/comment');
@@ -245,18 +243,18 @@ const handleCourseGet = async (req, res, next) => {
 
             // handle comments
             const comments = await Comment.query().where('course', courseId).orderBy('date', 'desc');
-            
+
             let userComment = undefined;
             if (req.session.user) {
                 userComment = await Comment.query().where('course', courseId).where('user', req.session.user);
             }
-            
+
             data.userComment = userComment;
             data.comments = comments;
             data.moment = moment;
-            
-            
-            
+
+
+
             console.log('COMMENT GETTING DEBUGGING INFO ----------------------------------')
             console.log('userComment: ');
             console.log(userComment);
