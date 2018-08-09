@@ -47,7 +47,6 @@ p {
     background: transparent;
     transition: background-color 1s ease;
     border-bottom: 0.01em solid #09325A;
-    /* width: 30em; */
     font-size: 1.3em;
     flex-grow: 2;
 }
@@ -122,7 +121,6 @@ h4 {
 }
 
 .dir-search-p {
-    /* margin-bottom: 2.5em; */
     font-size: 1.3em;
     font-weight: 400
 }
@@ -284,23 +282,11 @@ input:checked + .slider:before {
     }
 }
 
-/* @media (min-width: 1113px) {
-    #dirsearch {
-        width: 40em;
-    }
-} */
-
 @media (max-width: 993px) {
     .search-select {
         width: 70%;
     }
 }
-
-/* @media (max-width: 688px) {
-    #dirsearch {
-        width: 10em;
-    }
-} */
 
 @media (max-width: 425px) {
     .reqful-p {
