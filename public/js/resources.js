@@ -6,7 +6,6 @@ $( document ).ready(function() {
                 $('.back-to-top').animate({width: 'toggle'});
                 shown = true;
             }
-
         } else {
             if (shown) {
                 $('.back-to-top').animate({width: 'toggle'});
