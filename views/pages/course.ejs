@@ -38,7 +38,7 @@
                     <span class="subsubheader-text">Credits:</span><span class="metadata-number course-info-text"><%= credits %></span>
                 </div>
                 <div class="class-prerequisites">
-                    <span class="subheader-text">Required Prerequisites</span>
+                    <span class="subheader-text bold">Required Prerequisites</span>
                     <br>
                     <span class="prereqs"><%- preReqs %></span>
                 </div>
@@ -123,7 +123,6 @@
                     <span class="subheader-text bold">Update your comment</span>
                     <form action="#" method="post">
                         <textarea class="form-control" name="newComment" type="text" placeholder="Enter your own thoughts and opinions about this course here!" required><%= userComment[0].comment %></textarea>
-                        <span class="subsubheader-text">Update rating:</span>
                         <span class="rating align-middle">
                             <label>
                                 <input type="radio" name="newRating" value="1" <% if (userComment[0].rating === 1) {%> checked <% } %> required/>

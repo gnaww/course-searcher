@@ -31,13 +31,11 @@
     font-size: 3.1em;
     padding-right: 0.5em;
     align-self: center;
-    font-weight: 300;
 }
 
 .subheader-text{
     font-size: 2em;
     padding-right: 0.5em;
-    font-weight: 300;
 }
 
 .subsubheader-text {
@@ -48,7 +46,6 @@
 
 .course-info-text {
     font-size: 1em;
-    font-weight: 300;
 }
 
 .register-button {
@@ -86,7 +83,6 @@
 
 .prereqs {
     font-size: 1.2em;
-    /* font-weight: 300; */
 }
 
 .comments-header {

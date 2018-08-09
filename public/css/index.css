@@ -19,10 +19,6 @@ p {
     text-align: center;
 }
 
-#direct-search {
-    display: none;
-}
-
 .dirclass {
     text-align: center;
     width: 70%;
@@ -146,10 +142,6 @@ select {
     color: #8dbbef;
 }
 
-label {
-    font-weight: 300;
-}
-
 .reqful-p {
     font-weight: 400;
     font-size: 1.1em;
@@ -261,11 +253,6 @@ input:checked + .slider:before {
 
 .slider.round:before {
     border-radius: 50%;
-}
-
-.search-result-wrapper {
-    padding-left: 10%;
-    padding-right: 10%;
 }
 
 /* media queries */
