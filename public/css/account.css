@@ -60,26 +60,16 @@
 }
 
 .semester h2 {
-    font-weight: 300;
     font-size: 1.2em;
 }
 
-h1 {
-    font-weight: 300;
-}
 
 .container span {
-    opacity: 0.8;
     display: block;
     margin-bottom: 1em;
 }
 
-li {
-    font-weight: 300;
-}
-
 .upload h5 {
-    font-weight: 300;
     font-size: 1.1em;
 }
 
@@ -89,7 +79,6 @@ h6 {
 }
 
 .tut-aside p {
-    font-weight: 300;
     font-size: .9em;
 }
 

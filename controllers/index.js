@@ -66,8 +66,6 @@ const requirementSearch = (params, req, res, knex) => {
             numRequirements++;
         }
     });
-    dump(requirements);
-    dump(formRequirements);
     if (numRequirements > 4) {
         req.session.notification = {
             type: 'error',
