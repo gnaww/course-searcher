@@ -77,8 +77,14 @@ html, body {
     z-index: 100;
     display: none;
     text-decoration: none;
-    color: #ffffff;
     color: #13446B;
+    opacity: 0.5;
+    transition: opacity ease 0.3s;
+}
+
+.back-to-top:hover {
+    color: #13446B;
+    opacity: 1;
 }
 
 .back-to-top i {

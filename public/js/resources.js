@@ -1,9 +1,17 @@
 $( document ).ready(function() {
+    let shown = false;
     $(window).scroll(function() {
-        if ($(this).scrollTop() > 700) {
-            $('.back-to-top').fadeIn(300);
+        if ($(this).scrollTop() > 600) {
+            if (!shown) {
+                $('.back-to-top').animate({width: 'toggle'});
+                shown = true;
+            }
+
         } else {
-            $('.back-to-top').fadeOut(300);
+            if (shown) {
+                $('.back-to-top').animate({width: 'toggle'});
+                shown = false;
+            }
         }
     });
 
