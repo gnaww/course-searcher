@@ -178,10 +178,10 @@ const directSearch = async (params, req, res, knex) => {
             } else if (category === 'professor') {
                 whereClause = `WHERE UPPER(instructors) LIKE UPPER('%${params.query}%')`;
             } else if (category === 'minCredit') {
-                if (validator.isDivisibleBy(params.query, 0.5)) {
-                    whereClause = `WHERE credits <= ${params.query}`;
+                if (!isNaN(params.query) && Number(params.query) % 0.5 === 0) {
+                    whereClause = `WHERE credits >= ${params.query}`;
                 } else {
-                    console.log('searched by credits without an integer or 0.5 number');
+                    console.log('searched by credits without an integer or 0.5 number:', params.query);
                     req.session.notification = {
                         type: 'error',
                         message: 'Error searching by course credits! Credits must be an integer or divisible by 0.5.'
@@ -190,10 +190,10 @@ const directSearch = async (params, req, res, knex) => {
                     return 'error';
                 }
             } else if (category === 'maxCredit') {
-                if (validator.isDivisibleBy(params.query, 0.5)) {
-                    whereClause = `WHERE credits >= ${params.query}`;
+                if (!isNaN(params.query) && Number(params.query) % 0.5 === 0) {
+                    whereClause = `WHERE credits <= ${params.query}`;
                 } else {
-                    console.log('searched by credits without an integer or 0.5 number');
+                    console.log('searched by credits without an integer or 0.5 number:', params.query);
                     req.session.notification = {
                         type: 'error',
                         message: 'Error searching by course credits! Credits must be an integer or divisible by 0.5.'
