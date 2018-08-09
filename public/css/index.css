@@ -151,15 +151,15 @@ select {
     margin-right: 1em;
 }
 
-.search-results {
+#search-results {
     margin-top: 2em;
 }
 
-.search-results table {
+#search-results table {
     font-size: 1.3em;
 }
 
-.search-results table a {
+#search-results table a {
     color: #1768AC;
 }
 

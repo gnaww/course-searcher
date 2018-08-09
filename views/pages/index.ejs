@@ -55,7 +55,7 @@
         >
             <div class="req-search-header">
                 <h1 class="reqful-h">Requirement Search</h1>
-                <p class="reqful-p">Check up to four checkboxes below to find a class that fulfills at least one desired requirement.</p>
+                <p class="reqful-p">Check one or more checkboxes below to find a class that fulfills at least one desired requirement.</p>
             </div>
             <form id="rsearch" method="get" action="/">
                 <div class="mid-container">
@@ -209,30 +209,56 @@
                                 <option value="index">Index #</option>
                                 <option value="course">Course ID</option>
                                 <option value="professor">Professor</option>
+                                <option value="minCredit">Min. Credits</option>
+                                <option value="maxCredit">Max. Credits</option>
                         <%  } else if (form.category.keyword) { %>
                                 <option value="" disabled>Search Category</option>
                                 <option value="keyword" selected>Keyword</option>
                                 <option value="index">Index #</option>
                                 <option value="course">Course ID</option>
                                 <option value="professor">Professor</option>
+                                <option value="minCredit">Min. Credits</option>
+                                <option value="maxCredit">Max. Credits</option>
                         <%  } else if (form.category.index) { %>
                                 <option value="" disabled>Search Category</option>
                                 <option value="keyword">Keyword</option>
                                 <option value="index" selected>Index #</option>
                                 <option value="course">Course ID</option>
                                 <option value="professor">Professor</option>
+                                <option value="minCredit">Min. Credits</option>
+                                <option value="maxCredit">Max. Credits</option>
                         <%  } else if (form.category.course) { %>
                                 <option value="" disabled>Search Category</option>
                                 <option value="keyword">Keyword</option>
                                 <option value="index">Index #</option>
                                 <option value="course" selected>Course ID</option>
                                 <option value="professor">Professor</option>
+                                <option value="minCredit">Min. Credits</option>
+                                <option value="maxCredit">Max. Credits</option>
                         <%  } else if (form.category.professor) { %>
                                 <option value="" disabled>Search Category</option>
                                 <option value="keyword">Keyword</option>
                                 <option value="index">Index #</option>
                                 <option value="course">Course ID</option>
                                 <option value="professor" selected>Professor</option>
+                                <option value="minCredit">Min. Credits</option>
+                                <option value="maxCredit">Max. Credits</option>
+                        <%  } else if (form.category.minCredit) { %>
+                                <option value="" disabled>Search Category</option>
+                                <option value="keyword">Keyword</option>
+                                <option value="index">Index #</option>
+                                <option value="course">Course ID</option>
+                                <option value="professor">Professor</option>
+                                <option value="minCredit" selected>Min. Credits</option>
+                                <option value="maxCredit">Max. Credits</option>
+                        <%  } else if (form.category.maxCredit) { %>
+                                <option value="" disabled>Search Category</option>
+                                <option value="keyword">Keyword</option>
+                                <option value="index">Index #</option>
+                                <option value="course">Course ID</option>
+                                <option value="professor">Professor</option>
+                                <option value="minCredit">Min. Credits</option>
+                                <option value="maxCredit" selected>Max. Credits</option>
                         <%  }
                         } else { %>
                             <option value="" selected disabled>Search Category</option>
@@ -240,6 +266,8 @@
                             <option value="index">Index #</option>
                             <option value="course">Course ID</option>
                             <option value="professor">Professor</option>
+                            <option value="minCredit">Min. Credits</option>
+                            <option value="maxCredit">Max. Credits</option>
                     <%  } %>
                     </select>
                     <input id="dirsearch" type="search" name="query" placeholder="Search..." value="<% if(form && form.query) { %><%-form.query%><% } %>" required>
@@ -249,8 +277,8 @@
         </div>
         <%
         if (results) { %>
-            <div class="search-results table-responsive">
-                <div id="search-results" class="search-results-header">
+            <div id="search-results" class="table-responsive">
+                <div class="search-results-header">
                     <h2>Search Results</h2>
                     <span class="results-count"><%= results.length %> results</span>
                     <%
@@ -276,46 +304,44 @@
                             <button id="number-desc" class="dropdown-item" type="button">Course # <i class="fas fa-arrow-down"></i></i></button>
                             <button id="name-asc" class="dropdown-item" type="button">Name <i class="fas fa-arrow-up"></i></button>
                             <button id="name-desc" class="dropdown-item" type="button">Name <i class="fas fa-arrow-down"></i></i></button>
-                            <button id="status-asc" class="dropdown-item" type="button">Status <i class="fas fa-arrow-up"></i></button>
-                            <button id="status-desc" class="dropdown-item" type="button">Status <i class="fas fa-arrow-down"></i></i></button>
+                            <button id="credits-asc" class="dropdown-item" type="button">Credits <i class="fas fa-arrow-up"></i></button>
+                            <button id="credits-desc" class="dropdown-item" type="button">Credits <i class="fas fa-arrow-down"></i></i></button>
                         </div>
                     </span>
                 </div>
-                <table class="table table-hover table-sm">
-                    <thead>
-                        <tr>
-                            <th>Course #</th>
-                            <th>Name</th>
-                            <th>Requirements</th>
-                            <th width="40%">Prerequisites</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                        for (let i = 0; i < results.length; i++) { %>
+                <%
+                if (results.length === 0) { %>
+                    <h4>No courses matching search query found</h4>
+                <%
+                } else { %>
+                    <table class="table table-hover table-sm">
+                        <thead>
                             <tr>
-                                <td><a href="/course?id=<%- results[i].number %>" target="_blank"><%- results[i].number %></a></td>
-                                <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].name %></a></td>
-                                <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].requirements %></a></td>
-                                <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].prerequisites %></a></td>
-                                <td><a href="/course?id=<%= results[i].number %>" target="_blank">
-                                <%
-                                if (results[i].status === 'OPEN') { %>
-                                    <i class="fas fa-check-circle open"></i>
-                                <%
-                                } else { %>
-                                    <i class="fas fa-times-circle closed"></i>
-                                <%
-                                }
-                                %>
-                                </a></td>
+                                <th width="150px">Course #</th>
+                                <th>Name</th>
+                                <th width="110px">Credits</th>
+                                <th>Requirements</th>
+                                <th width="40%">Prerequisites</th>
                             </tr>
-                        <%
-                        }
-                        %>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <%
+                            for (let i = 0; i < results.length; i++) { %>
+                                <tr>
+                                    <td><a href="/course?id=<%- results[i].number %>" target="_blank"><%- results[i].number %></a></td>
+                                    <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].name %></a></td>
+                                    <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].credits %></a></td>
+                                    <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].requirements %></a></td>
+                                    <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].prerequisites %></a></td>
+                                </tr>
+                            <%
+                            }
+                            %>
+                        </tbody>
+                    </table>
+                <%
+                }
+                %>
             </div>
         <%
         }

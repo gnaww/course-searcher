@@ -42,7 +42,6 @@ const displayHomepage = knex => async (req, res) => {
 
 const requirementSearch = async (params, req, res, knex) => {
     dump(params);
-    let numRequirements = 0;
     let requirements = [];
     let formRequirements = {
         NS: false,
@@ -65,17 +64,10 @@ const requirementSearch = async (params, req, res, knex) => {
         if (isRequirement(key)) {
             formRequirements[key] = true;
             requirements.push(key);
-            numRequirements++;
         }
     });
-    if (numRequirements > 4) {
-        req.session.notification = {
-            type: 'error',
-            message: 'Error searching by requirement! Choosing more than 4 requirements makes the search too general.'
-        }
-        res.redirect('/');
-        return 'error';
-    } else if (!Array.isArray(requirements) || !requirements.length) {
+
+    if (!Array.isArray(requirements) || !requirements.length) {
         req.session.notification = {
             type: 'error',
             message: 'Error searching by requirement! Must select at least one requirement checkbox.'
@@ -90,7 +82,7 @@ const requirementSearch = async (params, req, res, knex) => {
         whereClause = whereClause.slice(0, whereClause.length - 4);
 
         let orderBy = 'requirement DESC';
-        if (params.sort && (params.sort === 'requirement' || params.sort === 'number' || params.sort === 'name' || params.sort === 'status')) {
+        if (params.sort && (params.sort === 'requirement' || params.sort === 'number' || params.sort === 'name' || params.sort === 'credits')) {
             if (params.order && (params.order === 'asc' || params.order === 'desc')) {
                 orderBy = `${params.sort} ${params.order.toUpperCase()}`
             }
@@ -100,7 +92,7 @@ const requirementSearch = async (params, req, res, knex) => {
                 `SELECT * FROM
                 (
                     SELECT DISTINCT ON (course_full_number)
-                    course_full_number as number, name, core_codes, pre_reqs, section_open_status as status, cr.count as requirement
+                    course_full_number as number, name, core_codes, pre_reqs, credits, cr.count as requirement
                     FROM courses AS c INNER JOIN
                     (
                         SELECT course, COUNT(course) AS count FROM courses_requirements
@@ -115,7 +107,7 @@ const requirementSearch = async (params, req, res, knex) => {
             result.rows.forEach(course => {
                 let c = {};
 
-                if(Object.keys(course.core_codes).length === 0 && course.core_codes.constructor === Object) {
+                if(!Array.isArray(course.core_codes) || !course.core_codes.length) {
                     c.requirements = 'None';
                 } else {
                     let codes = '';
@@ -127,7 +119,7 @@ const requirementSearch = async (params, req, res, knex) => {
                 c.number = course.number;
                 c.name = course.name;
                 c.prerequisites = course.pre_reqs;
-                c.status = course.status;
+                c.credits = course.credits;
                 results.push(c);
             });
             // console.log(results);
@@ -159,11 +151,13 @@ const directSearch = async (params, req, res, knex) => {
         keyword: false,
         index: false,
         course: false,
-        professor: false
+        professor: false,
+        minCredit: false,
+        maxCredit: false
     };
     if (params.category && params.query) {
         let category = params.category;
-        if (category === 'keyword' || category === 'index' || category === 'course' || category === 'professor') { // valid search query
+        if (category === 'keyword' || category === 'index' || category === 'course' || category === 'professor' || category === 'minCredit' || category === 'maxCredit') { // valid search query
             let whereClause;
             if (category === 'keyword') {
                 whereClause = `WHERE UPPER(name) LIKE UPPER('%${params.query}%')`;
@@ -183,18 +177,53 @@ const directSearch = async (params, req, res, knex) => {
                 whereClause = `WHERE UPPER(course_full_number) LIKE UPPER('%${params.query}%')`;
             } else if (category === 'professor') {
                 whereClause = `WHERE UPPER(instructors) LIKE UPPER('%${params.query}%')`;
+            } else if (category === 'minCredit') {
+                if (validator.isDivisibleBy(params.query, 0.5)) {
+                    whereClause = `WHERE credits <= ${params.query}`;
+                } else {
+                    console.log('searched by credits without an integer or 0.5 number');
+                    req.session.notification = {
+                        type: 'error',
+                        message: 'Error searching by course credits! Credits must be an integer or divisible by 0.5.'
+                    }
+                    res.redirect('/');
+                    return 'error';
+                }
+            } else if (category === 'maxCredit') {
+                if (validator.isDivisibleBy(params.query, 0.5)) {
+                    whereClause = `WHERE credits >= ${params.query}`;
+                } else {
+                    console.log('searched by credits without an integer or 0.5 number');
+                    req.session.notification = {
+                        type: 'error',
+                        message: 'Error searching by course credits! Credits must be an integer or divisible by 0.5.'
+                    }
+                    res.redirect('/');
+                    return 'error';
+                }
+            }
+
+            let orderBy = 'requirement DESC';
+            if (params.sort && (params.sort === 'requirement' || params.sort === 'number' || params.sort === 'name' || params.sort === 'credits')) {
+                if (params.order && (params.order === 'asc' || params.order === 'desc')) {
+                    orderBy = `${params.sort} ${params.order.toUpperCase()}`
+                }
             }
             try {
                 let result = await knex.raw(
-                    `SELECT DISTINCT ON (course_full_number)
-                    course_full_number as number, name, core_codes, pre_reqs, section_open_status as status
-                    FROM courses ${whereClause}`
+                    `SELECT * FROM
+                    (
+                        SELECT DISTINCT ON (course_full_number)
+                        course_full_number as number, name, core_codes, pre_reqs, credits, JSONB_ARRAY_LENGTH(core_codes) as requirement
+                        FROM courses ${whereClause}
+                    ) c
+                    ORDER BY ${orderBy}`
                 );
                 let results = [];
                 result.rows.forEach(course => {
                     let c = {};
 
-                    if(Object.keys(course.core_codes).length === 0 && course.core_codes.constructor === Object) {
+                    if(!Array.isArray(course.core_codes) || !course.core_codes.length) {
                         c.requirements = 'None';
                     } else {
                         let codes = '';
@@ -206,7 +235,7 @@ const directSearch = async (params, req, res, knex) => {
                     c.number = course.number;
                     c.name = course.name;
                     c.prerequisites = course.pre_reqs;
-                    c.status = course.status;
+                    c.credits = course.credits;
                     results.push(c);
                 });
                 // console.log(results);

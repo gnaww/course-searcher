@@ -4,6 +4,7 @@ $( document ).ready(function() {
         $('#requirement-search').fadeIn(500);
         $('#requirement-select').addClass('btn-active');
         $('#direct-select').removeClass('btn-active');
+        $('#search-results').remove();
     });
 
     $('#direct-select').click(function() {
@@ -11,6 +12,7 @@ $( document ).ready(function() {
         $('#direct-search').fadeIn(500);
         $('#requirement-select').removeClass('btn-active');
         $('#direct-select').addClass('btn-active');
+        $('#search-results').remove();
     });
 
     const requirements = ['NS', 'SCL', 'HST', 'WC', 'WCr', 'WCd', 'CC', 'QQ', 'QR', 'AHo', 'AHp', 'AHq', 'AHr', 'ITR'];
@@ -45,12 +47,12 @@ $( document ).ready(function() {
         redirect('name-desc');
     });
 
-    $('#status-asc').click(function() {
-        redirect('status-asc');
+    $('#credits-asc').click(function() {
+        redirect('credits-asc');
     });
 
-    $('#status-desc').click(function() {
-        redirect('status-desc');
+    $('#credits-desc').click(function() {
+        redirect('credits-desc');
     });
 });
 
