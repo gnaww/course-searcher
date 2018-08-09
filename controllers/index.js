@@ -1,6 +1,8 @@
 const Requirement = require('../models/Requirement');
 const dump = require('dumper.js/src/dump');
 const validator = require('validator');
+const knexfile = require('../knexfile.js');
+const knex = require('knex')(knexfile);
 
 const displayHomepage = knex => async (req, res) => {
     let data = {
@@ -124,17 +126,22 @@ const requirementSearch = async (params, req, res, knex) => {
                 }
                 c.number = course.number;
                 c.name = course.name;
-                c.requirements = codes.slice(0, codes.length - 2);
                 c.prerequisites = course.pre_reqs;
                 c.status = course.status;
                 results.push(c);
             });
             // console.log(results);
             console.log(results.length + ' results')
+            if (req.session.user && params.personalize === 'true') {
+                results = await personalizeFilter(results, req.session.user, req, res);
+                if (results === 'error') {
+                    return
+                }
+            }
             return { results: results, form: { search: 'requirement', requirements: formRequirements }};
         }
         catch (e) {
-            console.log('error searching db by req:', e.message);
+            console.log('error searching db by req:', e);
             req.session.notification = {
                 type: 'error',
                 message: 'Error searching by requirement! Something went wrong on our end :('
@@ -204,6 +211,12 @@ const directSearch = async (params, req, res, knex) => {
                 });
                 // console.log(results);
                 console.log(results.length + ' results')
+                if (req.session.user && params.personalize === 'true') {
+                    results = await personalizeFilter(results, req.session.user, req, res);
+                    if (results === 'error') {
+                        return
+                    }
+                }
                 formCategory[category] = true;
                 formCategory.default = false;
                 let formDirect = {
@@ -217,7 +230,7 @@ const directSearch = async (params, req, res, knex) => {
                 console.log('error searching db directly:', e);
                 req.session.notification = {
                     type: 'error',
-                    message: 'Error searching by requirement! Something went wrong on our end :('
+                    message: 'Error searching courses directly! Something went wrong on our end :('
                 }
                 res.redirect('/');
                 return 'error';
@@ -234,6 +247,23 @@ const directSearch = async (params, req, res, knex) => {
         req.session.notification = {
             type: 'error',
             message: 'Error searching courses directly! Both a category and query string must be entered.'
+        }
+        res.redirect('/');
+        return 'error';
+    }
+}
+
+const personalizeFilter = async (results, user, req, res) => {
+    console.log('personalization filtering');
+    console.log(user);
+    try {
+        let userCourses = await knex('users_courses').where('username', user);
+        console.log(userCourses);
+    } catch (e) {
+        console.log('error getting user courses for personal filter:', e);
+        req.session.notification = {
+            type: 'error',
+            message: 'Error personalizing results! Something went wrong on our end :('
         }
         res.redirect('/');
         return 'error';
