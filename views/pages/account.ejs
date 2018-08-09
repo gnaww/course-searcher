@@ -111,9 +111,7 @@
             %>
         </div>
         <div class="delete-account">
-            <button type="button" class="btn btn-lg btn-danger" data-toggle="modal" data-target="#deleteAccount"><i class="far fa-trash-alt"></i>
-                Delete Account
-            </button>
+            <button type="button" class="btn btn-lg btn-danger" data-toggle="modal" data-target="#deleteAccount">Delete Account <i class="far fa-trash-alt"></i></button>
 
             <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -131,7 +129,7 @@
                             <form action="/account" method="post">
                                 <input type="hidden" name="deleteAccount" value="true">
                                 <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i> Confirm Delete</button>
+                                <button type="submit" class="btn btn-danger">Confirm Delete <i class="far fa-trash-alt"></i></button>
                             </form>
                         </div>
                     </div>
