@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
     <link rel="stylesheet" type="text/css" href="/css/resources.css">
     <link rel="stylesheet" type="text/css" href="/css/navbar.css">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
@@ -52,65 +53,123 @@
         }
         %>
         >
-            <h1 class="reqful-h">Requirement Search</h1>
-            <p class="reqful-p">Check up to four checkboxes below to find a class that fulfills at least one desired requirement.</p>
+            <div class="req-search-header">
+                <h1 class="reqful-h">Requirement Search</h1>
+                <p class="reqful-p">Check up to four checkboxes below to find a class that fulfills at least one desired requirement.</p>
+            </div>
             <form id="rsearch" method="get" action="/">
                 <div class="mid-container">
                     <div class="req-col">
                         <input type="hidden" name="search" value="requirement">
                         <div class="reqBoxes">
                             <h4>Natural Sciences</h4>
-                            <input type="checkbox" name="NS" id="NS" value="true" <% if(form && form.requirements && form.requirements.NS) { %> checked <% } %>>
-                            <label class="cb" for="NS">NS</label>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="NS" id="NS" value="true" <% if(form && form.requirements && form.requirements.NS) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>NS</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="reqBoxes">
                             <h4>Social Analysis</h4>
-                            <input type="checkbox" name="SCL" id="SCL" value="true" <% if(form && form.requirements && form.requirements.SCL) { %> checked <% } %>>
-                            <label class="cb" for="SCL">SCL</label>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="SCL" id="SCL" value="true" <% if(form && form.requirements && form.requirements.SCL) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>SCL</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="reqBoxes">
                             <h4>Historical Analysis</h4>
-                            <input type="checkbox" name="HST" id="HST" value="true" <% if(form && form.requirements && form.requirements.HST) { %> checked <% } %>>
-                            <label class="cb" for="HST">HST</label>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="HST" id="HST" value="true" <% if(form && form.requirements && form.requirements.HST) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>HST</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="reqBoxes">
                             <h4>Writing & Communication</h4>
-                            <input type="checkbox" name="WC" id="WC" value="true" <% if(form && form.requirements && form.requirements.WC) { %> checked <% } %>>
-                            <label class="cb" class="cb" for="WC">WC</label>
-                            <input type="checkbox" name="WCr" id="WCr" value="true" <% if(form && form.requirements && form.requirements.WCr) { %> checked <% } %>>
-                            <label class="cb" class="cb" for="WCr">WCr</label>
-                            <input type="checkbox" name="WCd" id="WCd" value="true" <% if(form && form.requirements && form.requirements.WCd) { %> checked <% } %>>
-                            <label class="cb" class="cb" for="WCd">WCd</label>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="WC" id="WC" value="true" <% if(form && form.requirements && form.requirements.WC) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>WC</label>
+                                </div>
+                            </div>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="WCr" id="WCr" value="true" <% if(form && form.requirements && form.requirements.WCr) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>WCr</label>
+                                </div>
+                            </div>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="WCd" id="WCd" value="true" <% if(form && form.requirements && form.requirements.WCd) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>WCd</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="req-col">
                         <div class="reqBoxes">
                             <h4>Contemporary Challenges</h4>
-                            <input type="checkbox" name="CC" id="CC" value="true" <% if(form && form.requirements && form.requirements.CC) { %> checked <% } %>>
-                            <label class="cb" for="CC">CC</label>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="CC" id="CC" value="true" <% if(form && form.requirements && form.requirements.CC) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>CC</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="reqBoxes">
                             <h4>Quantitative & Formal Reasoning</h4>
-                            <input type="checkbox" name="QQ" id="QQ" value="true" <% if(form && form.requirements && form.requirements.QQ) { %> checked <% } %>>
-                            <label class="cb" for="QQ">QQ</label>
-                            <input type="checkbox" name="QR" id="QR" value="true" <% if(form && form.requirements && form.requirements.QR) { %> checked <% } %>>
-                            <label class="cb" for="QR">QR</label>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="QQ" id="QQ" value="true" <% if(form && form.requirements && form.requirements.QQ) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>QQ</label>
+                                </div>
+                            </div>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="QR" id="QR" value="true" <% if(form && form.requirements && form.requirements.QR) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>QR</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="reqBoxes">
                             <h4>Arts & Humanities</h4>
-                            <input type="checkbox" name="AHo" id="AHo" value="true" <% if(form && form.requirements && form.requirements.AHo) { %> checked <% } %>>
-                            <label class="cb" for="AHo">AHo</label>
-                            <input type="checkbox" name="AHp" id="AHp" value="true" <% if(form && form.requirements && form.requirements.AHp) { %> checked <% } %>>
-                            <label class="cb" for="AHp">AHp</label>
-                            <input type="checkbox" name="AHq" id="AHq" value="true" <% if(form && form.requirements && form.requirements.AHq) { %> checked <% } %>>
-                            <label class="cb" for="AHq">AHq</label>
-                            <input type="checkbox" name="AHr" id="AHr" value="true" <% if(form && form.requirements && form.requirements.AHr) { %> checked <% } %>>
-                            <label class="cb" for="AHr">AHr</label>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="AHo" id="AHo" value="true" <% if(form && form.requirements && form.requirements.AHo) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>AHo</label>
+                                </div>
+                            </div>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="AHp" id="AHp" value="true" <% if(form && form.requirements && form.requirements.AHp) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>AHp</label>
+                                </div>
+                            </div>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="AHq" id="AHq" value="true" <% if(form && form.requirements && form.requirements.AHq) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>AHq</label>
+                                </div>
+                            </div>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="AHr" id="AHr" value="true" <% if(form && form.requirements && form.requirements.AHr) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>AHr</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="reqBoxes">
                             <h4>Information Technology & Research</h4>
-                            <input type="checkbox" name="ITR" id="ITR" value="true" <% if(form && form.requirements && form.requirements.ITR) { %> checked <% } %>>
-                            <label class="cb" for="ITR">ITR</label>
+                            <div class="pretty p-default p-curve p-thick p-smooth">
+                                <input type="checkbox" name="ITR" id="ITR" value="true" <% if(form && form.requirements && form.requirements.ITR) { %> checked <% } %>>
+                                <div class="state p-primary-o">
+                                    <label>ITR</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -262,6 +321,7 @@
         }
         %>
     </div>
+</div>
     <a href="#" class="back-to-top">
         <i class="fas fa-arrow-circle-up"></i>
     </a>
