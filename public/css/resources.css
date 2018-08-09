@@ -18,9 +18,21 @@ html, body {
     border-color: #1768AC;
 }
 
-.btn-outline-primary:hover {
+.btn-outline-primary:focus {
     background-color: #0F4877;
     border-color: #0F4877;
+}
+
+.btn-outline-primary:active {
+    background-color: #1768AC;
+    border-color: #1768AC;
+    color: white;
+}
+
+.btn.btn-lg.btn-outline-primary:active {
+    background-color: #1768AC;
+    border-color: #1768AC;
+    color: white;
 }
 
 .divider {

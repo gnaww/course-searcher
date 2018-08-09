@@ -143,7 +143,7 @@ select {
 }
 
 .reqful-p {
-    font-weight: 700;
+    font-weight: 400;
     font-size: 1.1em;
 }
 
@@ -256,7 +256,7 @@ input:checked + .slider:before {
 }
 
 /* media queries */
-@media (max-width: 1113px) {
+@media (max-width: 1293px) {
     .mid-container {
         flex-direction: column;
     }
@@ -278,6 +278,10 @@ input:checked + .slider:before {
     .search-select {
         width: 70%;
     }
+    .search-result-wrapper {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
 }
 
 @media (max-width: 425px) {
@@ -285,4 +289,21 @@ input:checked + .slider:before {
         padding-right: 10%;
         padding-left: 10%;
     }
+}
+
+
+.dropdown-item {
+    text-align: right;
+}
+
+.reqBoxes {
+    margin-bottom: 1em;
+}
+
+
+
+
+
+.req-search-header {
+    margin-bottom: 3em;
 }
