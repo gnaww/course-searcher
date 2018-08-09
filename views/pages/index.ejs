@@ -191,7 +191,7 @@
         <div class="search-results table-responsive">
             <div id="search-results" class="search-results-header">
                 <h2>Search Results</h2>
-                <span class="results-count">23 results</span>
+                <span class="results-count"><%= results.length %> results</span>
                 <%
                 if (user) { %>
                 <span class="personalize-switch">
@@ -231,20 +231,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
-                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
-                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
-                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
-                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
-                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
-                        <td><a href="/course?id=33:010:272" target="_blank">AHp, AHo</a></td>
-                        <td><a href="/course?id=33:010:272" target="_blank">(33:010:273)</a></td>
-                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-times-circle closed"></i></a></td>
-                    </tr>
+                    <%
+                    for (let i = 0; i < results.length; i++) { %>
+                        <tr>
+                            <td><a href="/course?id=<%- results[i].number %>" target="_blank"><%- results[i].number %></a></td>
+                            <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].name %></a></td>
+                            <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].requirements %></a></td>
+                            <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].prerequisites %></a></td>
+                            <td><a href="/course?id=<%= results[i].number %>" target="_blank">
+                            <%
+                            if (results[i].status === 'OPEN') { %>
+                                <i class="fas fa-check-circle open"></i>
+                            <%
+                            } else { %>
+                                <i class="fas fa-times-circle closed"></i>
+                            <%
+                            }
+                            %>
+                            </a></td>
+                        </tr>
+                    <%
+                    }
+                    %>
                 </tbody>
             </table>
         </div>

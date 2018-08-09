@@ -47,7 +47,6 @@ $( document ).ready(function() {
 });
 
 const redirect = sortType => {
-    const personalize = document.getElementById('personalize').checked;
     let url = document.URL;
     let params = sortType.split('-');
 
@@ -56,7 +55,16 @@ const redirect = sortType => {
     const personalizeIndex = url.indexOf('&personalize') === -1 ? Number.MAX_VALUE : url.indexOf('&personalize');
 
     url = url.slice(0, Math.min(sortIndex, orderIndex, personalizeIndex));
-    url = `${url}&sort=${params[0]}&order=${params[1]}&personalize=${personalize}#search-results`;
+
+    const personalizeCheck = document.getElementById('personalize');
+
+    if (personalizeCheck) {
+        const personalize = personalizeCheck.checked;
+        url = `${url}&sort=${params[0]}&order=${params[1]}&personalize=${personalize}#search-results`;
+    } else {
+        url = `${url}&sort=${params[0]}&order=${params[1]}#search-results`;
+    }
+
     window.location.href = url;
 };
 
