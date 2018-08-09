@@ -85,12 +85,12 @@
                                 <td class="text-center">
                                     <% if (section.sectionOpenStatus === 'OPEN') {%>
                                     <span class="status open sections" data-toggle="tooltip" data-placement="top" title="Section is open! Click to toggle register button & class status">
-                                        <i class="fas fa-check class-open"></i>
+                                        <i class="fas fa-check-circle class-open"></i>
                                     </span>
                                     <a class="btn btn-primary register-button bold" href="https://sims.rutgers.edu/webreg/editSchedule.htm?&indexList=<%= section.sectionIndex %>" role="button" target="_blank" data-toggle="tooltip" data-placement="top" title="Click to toggle register button & class status">Register</a>
                                     <% } else { %>
                                     <span class="status closed sections" data-toggle="tooltip" data-placement="top" title="Section is closed! Can't register.">
-                                        <i class="fas fa-times"></i>
+                                        <i class="fas fa-times-circle"></i>
                                     </span>
                                     <% } %>
                                 </td>
