@@ -1,5 +1,6 @@
 const Requirement = require('../models/Requirement');
 const dump = require('dumper.js/src/dump');
+const validator = require('validator');
 
 const displayHomepage = knex => async (req, res) => {
     let data = {
@@ -93,7 +94,8 @@ const requirementSearch = async (params, req, res, knex) => {
             }
         }
         try {
-            let result = await knex.raw(`SELECT * FROM
+            let result = await knex.raw(
+                `SELECT * FROM
                 (
                     SELECT DISTINCT ON (course_full_number)
                     course_full_number as number, name, core_codes, pre_reqs, section_open_status as status, cr.count as requirement
@@ -105,14 +107,21 @@ const requirementSearch = async (params, req, res, knex) => {
                     ) cr
                     ON c.course_full_number = cr.course
                 ) t
-                ORDER BY ${orderBy}`);
+                ORDER BY ${orderBy}`
+            );
             let results = [];
             result.rows.forEach(course => {
                 let c = {};
-                let codes = '';
-                course.core_codes.forEach(code => {
-                    codes += `${code.code}, `;
-                });
+
+                if(Object.keys(course.core_codes).length === 0 && course.core_codes.constructor === Object) {
+                    c.requirements = 'None';
+                } else {
+                    let codes = '';
+                    course.core_codes.forEach(code => {
+                        codes += `${code.code}, `;
+                    });
+                    c.requirements = codes.slice(0, codes.length - 2);
+                }
                 c.number = course.number;
                 c.name = course.name;
                 c.requirements = codes.slice(0, codes.length - 2);
@@ -148,14 +157,71 @@ const directSearch = async (params, req, res, knex) => {
     if (params.category && params.query) {
         let category = params.category;
         if (category === 'keyword' || category === 'index' || category === 'course' || category === 'professor') { // valid search query
-            formCategory[category] = true;
-            formCategory.default = false;
-            let formDirect = {
-                search: 'direct',
-                category: formCategory,
-                query: params.query
-            };
-            return {  results: [], form: formDirect }; //replace the [] with the database query result
+            let whereClause;
+            if (category === 'keyword') {
+                whereClause = `WHERE UPPER(name) LIKE UPPER('%${params.query}%')`;
+            } else if (category === 'index') {
+                if (validator.isInt(params.query)) {
+                    whereClause = `WHERE section_index = ${params.query}`;
+                } else {
+                    console.log('searched for course index without an integer');
+                    req.session.notification = {
+                        type: 'error',
+                        message: 'Error searching by course index number! A number was not queried.'
+                    }
+                    res.redirect('/');
+                    return 'error';
+                }
+            } else if (category === 'course') {
+                whereClause = `WHERE UPPER(course_full_number) LIKE UPPER('%${params.query}%')`;
+            } else if (category === 'professor') {
+                whereClause = `WHERE UPPER(instructors) LIKE UPPER('%${params.query}%')`;
+            }
+            try {
+                let result = await knex.raw(
+                    `SELECT DISTINCT ON (course_full_number)
+                    course_full_number as number, name, core_codes, pre_reqs, section_open_status as status
+                    FROM courses ${whereClause}`
+                );
+                let results = [];
+                result.rows.forEach(course => {
+                    let c = {};
+
+                    if(Object.keys(course.core_codes).length === 0 && course.core_codes.constructor === Object) {
+                        c.requirements = 'None';
+                    } else {
+                        let codes = '';
+                        course.core_codes.forEach(code => {
+                            codes += `${code.code}, `;
+                        });
+                        c.requirements = codes.slice(0, codes.length - 2);
+                    }
+                    c.number = course.number;
+                    c.name = course.name;
+                    c.prerequisites = course.pre_reqs;
+                    c.status = course.status;
+                    results.push(c);
+                });
+                // console.log(results);
+                console.log(results.length + ' results')
+                formCategory[category] = true;
+                formCategory.default = false;
+                let formDirect = {
+                    search: 'direct',
+                    category: formCategory,
+                    query: params.query
+                };
+                return { results: results, form: formDirect };
+            }
+            catch (e) {
+                console.log('error searching db directly:', e);
+                req.session.notification = {
+                    type: 'error',
+                    message: 'Error searching by requirement! Something went wrong on our end :('
+                }
+                res.redirect('/');
+                return 'error';
+            }
         } else {
             req.session.notification = {
                 type: 'error',
