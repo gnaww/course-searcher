@@ -18,7 +18,6 @@ const displayHomepage = knex => async (req, res) => {
 
     if (req.query.search === 'requirement') {
         let query = await requirementSearch(req.query, req, res, knex);
-        console.log(query);
         if (query === 'error') {
             return;
         } else {
