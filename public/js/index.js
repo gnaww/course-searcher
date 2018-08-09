@@ -14,6 +14,10 @@ $( document ).ready(function() {
     });
 });
 
+// get current url: document.URL
+// check if personalize is checked  var checkedValue = document.querySelector('#personalize:checked').value;\
+// redirect to url window.location.href = "http://stackoverflow.com";
+
 // Enable Bootstrap tooltips
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()

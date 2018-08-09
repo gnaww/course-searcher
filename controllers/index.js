@@ -82,7 +82,7 @@ const requirementSearch = (params, req, res, knex) => {
                      ) cr
                      ON c.course_full_number = cr.course
                  ) t
-                 ORDER BY t.count DESC`)
+                 ORDER BY name`)
             .then(result => {
                 // console.log(result.rows);
                 result.rows.forEach(course => {
