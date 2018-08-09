@@ -72,3 +72,11 @@ html, body {
 .back-to-top i {
     font-size: 60px;
 }
+
+.open {
+    color: #33cc33;
+}
+
+.closed {
+    color: #ff0000;
+}

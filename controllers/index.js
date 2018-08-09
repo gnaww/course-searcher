@@ -31,10 +31,12 @@ const displayHomepage = knex => (req, res) => {
 
 const requirementSearch = (params, req, res, knex) => {
     dump(params);
+    let numRequirements = 0;
     let requirements = [];
     Object.keys(params).forEach(key => {
         if (isRequirement(key)) {
             requirements.push(key);
+            numRequirements++;
         }
     });
     dump(requirements);
@@ -53,7 +55,14 @@ const requirementSearch = (params, req, res, knex) => {
     //           GROUP BY (t.course_full_number)
     //           ORDER BY COUNT(t.course_full_number)`)
                //WHERE cr.requirement = 'AHo' OR cr.requirement = 'AHp'
-    if (!Array.isArray(requirements) || !requirements.length) {
+    if (numRequirements > 4) {
+        req.session.notification = {
+            type: 'error',
+            message: 'Error searching by requirement! Choosing more than 4 requirements makes the search too general.'
+        }
+        res.redirect('/');
+        return 'error';
+    } else if (!Array.isArray(requirements) || !requirements.length) {
         req.session.notification = {
             type: 'error',
             message: 'Error searching by requirement! Must select at least one requirement checkbox'
@@ -62,18 +71,18 @@ const requirementSearch = (params, req, res, knex) => {
         return 'error';
     } else {
         knex.raw(`SELECT * FROM
-            (
-                SELECT DISTINCT ON (course_full_number)
-                course_full_number, name, core_codes, pre_reqs, section_open_status, cr.count as count
-                FROM courses AS c INNER JOIN
-                (
-                    SELECT course, COUNT(course) AS count FROM courses_requirements
-                    WHERE requirement = 'AHp'
-                    GROUP BY course
-                ) cr
-                ON c.course_full_number = cr.course
-            ) t
-            ORDER BY t.count DESC`)
+                 (
+                     SELECT DISTINCT ON (course_full_number)
+                     course_full_number, name, core_codes, pre_reqs, section_open_status, cr.count as count
+                     FROM courses AS c INNER JOIN
+                     (
+                         SELECT course, COUNT(course) AS count FROM courses_requirements
+                         WHERE requirement = 'AHp'
+                         GROUP BY course
+                     ) cr
+                     ON c.course_full_number = cr.course
+                 ) t
+                 ORDER BY t.count DESC`)
             .then(result => {
                 // console.log(result.rows);
                 result.rows.forEach(course => {

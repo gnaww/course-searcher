@@ -13,3 +13,8 @@ $( document ).ready(function() {
         $('#direct-select').addClass('btn-active');
     });
 });
+
+// Enable Bootstrap tooltips
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})

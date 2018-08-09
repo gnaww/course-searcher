@@ -21,7 +21,7 @@
         </div>
         <div id="requirement-search">
             <h1 class="reqful-h">Requirement Search</h1>
-            <p class="reqful-p">Check one or more checkbox below to find a class that fulfills at least one desired requirement.</p>
+            <p class="reqful-p">Check up to four checkboxes below to find a class that fulfills at least one desired requirement.</p>
             <form id="rsearch" method="get" action="/">
                 <div class="mid-container">
                     <div class="req-col">
@@ -106,8 +106,221 @@
                 </form>
             </div>
         </div>
-        <div class="search-results">
-            
+        <div class="search-results table-responsive">
+            <div class="search-results-header">
+                <h2>Search Results</h2>
+                <span class="results-count">23 results</span>
+                <span class="personalize-switch">
+                    <span data-toggle="tooltip" data-placement="top" title="Filter results by completed prerequisites and untaken courses.">Personalize Results</span>
+                    <label class="switch">
+                        <input id="personalize" type="checkbox" value="true">
+                        <span class="slider round"></span>
+                    </label>
+                </span>
+                <span class="sort-dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort By:
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <button class="dropdown-item" type="button">Requirements <i class="fas fa-arrow-up"></i></button>
+                        <button class="dropdown-item" type="button">Requirements <i class="fas fa-arrow-down"></i></i></button>
+                        <button class="dropdown-item" type="button">Course # <i class="fas fa-arrow-up"></i></button>
+                        <button class="dropdown-item" type="button">Course # <i class="fas fa-arrow-down"></i></i></button>
+                        <button class="dropdown-item" type="button">Name <i class="fas fa-arrow-up"></i></button>
+                        <button class="dropdown-item" type="button">Name <i class="fas fa-arrow-down"></i></i></button>
+                        <button class="dropdown-item" type="button">Status <i class="fas fa-arrow-up"></i></button>
+                        <button class="dropdown-item" type="button">Status <i class="fas fa-arrow-down"></i></i></button>
+                    </div>
+                </span>
+            </div>
+            <table class="table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>Course #</th>
+                        <th>Name</th>
+                        <th>Requirements</th>
+                        <th>Prerequisites</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">AHp, AHo</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">(33:010:273)</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-times-circle closed"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/course?id=33:010:272" target="_blank">33:010:272</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">INTRO FINANCIAL ACCT</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank">None</a></td>
+                        <td><a href="/course?id=33:010:272" target="_blank"><i class="fas fa-check-circle open"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <a href="#" class="back-to-top">
