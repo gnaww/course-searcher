@@ -13,6 +13,14 @@ $( document ).ready(function() {
         $('#direct-select').addClass('btn-active');
     });
 
+    const requirements = ['NS', 'SCL', 'HST', 'WC', 'WCr', 'WCd', 'CC', 'QQ', 'QR', 'AHo', 'AHp', 'AHq', 'AHr', 'ITR'];
+
+    $('#clear-form').click(function() {
+        for (let i = 0; i < requirements.length; i++) {
+            $(`#${requirements[i]}`).removeAttr('checked');
+        }
+    });
+
     $('#requirement-asc').click(function() {
         redirect('requirement-asc')
     });

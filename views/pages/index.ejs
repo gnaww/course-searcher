@@ -60,63 +60,63 @@
                         <input type="hidden" name="search" value="requirement">
                         <div class="reqBoxes">
                             <h4>Natural Sciences</h4>
-                            <input type="checkbox" name="NS" value="true" <% if(form && form.requirements && form.requirements.NS) { %> checked <% } %>>
+                            <input type="checkbox" name="NS" id="NS" value="true" <% if(form && form.requirements && form.requirements.NS) { %> checked <% } %>>
                             <label class="cb" for="NS">NS</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Social Analysis</h4>
-                            <input type="checkbox" name="SCL" value="true" <% if(form && form.requirements && form.requirements.SCL) { %> checked <% } %>>
+                            <input type="checkbox" name="SCL" id="SCL" value="true" <% if(form && form.requirements && form.requirements.SCL) { %> checked <% } %>>
                             <label class="cb" for="SCL">SCL</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Historical Analysis</h4>
-                            <input type="checkbox" name="HST" value="true" <% if(form && form.requirements && form.requirements.HST) { %> checked <% } %>>
+                            <input type="checkbox" name="HST" id="HST" value="true" <% if(form && form.requirements && form.requirements.HST) { %> checked <% } %>>
                             <label class="cb" for="HST">HST</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Writing & Communication</h4>
-                            <input type="checkbox" name="WC" value="true" <% if(form && form.requirements && form.requirements.WC) { %> checked <% } %>>
+                            <input type="checkbox" name="WC" id="WC" value="true" <% if(form && form.requirements && form.requirements.WC) { %> checked <% } %>>
                             <label class="cb" class="cb" for="WC">WC</label>
-                            <input type="checkbox" name="WCr" value="true" <% if(form && form.requirements && form.requirements.WCr) { %> checked <% } %>>
+                            <input type="checkbox" name="WCr" id="WCr" value="true" <% if(form && form.requirements && form.requirements.WCr) { %> checked <% } %>>
                             <label class="cb" class="cb" for="WCr">WCr</label>
-                            <input type="checkbox" name="WCd" value="true" <% if(form && form.requirements && form.requirements.WCd) { %> checked <% } %>>
+                            <input type="checkbox" name="WCd" id="WCd" value="true" <% if(form && form.requirements && form.requirements.WCd) { %> checked <% } %>>
                             <label class="cb" class="cb" for="WCd">WCd</label>
                         </div>
                     </div>
                     <div class="req-col">
                         <div class="reqBoxes">
                             <h4>Contemporary Challenges</h4>
-                            <input type="checkbox" name="CC" value="true" <% if(form && form.requirements && form.requirements.CC) { %> checked <% } %>>
+                            <input type="checkbox" name="CC" id="CC" value="true" <% if(form && form.requirements && form.requirements.CC) { %> checked <% } %>>
                             <label class="cb" for="CC">CC</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Quantitative & Formal Reasoning</h4>
-                            <input type="checkbox" name="QQ" value="true" <% if(form && form.requirements && form.requirements.QQ) { %> checked <% } %>>
+                            <input type="checkbox" name="QQ" id="QQ" value="true" <% if(form && form.requirements && form.requirements.QQ) { %> checked <% } %>>
                             <label class="cb" for="QQ">QQ</label>
-                            <input type="checkbox" name="QR" value="true" <% if(form && form.requirements && form.requirements.QR) { %> checked <% } %>>
+                            <input type="checkbox" name="QR" id="QR" value="true" <% if(form && form.requirements && form.requirements.QR) { %> checked <% } %>>
                             <label class="cb" for="QR">QR</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Arts & Humanities</h4>
-                            <input type="checkbox" name="AHo" value="true" <% if(form && form.requirements && form.requirements.AHo) { %> checked <% } %>>
+                            <input type="checkbox" name="AHo" id="AHo" value="true" <% if(form && form.requirements && form.requirements.AHo) { %> checked <% } %>>
                             <label class="cb" for="AHo">AHo</label>
-                            <input type="checkbox" name="AHp" value="true" <% if(form && form.requirements && form.requirements.AHp) { %> checked <% } %>>
+                            <input type="checkbox" name="AHp" id="AHp" value="true" <% if(form && form.requirements && form.requirements.AHp) { %> checked <% } %>>
                             <label class="cb" for="AHp">AHp</label>
-                            <input type="checkbox" name="AHq" value="true" <% if(form && form.requirements && form.requirements.AHq) { %> checked <% } %>>
+                            <input type="checkbox" name="AHq" id="AHq" value="true" <% if(form && form.requirements && form.requirements.AHq) { %> checked <% } %>>
                             <label class="cb" for="AHq">AHq</label>
-                            <input type="checkbox" name="AHr" value="true" <% if(form && form.requirements && form.requirements.AHr) { %> checked <% } %>>
+                            <input type="checkbox" name="AHr" id="AHr" value="true" <% if(form && form.requirements && form.requirements.AHr) { %> checked <% } %>>
                             <label class="cb" for="AHr">AHr</label>
                         </div>
                         <div class="reqBoxes">
                             <h4>Information Technology & Research</h4>
-                            <input type="checkbox" name="ITR" value="true" <% if(form && form.requirements && form.requirements.ITR) { %> checked <% } %>>
+                            <input type="checkbox" name="ITR" id="ITR" value="true" <% if(form && form.requirements && form.requirements.ITR) { %> checked <% } %>>
                             <label class="cb" for="ITR">ITR</label>
                         </div>
                     </div>
                 </div>
                 <div class="confirmation-btns">
                     <input class="btn" type="submit" value="Submit">
-                    <input class="btn" type="reset" value="Clear">
+                    <input class="btn" type="reset" id="clear-form" value="Clear">
                 </div>
             </form>
         </div>
@@ -188,74 +188,79 @@
                 </form>
             </div>
         </div>
-        <div class="search-results table-responsive">
-            <div id="search-results" class="search-results-header">
-                <h2>Search Results</h2>
-                <span class="results-count"><%= results.length %> results</span>
-                <%
-                if (user) { %>
-                <span class="personalize-switch">
-                    <span data-toggle="tooltip" data-placement="top" title="Filter results by completed prerequisites and untaken courses.">Personalize Results</span>
-                    <label class="switch">
-                        <input id="personalize" type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                </span>
-                <%
-                }
-                %>
-                <span class="sort-dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sort By:
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button id="requirement-asc" class="dropdown-item" type="button">Requirements <i class="fas fa-arrow-up"></i></button>
-                        <button id="requirement-desc" class="dropdown-item" type="button">Requirements <i class="fas fa-arrow-down"></i></i></button>
-                        <button id="number-asc" class="dropdown-item" type="button">Course # <i class="fas fa-arrow-up"></i></button>
-                        <button id="number-desc" class="dropdown-item" type="button">Course # <i class="fas fa-arrow-down"></i></i></button>
-                        <button id="name-asc" class="dropdown-item" type="button">Name <i class="fas fa-arrow-up"></i></button>
-                        <button id="name-desc" class="dropdown-item" type="button">Name <i class="fas fa-arrow-down"></i></i></button>
-                        <button id="status-asc" class="dropdown-item" type="button">Status <i class="fas fa-arrow-up"></i></button>
-                        <button id="status-desc" class="dropdown-item" type="button">Status <i class="fas fa-arrow-down"></i></i></button>
-                    </div>
-                </span>
-            </div>
-            <table class="table table-hover table-sm">
-                <thead>
-                    <tr>
-                        <th>Course #</th>
-                        <th>Name</th>
-                        <th>Requirements</th>
-                        <th>Prerequisites</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <%
+        if (results) { %>
+            <div class="search-results table-responsive">
+                <div id="search-results" class="search-results-header">
+                    <h2>Search Results</h2>
+                    <span class="results-count"><%= results.length %> results</span>
                     <%
-                    for (let i = 0; i < results.length; i++) { %>
-                        <tr>
-                            <td><a href="/course?id=<%- results[i].number %>" target="_blank"><%- results[i].number %></a></td>
-                            <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].name %></a></td>
-                            <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].requirements %></a></td>
-                            <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].prerequisites %></a></td>
-                            <td><a href="/course?id=<%= results[i].number %>" target="_blank">
-                            <%
-                            if (results[i].status === 'OPEN') { %>
-                                <i class="fas fa-check-circle open"></i>
-                            <%
-                            } else { %>
-                                <i class="fas fa-times-circle closed"></i>
-                            <%
-                            }
-                            %>
-                            </a></td>
-                        </tr>
+                    if (user) { %>
+                    <span class="personalize-switch">
+                        <span data-toggle="tooltip" data-placement="top" title="Filter results by completed prerequisites and untaken courses.">Personalize Results</span>
+                        <label class="switch">
+                            <input id="personalize" type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </span>
                     <%
                     }
                     %>
-                </tbody>
-            </table>
-        </div>
+                    <span class="sort-dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sort By:
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <button id="requirement-asc" class="dropdown-item" type="button">Requirements <i class="fas fa-arrow-up"></i></button>
+                            <button id="requirement-desc" class="dropdown-item" type="button">Requirements <i class="fas fa-arrow-down"></i></i></button>
+                            <button id="number-asc" class="dropdown-item" type="button">Course # <i class="fas fa-arrow-up"></i></button>
+                            <button id="number-desc" class="dropdown-item" type="button">Course # <i class="fas fa-arrow-down"></i></i></button>
+                            <button id="name-asc" class="dropdown-item" type="button">Name <i class="fas fa-arrow-up"></i></button>
+                            <button id="name-desc" class="dropdown-item" type="button">Name <i class="fas fa-arrow-down"></i></i></button>
+                            <button id="status-asc" class="dropdown-item" type="button">Status <i class="fas fa-arrow-up"></i></button>
+                            <button id="status-desc" class="dropdown-item" type="button">Status <i class="fas fa-arrow-down"></i></i></button>
+                        </div>
+                    </span>
+                </div>
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>Course #</th>
+                            <th>Name</th>
+                            <th>Requirements</th>
+                            <th width="40%">Prerequisites</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                        for (let i = 0; i < results.length; i++) { %>
+                            <tr>
+                                <td><a href="/course?id=<%- results[i].number %>" target="_blank"><%- results[i].number %></a></td>
+                                <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].name %></a></td>
+                                <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].requirements %></a></td>
+                                <td><a href="/course?id=<%= results[i].number %>" target="_blank"><%- results[i].prerequisites %></a></td>
+                                <td><a href="/course?id=<%= results[i].number %>" target="_blank">
+                                <%
+                                if (results[i].status === 'OPEN') { %>
+                                    <i class="fas fa-check-circle open"></i>
+                                <%
+                                } else { %>
+                                    <i class="fas fa-times-circle closed"></i>
+                                <%
+                                }
+                                %>
+                                </a></td>
+                            </tr>
+                        <%
+                        }
+                        %>
+                    </tbody>
+                </table>
+            </div>
+        <%
+        }
+        %>
     </div>
     <a href="#" class="back-to-top">
         <i class="fas fa-arrow-circle-up"></i>
