@@ -37,13 +37,18 @@ const displayHomepage = knex => async (req, res) => {
             data.form = query.form;
         }
     }
+    
     res.render('pages/index', data);
 }
 
 const requirementSearch = async (params, req, res, knex) => {
     dump(params);
+
+    // contains all requirements to query db for
     let requirements = [];
-    let formRequirements = {
+
+    // for prepopulating form after search
+    let requirementCheckboxes = {
         NS: false,
         SCL: false,
         HST: false,
@@ -60,9 +65,10 @@ const requirementSearch = async (params, req, res, knex) => {
         ITR: false
     };
 
+    // validate requirement params
     Object.keys(params).forEach(key => {
         if (isRequirement(key)) {
-            formRequirements[key] = true;
+            requirementCheckboxes[key] = true;
             requirements.push(key);
         }
     });
@@ -75,18 +81,22 @@ const requirementSearch = async (params, req, res, knex) => {
         res.redirect('/');
         return 'error';
     } else { // valid search query
+        // create WHERE condition based on params
         let whereClause = '';
         requirements.forEach(requirement => {
             whereClause += `requirement = '${requirement}' OR `
         });
         whereClause = whereClause.slice(0, whereClause.length - 4);
 
+        // create ORDER BY condition based on params
         let orderBy = 'requirement DESC';
         if (params.sort && (params.sort === 'requirement' || params.sort === 'number' || params.sort === 'name' || params.sort === 'credits')) {
             if (params.order && (params.order === 'asc' || params.order === 'desc')) {
                 orderBy = `${params.sort} ${params.order.toUpperCase()}`
             }
         }
+
+        // query db for courses
         try {
             let result = await knex.raw(
                 `SELECT * FROM
@@ -103,6 +113,8 @@ const requirementSearch = async (params, req, res, knex) => {
                 ) t
                 ORDER BY ${orderBy}`
             );
+
+            // populate results array
             let results = [];
             result.rows.forEach(course => {
                 let c = {};
@@ -122,15 +134,24 @@ const requirementSearch = async (params, req, res, knex) => {
                 c.credits = course.credits;
                 results.push(c);
             });
-            // console.log(results);
-            console.log(results.length + ' results')
+
+            let formRequirements = {
+                search: 'requirement',
+                requirements: requirementCheckboxes
+            }
+
+            // check if results should be personalized
             if (req.session.user && params.personalize === 'true') {
                 results = await personalizeFilter(results, req.session.user, req, res);
                 if (results === 'error') {
                     return
                 }
+                formRequirements.personalize = true;
+            } else {
+                formRequirements.personalize = false;
             }
-            return { results: results, form: { search: 'requirement', requirements: formRequirements }};
+
+            return { results: results, form: formRequirements };
         }
         catch (e) {
             console.log('error searching db by req:', e);
@@ -146,6 +167,8 @@ const requirementSearch = async (params, req, res, knex) => {
 
 const directSearch = async (params, req, res, knex) => {
     dump(params);
+
+    // for prepopulating form after search
     let formCategory = {
         default: true,
         keyword: false,
@@ -155,9 +178,14 @@ const directSearch = async (params, req, res, knex) => {
         minCredit: false,
         maxCredit: false
     };
+
     if (params.category && params.query) {
         let category = params.category;
+
+        // validate search categories
         if (category === 'keyword' || category === 'index' || category === 'course' || category === 'professor' || category === 'minCredit' || category === 'maxCredit') { // valid search query
+
+            // create WHERE condition based on params
             let whereClause;
             if (category === 'keyword') {
                 whereClause = `WHERE UPPER(name) LIKE UPPER('%${params.query}%')`;
@@ -178,6 +206,7 @@ const directSearch = async (params, req, res, knex) => {
             } else if (category === 'professor') {
                 whereClause = `WHERE UPPER(instructors) LIKE UPPER('%${params.query}%')`;
             } else if (category === 'minCredit') {
+                // course credits are only integers or x.5
                 if (!isNaN(params.query) && Number(params.query) % 0.5 === 0) {
                     whereClause = `WHERE credits >= ${params.query}`;
                 } else {
@@ -203,12 +232,18 @@ const directSearch = async (params, req, res, knex) => {
                 }
             }
 
+            formCategory[category] = true;
+            formCategory.default = false;
+
+            // create ORDER BY condition based on params
             let orderBy = 'requirement DESC';
             if (params.sort && (params.sort === 'requirement' || params.sort === 'number' || params.sort === 'name' || params.sort === 'credits')) {
                 if (params.order && (params.order === 'asc' || params.order === 'desc')) {
                     orderBy = `${params.sort} ${params.order.toUpperCase()}`
                 }
             }
+
+            // query db for courses
             try {
                 let result = await knex.raw(
                     `SELECT * FROM
@@ -219,6 +254,8 @@ const directSearch = async (params, req, res, knex) => {
                     ) c
                     ORDER BY ${orderBy}`
                 );
+
+                // populate results array
                 let results = [];
                 result.rows.forEach(course => {
                     let c = {};
@@ -238,21 +275,24 @@ const directSearch = async (params, req, res, knex) => {
                     c.credits = course.credits;
                     results.push(c);
                 });
-                // console.log(results);
-                console.log(results.length + ' results')
-                if (req.session.user && params.personalize === 'true') {
-                    results = await personalizeFilter(results, req.session.user, req, res);
-                    if (results === 'error') {
-                        return
-                    }
-                }
-                formCategory[category] = true;
-                formCategory.default = false;
+
                 let formDirect = {
                     search: 'direct',
                     category: formCategory,
                     query: params.query
                 };
+
+                // check if results should be personalized
+                if (req.session.user && params.personalize === 'true') {
+                    results = await personalizeFilter(results, req.session.user, req, res);
+                    if (results === 'error') {
+                        return
+                    }
+                    formDirect.personalize = true;
+                } else {
+                    formDirect.personalize = false;
+                }
+
                 return { results: results, form: formDirect };
             }
             catch (e) {
@@ -283,8 +323,6 @@ const directSearch = async (params, req, res, knex) => {
 }
 
 const personalizeFilter = async (results, user, req, res) => {
-    console.log('personalization filtering');
-    console.log(user);
     try {
         let userCourses = await knex('users_courses').where('username', user);
         let courses = [];
@@ -293,7 +331,38 @@ const personalizeFilter = async (results, user, req, res) => {
                 courses.push(course.id);
             });
         });
-        console.log(courses);
+
+        let resultsFiltered = results.filter(course => {
+            // remove if user already took class
+            if (courses.includes(course.number)) {
+                return false;
+            } else {
+                let prereqs = course.prerequisites.toUpperCase();
+                // check if prerequisites are fulfilled
+                if (prereqs === 'NONE') {
+                    return true;
+                }
+                else if (prereqs.includes('ANY COURSE EQUAL OR GREATER THAN:')) {
+                    let greaterThanPrereq = prereqs.slice('ANY COURSE EQUAL OR GREATER THAN:'.length + 2, prereqs.length - 2)
+                    let unitSubject = greaterThanPrereq.slice(0, 6);
+                    courses.forEach(userCourse => {
+                        // make sure class and prereq are same unit and subject
+                        if (userCourse.slice(0,6) === unitSubject) {
+                            return parseInt(userCourse.slice(7)) >= parseInt(greaterThanPrereq.slice(7))
+                        }
+                    });
+                } else {
+                    // turn prerequisites into booleane expression to be evaluated
+                    let prereqsFormatted = prereqs.replace(/<em>|<\/em>/gi, '').replace(/OR/gi, '||').replace(/AND/gi, '&&').replace(/\d{2}:\d{3}:\d{3}/gi, match => {
+                        return `courses.includes('${match}')`;
+                    });
+                    return eval(prereqsFormatted);
+                }
+            }
+        });
+
+        console.log(`pre filter: ${results.length} | after filter: ${resultsFiltered.length}`);
+        return resultsFiltered;
     } catch (e) {
         console.log('error getting user courses for personal filter:', e);
         req.session.notification = {
@@ -305,6 +374,7 @@ const personalizeFilter = async (results, user, req, res) => {
     }
 }
 
+// check if is one of 14 valid requirements
 const isRequirement = key => {
     return key === 'NS' || key === 'SCL' || key === 'HST' || key === 'WC' || key === 'WCr' || key === 'WCd' || key === 'CC' || key === 'QQ' || key === 'QR' || key === 'AHo' || key === 'AHp' || key === 'AHq' || key === 'AHr' || key === 'ITR';
 }

@@ -207,7 +207,7 @@
                                 <option value="" selected disabled>Search Category</option>
                                 <option value="keyword">Keyword</option>
                                 <option value="index">Index #</option>
-                                <option value="course">Course ID</option>
+                                <option value="course">Course #</option>
                                 <option value="professor">Professor</option>
                                 <option value="minCredit">Min. Credits</option>
                                 <option value="maxCredit">Max. Credits</option>
@@ -215,7 +215,7 @@
                                 <option value="" disabled>Search Category</option>
                                 <option value="keyword" selected>Keyword</option>
                                 <option value="index">Index #</option>
-                                <option value="course">Course ID</option>
+                                <option value="course">Course #</option>
                                 <option value="professor">Professor</option>
                                 <option value="minCredit">Min. Credits</option>
                                 <option value="maxCredit">Max. Credits</option>
@@ -223,7 +223,7 @@
                                 <option value="" disabled>Search Category</option>
                                 <option value="keyword">Keyword</option>
                                 <option value="index" selected>Index #</option>
-                                <option value="course">Course ID</option>
+                                <option value="course">Course #</option>
                                 <option value="professor">Professor</option>
                                 <option value="minCredit">Min. Credits</option>
                                 <option value="maxCredit">Max. Credits</option>
@@ -231,7 +231,7 @@
                                 <option value="" disabled>Search Category</option>
                                 <option value="keyword">Keyword</option>
                                 <option value="index">Index #</option>
-                                <option value="course" selected>Course ID</option>
+                                <option value="course" selected>Course #</option>
                                 <option value="professor">Professor</option>
                                 <option value="minCredit">Min. Credits</option>
                                 <option value="maxCredit">Max. Credits</option>
@@ -239,7 +239,7 @@
                                 <option value="" disabled>Search Category</option>
                                 <option value="keyword">Keyword</option>
                                 <option value="index">Index #</option>
-                                <option value="course">Course ID</option>
+                                <option value="course">Course #</option>
                                 <option value="professor" selected>Professor</option>
                                 <option value="minCredit">Min. Credits</option>
                                 <option value="maxCredit">Max. Credits</option>
@@ -247,7 +247,7 @@
                                 <option value="" disabled>Search Category</option>
                                 <option value="keyword">Keyword</option>
                                 <option value="index">Index #</option>
-                                <option value="course">Course ID</option>
+                                <option value="course">Course #</option>
                                 <option value="professor">Professor</option>
                                 <option value="minCredit" selected>Min. Credits</option>
                                 <option value="maxCredit">Max. Credits</option>
@@ -255,7 +255,7 @@
                                 <option value="" disabled>Search Category</option>
                                 <option value="keyword">Keyword</option>
                                 <option value="index">Index #</option>
-                                <option value="course">Course ID</option>
+                                <option value="course">Course #</option>
                                 <option value="professor">Professor</option>
                                 <option value="minCredit">Min. Credits</option>
                                 <option value="maxCredit" selected>Max. Credits</option>
@@ -264,7 +264,7 @@
                             <option value="" selected disabled>Search Category</option>
                             <option value="keyword">Keyword</option>
                             <option value="index">Index #</option>
-                            <option value="course">Course ID</option>
+                            <option value="course">Course #</option>
                             <option value="professor">Professor</option>
                             <option value="minCredit">Min. Credits</option>
                             <option value="maxCredit">Max. Credits</option>
@@ -286,7 +286,7 @@
                     <span class="personalize-switch">
                         <span data-toggle="tooltip" data-placement="top" title="Filter results by completed prerequisites and untaken courses.">Personalize Results</span>
                         <label class="switch">
-                            <input id="personalize" type="checkbox">
+                            <input id="personalize" type="checkbox" <% if(form && form.personalize) { %> checked <% } %>>
                             <span class="slider round"></span>
                         </label>
                     </span>
@@ -294,10 +294,8 @@
                     }
                     %>
                     <span class="sort-dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Sort By:
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By:</button>
+                        <div class="dropdown-menu" aria-labelledby="sortDropdown">
                             <button id="requirement-asc" class="dropdown-item" type="button">Requirements <i class="fas fa-arrow-up"></i></button>
                             <button id="requirement-desc" class="dropdown-item" type="button">Requirements <i class="fas fa-arrow-down"></i></i></button>
                             <button id="number-asc" class="dropdown-item" type="button">Course # <i class="fas fa-arrow-up"></i></button>

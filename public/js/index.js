@@ -23,6 +23,18 @@ $( document ).ready(function() {
         }
     });
 
+    $('#personalize').change(function() {
+        let url = document.URL;
+        const personalizeIndex = url.indexOf('&personalize');
+        if (personalizeIndex !== -1) {
+            url = url.slice(0,personalizeIndex);
+            url = `${url}&personalize=${document.getElementById('personalize').checked}#search-results`;
+        } else {
+            url = `${url}&personalize=${document.getElementById('personalize').checked}#search-results`;
+        }
+        window.location.href = url;
+    });
+
     $('#requirement-asc').click(function() {
         redirect('requirement-asc')
     });
