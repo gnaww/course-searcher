@@ -59,7 +59,7 @@ const handleCoursePost = async (req, res, next) => {
             console.log('non-logged in user tried to rate/comment');
             req.session.notification = {
                 type: 'error',
-                message: 'Please login or register to rate and comment on courses.'
+                message: 'Error posting comment! Must be logged in to rate and comment.'
             };
             res.redirect('/course?id=' + course);
         }
@@ -68,7 +68,7 @@ const handleCoursePost = async (req, res, next) => {
         console.log(error);
         req.session.notification = {
             type: 'error',
-            message: 'Error posting evaluation. Something went wrong on our end :('
+            message: 'Error posting comment! Something went wrong on our end :('
         };
         res.redirect('/course?id=' + course);
     }
