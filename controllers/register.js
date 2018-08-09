@@ -1,14 +1,19 @@
 const User = require('../models/User');
 const validator = require('validator');
 
-const displayRegister = data => async (req, res) => {
-    if (!data) {
-        data = {
-            notification: null,
-            user: null,
-            form: null
-        };
+const displayRegister = form => async (req, res) => {
+    let data = {
+        notification: null,
+        user: null
+    };
+    if (req.session.notification) {
+        data.notification = req.session.notification;
+        req.session.notification = null;
     }
+    if (req.session.user) {
+        data.user = req.session.user;
+    }
+    data.form = form;
 
     res.render('pages/register', data);
 }
@@ -20,14 +25,11 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
     // validation and sanitization
     if (validator.isEmpty(username) || validator.isEmpty(password) || validator.isEmpty(passwordConfirm)) {
         console.log('invalid form data');
-        displayRegister({
-            notification: {
-                type: 'error',
-                message: 'Error registering new user. Username and/or password was missing.'
-            },
-            user: null,
-            form: null
-        })(req, res);
+        req.session.notification = {
+            type: 'error',
+            message: 'Error registering new user. Username and/or password was missing.'
+        }
+        displayRegister(null)(req, res);
         validCredentials = false;
     } else {
         username = validator.trim(username);
@@ -40,47 +42,35 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
             });
         if (existingUser.length !== 0) {
             console.log('user with same username already exists');
-            displayRegister({
-                notification: {
-                    type: 'error',
-                    message: 'Error registering new user. Username already taken.'
-                },
-                user: null,
-                form: username
-            })(req, res);
+            req.session.notification = {
+                type: 'error',
+                message: 'Error registering new user. Username already taken.'
+            }
+            displayRegister(username)(req, res);
             validCredentials = false;
         } else if (!validator.isAlphanumeric(username)) {
             console.log('non alphanumeric username');
-            displayRegister({
-                notification: {
-                    type: 'error',
-                    message: 'Error registering new user. Username must contain letters or numbers only without spaces.'
-                },
-                user: null,
-                form: username
-            })(req, res);
+            req.session.notification = {
+                type: 'error',
+                message: 'Error registering new user. Username must contain letters or numbers only without spaces.'
+            }
+            displayRegister(username)(req, res);
             validCredentials = false;
         } else if (!validator.isLength(password, { min: 5, max: undefined })) {
             console.log('password under 5 characters');
-            displayRegister({
-                notification: {
-                    type: 'error',
-                    message: 'Error registering new user. Password must be at least 5 characters.'
-                },
-                user: null,
-                form: username
-            })(req, res);
+            req.session.notification = {
+                type: 'error',
+                message: 'Error registering new user. Password must be at least 5 characters.'
+            }
+            displayRegister(username)(req, res);
             validCredentials = false;
         } else if (!validator.equals(password, passwordConfirm)) {
             console.log('password & password confirmation don\'t match');
-            displayRegister({
-                notification: {
-                    type: 'error',
-                    message: 'Error registering new user. Password confirmation must match password.'
-                },
-                user: null,
-                form: username
-            })(req, res);
+            req.session.notification = {
+                type: 'error',
+                message: 'Error registering new user. Password confirmation must match password.'
+            }
+            displayRegister(username)(req, res);
             validCredentials = false;
         }
     }
@@ -89,26 +79,20 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
         bcrypt.genSalt(10, function(err, salt) {
             if (err) {
                 console.log('error generating salt: ', err);
-                displayRegister({
-                    notification: {
-                        type: 'error',
-                        message: 'Error registering new user. Something went wrong on our end :('
-                    },
-                    user: null,
-                    form: username
-                })(req, res);
+                req.session.notification = {
+                    type: 'error',
+                    message: 'Error registering new user. Something went wrong on our end :('
+                }
+                displayRegister(username)(req, res);
             } else {
                 bcrypt.hash(password, salt, function(err, hash) {
                     if (err) {
                         console.log('error hashing password: ', err);
-                        displayRegister({
-                            notification: {
-                                type: 'error',
-                                message: 'Error registering new user. Something went wrong on our end :('
-                            },
-                            user: null,
-                            form: username
-                        })(req, res);
+                        req.session.notification = {
+                            type: 'error',
+                            message: 'Error registering new user. Something went wrong on our end :('
+                        }
+                        displayRegister(username)(req, res);
                     } else {
                         knex('users').insert({ username: username, password: hash })
                             .then(newUser => {
@@ -121,14 +105,11 @@ const handleRegister = (knex, bcrypt) => async (req, res) => {
                             })
                             .catch(err => {
                                 console.log('error inserting user into db: ', err);
-                                displayRegister({
-                                    notification: {
-                                        type: 'error',
-                                        message: 'Error registering new user. Something went wrong on our end :('
-                                    },
-                                    user: null,
-                                    form: user
-                                })(req, res);
+                                req.session.notification = {
+                                    type: 'error',
+                                    message: 'Error registering new user. Something went wrong on our end :('
+                                }
+                                displayRegister(username)(req, res);
                             });
                     }
                 });

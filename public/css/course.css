@@ -68,14 +68,6 @@
     padding: 0;
 }
 
-.open {
-    color: #33cc33;
-}
-
-.closed {
-    color: #ff0000;
-}
-
 .class-rating {
     display: flex;
 }

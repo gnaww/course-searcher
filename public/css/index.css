@@ -1,5 +1,8 @@
-h3 {
-    font-weight: 200;
+.container-fluid {
+    padding: 3em 5em 5em 5em;
+}
+
+.dir-search-h {
     color: #13446B;
     font-size: 2.8em;
     text-align: center;
@@ -16,14 +19,26 @@ p {
     text-align: center;
 }
 
-.dirclass {
-    text-align: center;
+#direct-search {
+    display: none;
 }
 
-h1 {
-	font-weight: 200;
+.dirclass {
+    text-align: center;
+    width: 70%;
+    margin: auto;
+}
+
+.reqful-h {
     color: #0F436D;
-    font-size: 4em;
+    text-align: center;
+    font-size: 3.1em;
+}
+
+#dsearch {
+    display: flex;
+    text-align: center;
+    width: 100%;
 }
 
 #dirsearch {
@@ -32,7 +47,8 @@ h1 {
     background: transparent;
     transition: background-color 1s ease;
     border-bottom: 0.01em solid #09325A;
-    width: 30em;
+    font-size: 1.3em;
+    flex-grow: 2;
 }
 
 .mid-container {
@@ -51,12 +67,29 @@ h1 {
     font-size: 1.3em;
 }
 
-.btn {
+.search-select {
+    margin: 0 auto 2em auto;
+    display: flex;
+    width: 50%;
+    text-align: center;
+}
+
+.search-select .btn {
+    flex-grow: 1;
+}
+
+.search-select .btn-active {
+    background-color: #0F4877;
+    border-color: #0F4877;
+    color: #BBDAE0;
+}
+
+.confirmation-btns .btn {
     border: 1px solid #13446B;
     color: #13446B;
     width: 8em;
     height: 1.9em;
-    font-size: 1.2em;
+    font-size: 1.5em;
     transition: color .5s ease, background-color .5s ease;
     margin-left:0.3em;
     margin-right:0.3em;
@@ -76,30 +109,25 @@ h1 {
 
 .confirmation-btns {
     height: auto;
-/*    margin-left: 20%;*/
-/*    margin-right: 20%;*/
-    margin-bottom: 1.2em;
     text-align: center;
 }
 
 #rsearch {
     font-size: .8em;
-    margin-bottom: 1em;
 }
 
 h4 {
     font-size: 1.3em;
-    font-weight: 300;
 }
 
 .dir-search-p {
-    margin-bottom: 2.5em;
-    font-size: 0.8em;
+    font-size: 1.3em;
     font-weight: 400
 }
 
 select {
-    margin-right: .5em
+    margin-right: .5em;
+    font-size: 1.3em;
 }
 
 .icon-btn {
@@ -110,31 +138,129 @@ select {
     transition: color 1s ease;
 }
 
+.icon-btn i {
+    font-size: 1.3em;
+}
+
 .icon-btn:hover {
     color: #8dbbef;
 }
 
 label {
-    font-size: 0.8em;
     font-weight: 300;
-}
-
-.reqful-h {
-    text-align: center;
-    font-size: 3.1em;
 }
 
 .reqful-p {
     font-weight: 700;
-    font-size: .83em;
-}
-
-.reqful {
-    padding-bottom: 0em;
+    font-size: 1.1em;
 }
 
 .cb {
     margin-right: 1em;
+}
+
+.search-results {
+    margin-top: 2em;
+}
+
+.search-results table {
+    font-size: 1.3em;
+}
+
+.search-results table a {
+    color: #1768AC;
+}
+
+.search-results-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5em;
+}
+
+.personalize-switch, .results-count {
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+}
+
+.results-count {
+    flex-grow: 1;
+}
+
+.personalize-switch .switch {
+    margin-left: 0.3em;
+}
+
+.search-results-header h2 {
+    margin-right: 0.5em;
+}
+
+.sort-dropdown .btn {
+    font-size: 1.1em;
+    margin-left: 1em;
+}
+
+.search-results-header label {
+    margin: 0;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #d3d3d3;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #1768AC;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #1768AC;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
 }
 
 /* media queries */
@@ -150,17 +276,15 @@ label {
         margin-left: 0;
         margin-right: 0;
     }
-}
 
-@media (min-width: 1113px) {
-    #dirsearch {
-        width: 50em;
+    .dirclass {
+        width: 100%;
     }
 }
 
-@media (max-width: 688px) {
-    #dirsearch {
-        width: 10em;
+@media (max-width: 993px) {
+    .search-select {
+        width: 70%;
     }
 }
 
