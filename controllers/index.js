@@ -258,7 +258,13 @@ const personalizeFilter = async (results, user, req, res) => {
     console.log(user);
     try {
         let userCourses = await knex('users_courses').where('username', user);
-        console.log(userCourses);
+        let courses = [];
+        userCourses[0].courses.forEach(semester  => {
+            semester[1].forEach(course => {
+                courses.push(course.id);
+            });
+        });
+        console.log(courses);
     } catch (e) {
         console.log('error getting user courses for personal filter:', e);
         req.session.notification = {
