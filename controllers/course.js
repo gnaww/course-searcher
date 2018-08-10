@@ -177,7 +177,6 @@ const handleCourseGet = async (req, res, next) => {
 
                 let dayTimes = [];
                 let locations = [];
-                let meetingCodes = [];
                 let meetingModeDescs = [];
 
                 console.log('Amount of classes for section' + i + ': ' + sectionTimes.length);
@@ -193,7 +192,6 @@ const handleCourseGet = async (req, res, next) => {
 
                     dayTimes.push(dayTime);
                     locations.push(location);
-                    meetingCodes.push(meetingCode);
                     meetingModeDescs.push(meetingModeDesc);
                 }
 
@@ -205,7 +203,6 @@ const handleCourseGet = async (req, res, next) => {
                     dayTimes: dayTimes, // is array
                     locations: locations, // is array
                     instructors: instructors,
-                    meetingCodes: meetingCodes, // is array
                     meetingModeDescs: meetingModeDescs, // is array
                     sectionOpenStatus: sectionOpenStatus,
                     examCode: examCode

@@ -70,9 +70,8 @@
                                 <td>
                                     <% let i = 0; %>
                                     <% let meetingD = section.meetingModeDescs; %>
-                                    <% let meetingC = section.meetingCodes; %>
                                     <% section.dayTimes.forEach(function(dayTime) { %>
-                                    <a class="table-link" href="#" data-content="<%= meetingD[i] %>" rel="popover" data-placement="right" data-original-title="Meeting Mode" data-trigger="hover" data-toggle="popover"><%= dayTime %> <br></a>
+                                    <a class="table-link" href="#" data-content="<%= meetingD[i] %>" rel="popover" data-placement="right" data-original-title="Meeting Mode" data-trigger="hover" data-toggle="popover"><%= dayTime %><br></a>
                                     <% i++; %>
                                     <% }); %>
                                 </td>

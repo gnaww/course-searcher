@@ -37,7 +37,7 @@ const displayHomepage = knex => async (req, res) => {
             data.form = query.form;
         }
     }
-    
+
     res.render('pages/index', data);
 }
 
@@ -188,6 +188,11 @@ const directSearch = async (params, req, res, knex) => {
             // create WHERE condition based on params
             let whereClause;
             if (category === 'keyword') {
+                let keywords = params.query.split(' ');
+                console.log(keywords);
+                keywords.forEach(keyword => {
+                    
+                })
                 whereClause = `WHERE UPPER(name) LIKE UPPER('%${params.query}%')`;
             } else if (category === 'index') {
                 if (validator.isInt(params.query)) {
@@ -204,6 +209,8 @@ const directSearch = async (params, req, res, knex) => {
             } else if (category === 'course') {
                 whereClause = `WHERE UPPER(course_full_number) LIKE UPPER('%${params.query}%')`;
             } else if (category === 'professor') {
+                let professors = params.query.split(' ');
+                console.log(professors);
                 whereClause = `WHERE UPPER(instructors) LIKE UPPER('%${params.query}%')`;
             } else if (category === 'minCredit') {
                 // course credits are only integers or x.5
