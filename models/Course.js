@@ -27,8 +27,8 @@ class Course extends Model {
                 credits: { type: 'number', minimum: 0 },
                 url: { type: 'string' },
                 pre_reqs: { type: 'string' },
-                core_code: { type: ['object', 'array'] },
-                last_updated: { type: 'string', pattern: "^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4},\s[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}\s([AaPp][Mm])$" }
+                core_codes: { type: ['object', 'array'] },
+                last_updated: { type: 'string'/*, pattern: "^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4},\s[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}\s([AaPp][Mm])$"*/ }
             }
         };
     }

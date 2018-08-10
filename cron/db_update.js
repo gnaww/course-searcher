@@ -50,7 +50,27 @@ const getCourseData = async (subjectCode) => {
 // updates the entire db (should only be done once a semester)
 const updateAllCoursesData = async () => {
     try {
-        knex.schema.dropTableIfExists('courses')
+        knex.raw(`DROP TABLE IF EXISTS courses;
+        CREATE TABLE IF NOT EXISTS public."courses"(
+            course_unit integer,
+            course_subject integer,
+            course_number integer,
+            course_full_number text COLLATE pg_catalog."default",
+            name text COLLATE pg_catalog."default",
+            section_number character(2) COLLATE pg_catalog."default",
+            section_index integer,
+            section_open_status text COLLATE pg_catalog."default",
+            instructors text COLLATE pg_catalog."default",
+            times jsonb,
+            notes text COLLATE pg_catalog."default",
+            exam_code character(1) COLLATE pg_catalog."default",
+            campus character(2) COLLATE pg_catalog."default",
+            credits real,
+            url text COLLATE pg_catalog."default",
+            pre_reqs text COLLATE pg_catalog."default",
+            core_codes jsonb,
+            last_updated text COLLATE pg_catalog."default"
+            )`);
         subjectCodes = await getSubjectCodes();
         let courseSections = [];
         for(subjectCode of subjectCodes) {
@@ -73,7 +93,7 @@ const updateAllCoursesData = async () => {
                 if (course.courseCredits != null) {
                     courseCredits = course.credits;
                 }
-                let courseCoreCodes = {};
+                let courseCoreCodes = [];
                 if (courses.coreCodes != null) {
                     courseCoreCodes = courses.coreCodes;
                 }
@@ -125,7 +145,7 @@ const updateAllCoursesData = async () => {
                         credits: courseCredits,
                         url: courseUrl + '',
                         pre_reqs: coursePreReqs + '',
-                        core_code: courseCoreCodes,
+                        core_codes: courseCoreCodes,
                         last_updated: lastUpdatedTime
                     });
                 }
