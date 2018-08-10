@@ -111,7 +111,7 @@ const handleCourseGet = async (req, res, next) => {
 
             // formats the core codes
             let coreCodesString = '';
-            if (Object.keys(coreCodes).length === 0 && coreCodes.constructor === Object) {
+            if (!Array.isArray(coreCodes) || !coreCodes.length) {
                 coreCodesString = 'None';
             } else {
                 coreCodes.forEach(function(element) {
