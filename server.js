@@ -100,6 +100,13 @@ app.use((err, req, res) => {
     }
 });
 
+// updates the openStatus in course table every 1-2 minutes
+cron.schedule('* * * * * *', () => {
+    console.log('running a task every second');
+});
+
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=> {
   console.log('Server running on port ' + PORT);

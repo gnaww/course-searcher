@@ -7,6 +7,7 @@ const knexConfig = require('../knexfile');
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 const { Model } = require('objection');
+const now = require("performance-now")
 
 
 const Course = require('../models/Course.js');
@@ -49,11 +50,14 @@ const getCourseData = async (subjectCode) => {
 
 // updates the entire db (should only be done once a semester)
 const updateAllCoursesData = async () => {
+    let start = now();
     try {
         subjectCodes = await getSubjectCodes();
         let courseSections = [];
         // iterates through all of the subjects
         for(subjectCode of subjectCodes) {
+            console.log('------------------------------------------------------------------');
+            console.log('UPDATING SECTION: ' + subjectCode);
             // includes all sections and courses in a subject
             let courses = await getCourseData(subjectCode);
             // iterates through all the courses
@@ -68,16 +72,16 @@ const updateAllCoursesData = async () => {
                      preReqNotes: coursePreReqs,
                     } = course;
                 let courseFullNum = courseUnitCode + ':' + courseSubject + ':' + courseNumber;
-                let courseShortTitle = courses.toString().trim().replace("'", "");
+                let courseShortTitle = title.toString().trim().replace("'", "");
                 let courseCredits = 0;
                 if (course.courseCredits != null) {
                     courseCredits = course.credits;
                 }
-                let courseCoreCodes = JSON.stringify([]);
-                if (courses.coreCodes != null) {
-                    courseCoreCodes = JSON.stringify(courses.coreCodes);
+                let courseCoreCodes = [];
+                if (course.coreCodes != null) {
+                    courseCoreCodes = course.coreCodes;
                 }
-                console.log(courseCoreCodes);
+                
                 for (section of courseSections) {
                     let { 
                         number: sectionNum,
@@ -90,47 +94,31 @@ const updateAllCoursesData = async () => {
                         sectionOpenStatus = 'OPEN';
                     }
                     
-                    let section_instructors = null;
+                    let sectionInstructors = null;
+                    console.log(section.instructors);
                     for (instructor of section.instructors) {
-                        if (section_instructors != null) {
-                            section_instructors += " and " + instructor.name;
+                        if (sectionInstructors != null) {
+                            sectionInstructors += " and " + instructor.name;
                         } else {
-                            section_instructors = instructor.name;
+                            sectionInstructors = instructor.name;
                         }
                     }
-                    if (section_instructors != null) {
-                        section_instructors = section_instructors.replace("'", "");
+                    if (sectionInstructors != null) {
+                        sectionInstructors = sectionInstructors.replace("'", "");
                     }
                     
                     let sectionTimes = JSON.stringify(section.meetingTimes);
                     if (sectionNotes != null) {
                         sectionNotes = sectionNotes.replace("'", "");
+                    } else {
+                        sectionNotes = 'None';
                     }
                     let lastUpdatedTime = new Date().toLocaleString("en-US");
                     
-//                    const insertedSection = await Course.query().insert({
-//                        course_unit: parseInt(courseUnitCode),
-//                        course_subject: parseInt(courseSubject),
-//                        course_number: parseInt(courseNumber),
-//                        course_full_number: courseFullNum,
-//                        name: courseShortTitle,
-//                        section_number: sectionNum,
-//                        section_index: parseInt(sectionIndex),
-//                        section_open_status: sectionOpenStatus,
-//                        instructors: section_instructors,
-//                        times: sectionTimes,
-//                        notes: sectionNotes,
-//                        exam_code: sectionExamCode,
-//                        campus: courseCampus,
-//                        url: courseUrl + '',
-//                        pre_reqs: coursePreReqs + '',
-//                        core_codes: courseCoreCodes,
-//                        last_updated: lastUpdatedTime
-//                    });
                     const insertedSection = await knex.raw(
                     `INSERT INTO courses
-                        (course_unit, course_subject, course_number, course_full_number, name, section_number, section_index, section_open_status, instructors, times, notes, exam_code, campus, url, pre_reqs, core_codes, last_updated) VALUES 
-                        (:cu, :cs, :cn, :cfn, :na, :sn, :si, :sos, :i, :t, :no, :ec, :c, :u, :pr, :cc, :lu)
+                        (course_unit, course_subject, course_number, course_full_number, name, section_number, section_index, section_open_status, instructors, times, notes, exam_code, campus, credits, url, pre_reqs, core_codes, last_updated) VALUES 
+                        (:cu, :cs, :cn, :cfn, :na, :sn, :si, :sos, :i, :t, :no, :ec, :c, :cr, :u, :pr, :cc, :lu)
                         ON CONFLICT (section_index)
                         DO UPDATE SET section_open_status = :sos;`,
                         { 
@@ -142,20 +130,24 @@ const updateAllCoursesData = async () => {
                             sn: sectionNum, 
                             si: parseInt(sectionIndex), 
                             sos: sectionOpenStatus,
-                            i: section_instructors,
+                            i: sectionInstructors,
                             t: sectionTimes,
                             no: sectionNotes,
                             ec: sectionExamCode,
                             c: courseCampus,
+                            cr: courseCredits,
                             u: courseUrl + '',
                             pr: coursePreReqs + '',
-                            cc: courseCoreCodes,
+                            cc: JSON.stringify(courseCoreCodes),
                             lu: lastUpdatedTime 
                          });
-                    
-                    for (req of courseCoreCodes) {
-                        const insertedRequrement = await knex('courses_requirements').insert([ {course: courseFullNum}, {requirement: req} ]);
+                    console.log(`${courseFullNum}\t${courseShortTitle}\t${sectionInstructors}\t${sectionIndex}\t${courseCredits}`);
+                    if (!(courseCoreCodes === undefined || courseCoreCodes.length === 0)) {
+                        for (req of courseCoreCodes) {
+                            const insertedRequrement = await knex('courses_requirements').insert({course: courseFullNum, requirement: req});
+                        }
                     }
+                    
                 }
             }
             const removeRows = knex.raw(`DELETE FROM courses_requirements
@@ -164,7 +156,9 @@ const updateAllCoursesData = async () => {
                            FROM courses_requirements
                            GROUP BY course, requirement)`);
         }
-        console.log('test');
+        let end = now();
+        console.log('------------------------------------------------------------------');
+        console.log('DB UPDATE FINISHED IN: ' + (end-start).toFixed(3)) + 'milliseconds';
         console.log(courseSections);
     } catch (error) {
         console.log('there was an error updating the db');
@@ -173,13 +167,6 @@ const updateAllCoursesData = async () => {
 
 }
 
-// updates the openStatus in course table every 1-2 minutes
-const updateCourseOpenStatus = async () => {
-    cron.schedule('* * * * * *', () => {
-        console.log('running a task every second');
-    });
-}
-
 updateAllCoursesData();
 
-module.exports = { updateCourseOpenStatus: updateCourseOpenStatus }
+module.exports = { updateAllCoursesData: updateAllCoursesData }
