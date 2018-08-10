@@ -19,6 +19,7 @@ exports.up = function(knex, Promise) {
         t.text('pre_reqs').notNullable();
         t.jsonb('core_codes').notNullable();
         t.text('last_updated').notNullable();
+        t.unique('section_index');
     });
 };
 
