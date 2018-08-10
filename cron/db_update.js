@@ -50,29 +50,9 @@ const getCourseData = async (subjectCode) => {
 // updates the entire db (should only be done once a semester)
 const updateAllCoursesData = async () => {
     try {
-        knex.raw(`DROP TABLE IF EXISTS courses;
-        CREATE TABLE IF NOT EXISTS public."courses"(
-            course_unit integer,
-            course_subject integer,
-            course_number integer,
-            course_full_number text COLLATE pg_catalog."default",
-            name text COLLATE pg_catalog."default",
-            section_number character(2) COLLATE pg_catalog."default",
-            section_index integer,
-            section_open_status text COLLATE pg_catalog."default",
-            instructors text COLLATE pg_catalog."default",
-            times jsonb,
-            notes text COLLATE pg_catalog."default",
-            exam_code character(1) COLLATE pg_catalog."default",
-            campus character(2) COLLATE pg_catalog."default",
-            credits real,
-            url text COLLATE pg_catalog."default",
-            pre_reqs text COLLATE pg_catalog."default",
-            core_codes jsonb,
-            last_updated text COLLATE pg_catalog."default"
-            )`);
         subjectCodes = await getSubjectCodes();
         let courseSections = [];
+        // iterates through all of the subjects
         for(subjectCode of subjectCodes) {
             // includes all sections and courses in a subject
             let courses = await getCourseData(subjectCode);
@@ -93,9 +73,9 @@ const updateAllCoursesData = async () => {
                 if (course.courseCredits != null) {
                     courseCredits = course.credits;
                 }
-                let courseCoreCodes = [];
+                let courseCoreCodes = JSON.stringify([]);
                 if (courses.coreCodes != null) {
-                    courseCoreCodes = courses.coreCodes;
+                    courseCoreCodes = JSON.stringify(courses.coreCodes);
                 }
                 console.log(courseCoreCodes);
                 for (section of courseSections) {
@@ -122,34 +102,67 @@ const updateAllCoursesData = async () => {
                         section_instructors = section_instructors.replace("'", "");
                     }
                     
-                    let sectionTimes = section.meetingTimes;
+                    let sectionTimes = JSON.stringify(section.meetingTimes);
                     if (sectionNotes != null) {
                         sectionNotes = sectionNotes.replace("'", "");
                     }
                     let lastUpdatedTime = new Date().toLocaleString("en-US");
                     
-                    const insertedSection = await Course.query().insert({
-                        course_unit: parseInt(courseUnitCode),
-                        course_subject: parseInt(courseSubject),
-                        course_number: parseInt(courseNumber),
-                        course_full_number: courseFullNum,
-                        name: courseShortTitle,
-                        section_number: sectionNum,
-                        section_index: parseInt(sectionIndex),
-                        section_open_status: sectionOpenStatus,
-                        instructors: section_instructors,
-                        times: sectionTimes,
-                        notes: sectionNotes,
-                        exam_code: sectionExamCode,
-                        campus: courseCampus,
-                        credits: courseCredits,
-                        url: courseUrl + '',
-                        pre_reqs: coursePreReqs + '',
-                        core_codes: courseCoreCodes,
-                        last_updated: lastUpdatedTime
-                    });
+//                    const insertedSection = await Course.query().insert({
+//                        course_unit: parseInt(courseUnitCode),
+//                        course_subject: parseInt(courseSubject),
+//                        course_number: parseInt(courseNumber),
+//                        course_full_number: courseFullNum,
+//                        name: courseShortTitle,
+//                        section_number: sectionNum,
+//                        section_index: parseInt(sectionIndex),
+//                        section_open_status: sectionOpenStatus,
+//                        instructors: section_instructors,
+//                        times: sectionTimes,
+//                        notes: sectionNotes,
+//                        exam_code: sectionExamCode,
+//                        campus: courseCampus,
+//                        url: courseUrl + '',
+//                        pre_reqs: coursePreReqs + '',
+//                        core_codes: courseCoreCodes,
+//                        last_updated: lastUpdatedTime
+//                    });
+                    const insertedSection = await knex.raw(
+                    `INSERT INTO courses
+                        (course_unit, course_subject, course_number, course_full_number, name, section_number, section_index, section_open_status, instructors, times, notes, exam_code, campus, url, pre_reqs, core_codes, last_updated) VALUES 
+                        (:cu, :cs, :cn, :cfn, :na, :sn, :si, :sos, :i, :t, :no, :ec, :c, :u, :pr, :cc, :lu)
+                        ON CONFLICT (section_index)
+                        DO UPDATE SET section_open_status = :sos;`,
+                        { 
+                            cu: parseInt(courseUnitCode),
+                            cs: parseInt(courseSubject), 
+                            cn: parseInt(courseNumber),
+                            cfn: courseFullNum, 
+                            na: courseShortTitle, 
+                            sn: sectionNum, 
+                            si: parseInt(sectionIndex), 
+                            sos: sectionOpenStatus,
+                            i: section_instructors,
+                            t: sectionTimes,
+                            no: sectionNotes,
+                            ec: sectionExamCode,
+                            c: courseCampus,
+                            u: courseUrl + '',
+                            pr: coursePreReqs + '',
+                            cc: courseCoreCodes,
+                            lu: lastUpdatedTime 
+                         });
+                    
+                    for (req of courseCoreCodes) {
+                        const insertedRequrement = await knex('courses_requirements').insert([ {course: courseFullNum}, {requirement: req} ]);
+                    }
                 }
             }
+            const removeRows = knex.raw(`DELETE FROM courses_requirements
+                           WHERE ctid not in
+                           (SELECT MIN(ctid)
+                           FROM courses_requirements
+                           GROUP BY course, requirement)`);
         }
         console.log('test');
         console.log(courseSections);
