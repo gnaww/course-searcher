@@ -72,7 +72,7 @@
                                     <% let meetingD = section.meetingModeDescs; %>
                                     <% let meetingC = section.meetingCodes; %>
                                     <% section.dayTimes.forEach(function(dayTime) { %>
-                                    <a class="table-link" href="#" data-content="<%= meetingD[i] %> : <%= meetingC[i] %>" rel="popover" data-placement="right" data-original-title="Meeting Mode/Code" data-trigger="hover" data-toggle="popover"><%= dayTime %> <br></a>
+                                    <a class="table-link" href="#" data-content="<%= meetingD[i] %>" rel="popover" data-placement="right" data-original-title="Meeting Mode" data-trigger="hover" data-toggle="popover"><%= dayTime %> <br></a>
                                     <% i++; %>
                                     <% }); %>
                                 </td>
@@ -222,14 +222,11 @@
                             </div>
                             <div class="comment-metadata">
                                 <%
-                                year = comment.date.getFullYear();
-                                day = comment.date.getDate();
-                                // pad with 0s
-                                day = (day < 10 ? '0' : '') + day
-                                month = comment.date.getMonth()+1;
-                                month = (month < 10 ? '0' : '') + month
+                                let hours = comment.date.getHours();
+                                let minutes = comment.date.getMinutes();
+                                let timestamp = `${comment.date.toDateString()} ${hours}:${minutes}`
                                 %>
-                                <span class="comment-date" data-toggle="tooltip" data-placement="top" title="<%= comment.date.toDateString() %>"><%= moment(`${year}${month}${day}`, "YYYYMMDD").fromNow() %></span>
+                                <span class="comment-date" data-toggle="tooltip" data-placement="top" title="<%= timestamp %>"><%= moment(comment.date).fromNow() %></span>
                                 <span class="stars comment-stars">
                                     <% for(let i = 0; i < comment.rating; i++) { %>
                                     <i class="fas fa-star"></i>
