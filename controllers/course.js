@@ -123,7 +123,7 @@ const handleCourseGet = async (req, res, next) => {
             // formats descriptions
             let description = url;
             if (description == null) {
-                description = 'Coming Soon';
+                description = 'No description available.';
             }
 
             // formats course rating
