@@ -189,11 +189,17 @@ const directSearch = async (params, req, res, knex) => {
             let whereClause;
             if (category === 'keyword') {
                 let keywords = params.query.split(' ');
-                console.log(keywords);
-                keywords.forEach(keyword => {
-                    
+                whereClause = 'WHERE ';
+                whereClauseConditions = keywords.filter(keyword => {
+                    if (keyword) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }).forEach(keyword => {
+                    whereClause += `UPPER(name) LIKE UPPER('%${keyword}%') OR `
                 })
-                whereClause = `WHERE UPPER(name) LIKE UPPER('%${params.query}%')`;
+                whereClause = whereClause.slice(0,whereClause.length - 4);
             } else if (category === 'index') {
                 if (validator.isInt(params.query)) {
                     whereClause = `WHERE section_index = ${params.query}`;
@@ -210,8 +216,17 @@ const directSearch = async (params, req, res, knex) => {
                 whereClause = `WHERE UPPER(course_full_number) LIKE UPPER('%${params.query}%')`;
             } else if (category === 'professor') {
                 let professors = params.query.split(' ');
-                console.log(professors);
-                whereClause = `WHERE UPPER(instructors) LIKE UPPER('%${params.query}%')`;
+                whereClause = 'WHERE ';
+                whereClauseConditions = professors.filter(professor => {
+                    if (professor) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }).forEach(professor => {
+                    whereClause += `UPPER(instructors) LIKE UPPER('%${professor}%') OR `
+                })
+                whereClause = whereClause.slice(0,whereClause.length - 4);
             } else if (category === 'minCredit') {
                 // course credits are only integers or x.5
                 if (!isNaN(params.query) && Number(params.query) % 0.5 === 0) {
