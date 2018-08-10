@@ -73,10 +73,11 @@ const updateAllCoursesData = async () => {
                 if (course.courseCredits != null) {
                     courseCredits = course.credits;
                 }
-                let courseCoreCodes = JSON.stringify({});
+                let courseCoreCodes = {};
                 if (courses.coreCodes != null) {
-                    courseCoreCodes = JSON.stringify(courses.coreCodes);
+                    courseCoreCodes = courses.coreCodes;
                 }
+                console.log(courseCoreCodes);
                 for (section of courseSections) {
                     let { 
                         number: sectionNum,
@@ -101,20 +102,20 @@ const updateAllCoursesData = async () => {
                         section_instructors = section_instructors.replace("'", "");
                     }
                     
-                    let sectionTimes = JSON.stringify(section.meetingTimes);
+                    let sectionTimes = section.meetingTimes;
                     if (sectionNotes != null) {
                         sectionNotes = sectionNotes.replace("'", "");
                     }
                     let lastUpdatedTime = new Date().toLocaleString("en-US");
                     
                     const insertedSection = await Course.query().insert({
-                        course_unit: courseUnitCode,
-                        course_subject: courseSubject,
-                        course_number: courseNumber,
+                        course_unit: parseInt(courseUnitCode),
+                        course_subject: parseInt(courseSubject),
+                        course_number: parseInt(courseNumber),
                         course_full_number: courseFullNum,
                         name: courseShortTitle,
                         section_number: sectionNum,
-                        section_index: sectionIndex,
+                        section_index: parseInt(sectionIndex),
                         section_open_status: sectionOpenStatus,
                         instructors: section_instructors,
                         times: sectionTimes,
@@ -122,8 +123,8 @@ const updateAllCoursesData = async () => {
                         exam_code: sectionExamCode,
                         campus: courseCampus,
                         credits: courseCredits,
-                        url: courseUrl,
-                        pre_reqs: coursePreReqs,
+                        url: courseUrl + '',
+                        pre_reqs: coursePreReqs + '',
                         core_code: courseCoreCodes,
                         last_updated: lastUpdatedTime
                     });
