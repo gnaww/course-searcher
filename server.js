@@ -12,6 +12,12 @@ const pdfjsLib = require('pdfjs-dist');
 const fileUpload = require('express-fileupload');
 const favicon = require('serve-favicon')
 const path = require('path')
+const cron = require("node-cron");
+const fs = require("fs");
+const fetch = require('node-fetch');
+
+// cron resources
+const update = require('./cron/db_update');
 
 // controllers for routes
 const login = require('./controllers/login');
@@ -101,8 +107,9 @@ app.use((err, req, res) => {
 });
 
 // updates the openStatus in course table every 1-2 minutes
-cron.schedule('* * * * * *', () => {
-    console.log('running a task every second');
+cron.schedule('*/2 * * * *', () => {
+    console.log('update_db.js every two minutes');
+    update.updateAllCoursesData();
 });
 
 

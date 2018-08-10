@@ -51,6 +51,7 @@ const getCourseData = async (subjectCode) => {
 // updates the entire db (should only be done once a semester)
 const updateAllCoursesData = async () => {
     let start = now();
+    let updatedSections = 0;
     try {
         subjectCodes = await getSubjectCodes();
         let courseSections = [];
@@ -74,15 +75,16 @@ const updateAllCoursesData = async () => {
                 let courseFullNum = courseUnitCode + ':' + courseSubject + ':' + courseNumber;
                 let courseShortTitle = title.toString().trim().replace("'", "");
                 let courseCredits = 0;
-                if (course.courseCredits != null) {
+                if (course.credits != null) {
                     courseCredits = course.credits;
                 }
                 let courseCoreCodes = [];
                 if (course.coreCodes != null) {
                     courseCoreCodes = course.coreCodes;
                 }
-                
+                // iterates through all sections
                 for (section of courseSections) {
+                    updatedSections++;
                     let { 
                         number: sectionNum,
                         index: sectionIndex,
@@ -118,7 +120,7 @@ const updateAllCoursesData = async () => {
                     const insertedSection = await knex.raw(
                     `INSERT INTO courses
                         (course_unit, course_subject, course_number, course_full_number, name, section_number, section_index, section_open_status, instructors, times, notes, exam_code, campus, credits, url, pre_reqs, core_codes, last_updated) VALUES 
-                        (:cu, :cs, :cn, :cfn, :na, :sn, :si, :sos, :i, :t, :no, :ec, :c, :cr, :u, :pr, :cc, :lu)
+                        (:cu, :cs, :cn, :cfn, :na, :sn, :si, :sos, :i, :t, :no, :ec, :campus, :credits, :u, :pr, :coreCodes, :lu)
                         ON CONFLICT (section_index)
                         DO UPDATE SET section_open_status = :sos;`,
                         { 
@@ -134,14 +136,14 @@ const updateAllCoursesData = async () => {
                             t: sectionTimes,
                             no: sectionNotes,
                             ec: sectionExamCode,
-                            c: courseCampus,
-                            cr: courseCredits,
+                            campus: courseCampus,
+                            credits: courseCredits,
                             u: courseUrl + '',
                             pr: coursePreReqs + '',
-                            cc: JSON.stringify(courseCoreCodes),
+                            coreCodes: JSON.stringify(courseCoreCodes),
                             lu: lastUpdatedTime 
                          });
-                    console.log(`${courseFullNum}\t${courseShortTitle}\t${sectionInstructors}\t${sectionIndex}\t${courseCredits}`);
+                    console.log(`${courseFullNum} |\t${courseShortTitle}\t | INSTRUCTORS ${sectionInstructors} |\t SECTION INDEX ${sectionIndex}\t| CREDITS ${courseCredits}`);
                     if (!(courseCoreCodes === undefined || courseCoreCodes.length === 0)) {
                         for (req of courseCoreCodes) {
                             const insertedRequrement = await knex('courses_requirements').insert({course: courseFullNum, requirement: req});
@@ -157,9 +159,10 @@ const updateAllCoursesData = async () => {
                            GROUP BY course, requirement)`);
         }
         let end = now();
+        let performance = (end-start).toFixed(3);
         console.log('------------------------------------------------------------------');
-        console.log('DB UPDATE FINISHED IN: ' + (end-start).toFixed(3)) + 'milliseconds';
-        console.log(courseSections);
+        console.log(`DB UPDATE FINISHED IN: ${performance}  milliseconds`);
+        console.log('UPDATED ' + updatedSections + " SECTIONS");
     } catch (error) {
         console.log('there was an error updating the db');
         console.log(error);
@@ -167,6 +170,6 @@ const updateAllCoursesData = async () => {
 
 }
 
-updateAllCoursesData();
+//updateAllCoursesData();
 
 module.exports = { updateAllCoursesData: updateAllCoursesData }
