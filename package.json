@@ -15,6 +15,7 @@
     "knex": "^0.15.2",
     "moment": "^2.22.2",
     "node-cron": "^1.2.1",
+    "node-fetch": "^2.2.0",
     "objection": "^1.2.2",
     "pdfjs-dist": "^2.0.489",
     "pg": "^7.4.3",
