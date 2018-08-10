@@ -190,7 +190,7 @@ const directSearch = async (params, req, res, knex) => {
             if (category === 'keyword') {
                 let keywords = params.query.split(' ');
                 whereClause = 'WHERE ';
-                whereClauseConditions = keywords.filter(keyword => {
+                keywords.filter(keyword => {
                     if (keyword) {
                         return true;
                     } else {
@@ -199,7 +199,7 @@ const directSearch = async (params, req, res, knex) => {
                 }).forEach(keyword => {
                     whereClause += `UPPER(name) LIKE UPPER('%${keyword}%') OR `
                 })
-                whereClause = whereClause.slice(0,whereClause.length - 4);
+                whereClause = whereClause.slice(0, whereClause.length - 4);
             } else if (category === 'index') {
                 if (validator.isInt(params.query)) {
                     whereClause = `WHERE section_index = ${params.query}`;
@@ -217,7 +217,7 @@ const directSearch = async (params, req, res, knex) => {
             } else if (category === 'professor') {
                 let professors = params.query.split(' ');
                 whereClause = 'WHERE ';
-                whereClauseConditions = professors.filter(professor => {
+                professors.filter(professor => {
                     if (professor) {
                         return true;
                     } else {
@@ -226,7 +226,7 @@ const directSearch = async (params, req, res, knex) => {
                 }).forEach(professor => {
                     whereClause += `UPPER(instructors) LIKE UPPER('%${professor}%') OR `
                 })
-                whereClause = whereClause.slice(0,whereClause.length - 4);
+                whereClause = whereClause.slice(0, whereClause.length - 4);
             } else if (category === 'minCredit') {
                 // course credits are only integers or x.5
                 if (!isNaN(params.query) && Number(params.query) % 0.5 === 0) {
