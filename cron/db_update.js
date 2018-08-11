@@ -82,6 +82,9 @@ const updateAllCoursesData = async () => {
                 if (course.coreCodes != null) {
                     courseCoreCodes = course.coreCodes;
                 }
+                if (coursePreReqs == null) {
+                    coursePreReqs = 'None';
+                }
                 // iterates through all sections
                 for (section of courseSections) {
                     updatedSections++;
@@ -146,7 +149,7 @@ const updateAllCoursesData = async () => {
                     console.log(`${courseFullNum} |\t${courseShortTitle}\t | INSTRUCTORS ${sectionInstructors} |\t SECTION INDEX ${sectionIndex}\t| CREDITS ${courseCredits}`);
                     if (!(courseCoreCodes === undefined || courseCoreCodes.length === 0)) {
                         for (req of courseCoreCodes) {
-                            const insertedRequrement = await knex('courses_requirements').insert({course: courseFullNum, requirement: req});
+                            const insertedRequrement = await knex('courses_requirements').insert({course: courseFullNum, requirement: req.coreCode});
                         }
                     }
                     
