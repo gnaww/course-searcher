@@ -13,14 +13,38 @@ html, body {
     background-color: #0F4877;
 }
 
+.btn-primary:active {
+    background-color: #1768AC;
+    border-color: #1768AC;
+    color: white;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    background-color: #1768AC;
+    border-color: #1768AC;
+    color: white;
+}
+
+
 .btn-outline-primary {
     color: #1768AC;
     border-color: #1768AC;
 }
 
+.btn-outline-primary:hover {
+    background-color: #0F4877;
+    border-color: #0F4877;
+}
+
 .btn-outline-primary:focus {
     background-color: #0F4877;
     border-color: #0F4877;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
+    background-color: #1768AC;
+    border-color: #1768AC;
+    color: white;
 }
 
 .btn-outline-primary:active {

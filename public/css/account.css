@@ -105,7 +105,8 @@ h6 {
 /* media queries */
 
 /* laptop/desktop screens with 150% page zoom */
-@media only screen and (max-width: 1280px) {
+/* was 1290px but caused an the cancel and upload buttons to overflow */
+@media only screen and (max-width: 1420px) {
     .semester {
         width: 50%;
         padding-right: 0;
@@ -117,7 +118,8 @@ h6 {
 }
 
 /* mobile screens */
-@media only screen and (max-width: 992px) {
+/* was 992px but caused cancel and upload buttons to overflow */
+@media only screen and (max-width: 1069px) {
     .container-fluid {
         padding: 2em 2em 5em 2em;
     }
