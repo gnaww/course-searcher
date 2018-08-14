@@ -347,12 +347,13 @@ const personalizeFilter = async (results, user, req, res) => {
     try {
         let userCourses = await knex('users_courses').where('username', user);
         let courses = [];
-        userCourses[0].courses.forEach(semester  => {
-            semester[1].forEach(course => {
-                courses.push(course.id);
+        if (userCourses != null && userCourses.length > 0) {
+            userCourses[0].courses.forEach(semester  => {
+                semester[1].forEach(course => {
+                    courses.push(course.id);
+                });
             });
-        });
-
+        }
         let resultsFiltered = results.filter(course => {
             // remove if user already took class
             if (courses.includes(course.number)) {

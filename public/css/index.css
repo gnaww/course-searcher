@@ -484,3 +484,9 @@ input:checked + .slider:before {
     font-size: .7em;
     margin: 0;
 }
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #13446B;
+}
