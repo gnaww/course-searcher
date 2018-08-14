@@ -178,6 +178,16 @@
                     <input class="btn" type="submit" value="Submit">
                 </div>
             </form>
+            <%
+            if (results) {
+                if (results.length > 0) { %>
+                       <div class="scroll-down">
+                            <a data-scroll href="#search-results"><p>View Results</p><i class="fas fa-chevron-down"></i></a>
+                        </div>
+                    <%
+                }
+            }
+            %>
         </div>
         <div id="direct-search"
         <%
@@ -270,12 +280,11 @@
                             <option value="maxCredit">Max. Credits</option>
                     <%  } %>
                     </select>
-                        <div class="group">
-                            <input class="min-input-sb" id="dirsearch" type="search" name="query" placeholder="Search..." value="<% if(form && form.query) { %><%-form.query%><% } %>" required>
-                            <span class="bar-sb"></span>
-                        </div>
-                        <button class="icon-btn" type="submit"><i class="fas fa-search"></i></button>
-                    
+                    <div class="group">
+                        <input class="min-input-sb" id="dirsearch" type="search" name="query" placeholder="Search..." value="<% if(form && form.query) { %><%-form.query%><% } %>" required>
+                        <span class="bar-sb"></span>
+                    </div>
+                    <button class="icon-btn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
         </div>
@@ -357,6 +366,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <script src="/js/index.js"></script>
     <script src="/js/resources.js"></script>
-    <script src="path/to/smooth-scroll.polyfills.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@14/dist/smooth-scroll.polyfills.min.js"></script>
+    <script>
+        var scroll = new SmoothScroll('a[href*="#"]');
+    </script> 
 </body>
 </html>

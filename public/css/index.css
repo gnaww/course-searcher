@@ -439,3 +439,48 @@ input:checked + .slider:before {
         padding-left: 10%;
     }
 }
+.scroll-down {
+    line-height: 1em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.scroll-down > a {
+    color: rgba(19, 68, 108, 0.54);
+    transition: color 0.5s ease;
+    text-decoration: none;
+}
+
+.scroll-down > a:visited {
+    color: rgba(19, 68, 108, 0.54);
+}
+
+.scroll-down > a:hover {
+    color: #13446c;
+}
+
+.scroll-down > a:active {
+    color: #1768AC;
+}
+
+
+.scroll-down > a > p {
+    transition: color 0.5s ease;
+    color: rgba(19, 68, 108, 0.54);
+    font-size: .7em;
+    margin: 0;
+}
+
+.scroll-down > a > p:hover {
+    color: #13446B;
+    font-size: .7em;
+    margin: 0;
+}
+
+.scroll-down > a > p:active {
+    color: #1768AC;
+    font-size: .7em;
+    margin: 0;
+}

@@ -17,6 +17,8 @@ const knex = Knex(knexConfig);
 
 Model.knex(knex);
 
+const debuggingMode = false;
+
 // returns an array of subject codes
 const getSubjectCodes = async () => {
     try {
@@ -57,8 +59,11 @@ const updateAllCoursesData = async () => {
         let courseSections = [];
         // iterates through all of the subjects
         for(subjectCode of subjectCodes) {
-            console.log('------------------------------------------------------------------');
-            console.log('UPDATING SECTION: ' + subjectCode);
+            if (debuggingMode) {
+                console.log('------------------------------------------------------------------');
+                console.log('UPDATING SECTION: ' + subjectCode);
+            }
+            
             // includes all sections and courses in a subject
             let courses = await getCourseData(subjectCode);
             // iterates through all the courses
@@ -100,7 +105,9 @@ const updateAllCoursesData = async () => {
                     }
                     
                     let sectionInstructors = null;
-                    console.log(section.instructors);
+                    if (debuggingMode) {
+                        console.log(section.instructors);
+                    }
                     for (instructor of section.instructors) {
                         if (sectionInstructors != null) {
                             sectionInstructors += " and " + instructor.name;
@@ -146,7 +153,9 @@ const updateAllCoursesData = async () => {
                             coreCodes: JSON.stringify(courseCoreCodes),
                             lu: lastUpdatedTime 
                          });
-                    console.log(`${courseFullNum} |\t${courseShortTitle}\t | INSTRUCTORS ${sectionInstructors} |\t SECTION INDEX ${sectionIndex}\t| CREDITS ${courseCredits}`);
+                    if (debuggingMode) {
+                        console.log(`${courseFullNum} |\t${courseShortTitle}\t | INSTRUCTORS ${sectionInstructors} |\t SECTION INDEX ${sectionIndex}\t| CREDITS ${courseCredits}`);
+                    }
                     if (!(courseCoreCodes === undefined || courseCoreCodes.length === 0)) {
                         for (req of courseCoreCodes) {
                             const insertedRequrement = await knex('courses_requirements').insert({course: courseFullNum, requirement: req.coreCode});
@@ -166,6 +175,7 @@ const updateAllCoursesData = async () => {
         console.log('------------------------------------------------------------------');
         console.log(`DB UPDATE FINISHED IN: ${performance}  milliseconds`);
         console.log('UPDATED ' + updatedSections + " SECTIONS");
+        console.log('DEBUGGING MODE: ' + debuggingMode);
     } catch (error) {
         console.log('there was an error updating the db');
         console.log(error);

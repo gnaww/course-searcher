@@ -111,7 +111,7 @@ app.use((err, req, res) => {
 
 // updates the openStatus in course table every 1-2 minutes
 cron.schedule('*/2 * * * *', () => {
-    console.log('update_db.js every two minutes');
+    console.log('running update');
     update.updateAllCoursesData();
 });
 
