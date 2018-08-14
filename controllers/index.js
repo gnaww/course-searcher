@@ -37,7 +37,6 @@ const displayHomepage = knex => async (req, res) => {
             data.form = query.form;
         }
     }
-
     res.render('pages/index', data);
 }
 

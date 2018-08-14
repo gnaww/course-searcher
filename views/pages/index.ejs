@@ -174,10 +174,20 @@
                     </div>
                 </div>
                 <div class="confirmation-btns">
-                    <input class="btn" type="submit" value="Submit">
                     <input class="btn" type="reset" id="clear-form" value="Clear">
+                    <input class="btn" type="submit" value="Submit">
                 </div>
             </form>
+            <%
+            if (results) {
+                if (results.length > 0) { %>
+                       <div id="scroller" class="scroll-down">
+                            <a data-scroll href="#search-results"><p>View Results</p><i class="fas fa-chevron-down"></i></a>
+                        </div>
+                    <%
+                }
+            }
+            %>
         </div>
         <div id="direct-search"
         <%
@@ -270,7 +280,10 @@
                             <option value="maxCredit">Max. Credits</option>
                     <%  } %>
                     </select>
-                    <input id="dirsearch" type="search" name="query" placeholder="Search..." value="<% if(form && form.query) { %><%-form.query%><% } %>" required>
+                    <div class="group">
+                        <input class="min-input-sb" id="dirsearch" type="search" name="query" placeholder="Search..." value="<% if(form && form.query) { %><%-form.query%><% } %>" required>
+                        <span class="bar-sb"></span>
+                    </div>
                     <button class="icon-btn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
@@ -297,13 +310,13 @@
                         <button class="btn btn-primary dropdown-toggle" type="button" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By:</button>
                         <div class="dropdown-menu" aria-labelledby="sortDropdown">
                             <button id="requirement-asc" class="dropdown-item" type="button">Requirements <i class="fas fa-arrow-up"></i></button>
-                            <button id="requirement-desc" class="dropdown-item" type="button">Requirements <i class="fas fa-arrow-down"></i></i></button>
+                            <button id="requirement-desc" class="dropdown-item" type="button">Requirements <i class="fas fa-arrow-down"></i></button>
                             <button id="number-asc" class="dropdown-item" type="button">Course # <i class="fas fa-arrow-up"></i></button>
-                            <button id="number-desc" class="dropdown-item" type="button">Course # <i class="fas fa-arrow-down"></i></i></button>
+                            <button id="number-desc" class="dropdown-item" type="button">Course # <i class="fas fa-arrow-down"></i></button>
                             <button id="name-asc" class="dropdown-item" type="button">Name <i class="fas fa-arrow-up"></i></button>
-                            <button id="name-desc" class="dropdown-item" type="button">Name <i class="fas fa-arrow-down"></i></i></button>
+                            <button id="name-desc" class="dropdown-item" type="button">Name <i class="fas fa-arrow-down"></i></button>
                             <button id="credits-asc" class="dropdown-item" type="button">Credits <i class="fas fa-arrow-up"></i></button>
-                            <button id="credits-desc" class="dropdown-item" type="button">Credits <i class="fas fa-arrow-down"></i></i></button>
+                            <button id="credits-desc" class="dropdown-item" type="button">Credits <i class="fas fa-arrow-down"></i></button>
                         </div>
                     </span>
                 </div>
@@ -345,7 +358,6 @@
         }
         %>
     </div>
-</div>
     <a href="#" class="back-to-top">
         <i class="fas fa-arrow-circle-up"></i>
     </a>
@@ -354,5 +366,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <script src="/js/index.js"></script>
     <script src="/js/resources.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@14/dist/smooth-scroll.polyfills.min.js"></script> 
 </body>
 </html>
