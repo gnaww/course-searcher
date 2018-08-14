@@ -5,6 +5,7 @@ $( document ).ready(function() {
         $('#requirement-select').addClass('btn-active');
         $('#direct-select').removeClass('btn-active');
         $('#search-results').remove();
+        $('#scroller').remove();
     });
 
     $('#direct-select').click(function() {
@@ -13,6 +14,7 @@ $( document ).ready(function() {
         $('#requirement-select').removeClass('btn-active');
         $('#direct-select').addClass('btn-active');
         $('#search-results').remove();
+        $('#scroller').remove();
     });
 
     const requirements = ['NS', 'SCL', 'HST', 'WC', 'WCr', 'WCd', 'CC', 'QQ', 'QR', 'AHo', 'AHp', 'AHq', 'AHr', 'ITR'];
@@ -66,6 +68,9 @@ $( document ).ready(function() {
     $('#credits-desc').click(function() {
         redirect('credits-desc');
     });
+    
+    // enables smooth scrolling
+    var scroll = new SmoothScroll('a[href*="#"]');
 });
 
 const redirect = sortType => {
@@ -94,3 +99,4 @@ const redirect = sortType => {
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
+
