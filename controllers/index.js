@@ -360,8 +360,9 @@ const personalizeFilter = async (results, user, req, res) => {
                 return false;
             } else {
                 let prereqs = course.prerequisites.toUpperCase();
+//                console.log('prereqs: ', prereqs);
                 // check if prerequisites are fulfilled
-                if (prereqs === 'NONE') {
+                if (prereqs === 'NONE' || prereqs === 'TWO COURSE WITHIN THE SUBJECT AREA:') {
                     return true;
                 }
                 else if (prereqs.includes('ANY COURSE EQUAL OR GREATER THAN:')) {
@@ -378,6 +379,7 @@ const personalizeFilter = async (results, user, req, res) => {
                     let prereqsFormatted = prereqs.replace(/<em>|<\/em>/gi, '').replace(/OR/gi, '||').replace(/AND/gi, '&&').replace(/\d{2}:\d{3}:\d{3}/gi, match => {
                         return `courses.includes('${match}')`;
                     });
+//                    console.log('prereqsFormatted:' + prereqsFormatted);
                     return eval(prereqsFormatted);
                 }
             }
