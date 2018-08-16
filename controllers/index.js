@@ -359,13 +359,15 @@ const personalizeFilter = async (results, user, req, res) => {
                     return false;
                 } else {
                     let prereqs = course.prerequisites.toUpperCase();
-                    console.log(prereqs);
-                    //                console.log('prereqs: ', prereqs);
+
                     // check if prerequisites are fulfilled
                     if (prereqs === 'NONE') {
                         return true;
                     }
                     else if (prereqs === 'TWO COURSE WITHIN THE SUBJECT AREA:') {
+                        console.log(prereqs);
+                        console.log(course.number);
+                        console.log(course.number.slice(3,6))
                         return true;
                     }
                     else if (prereqs.includes('ANY COURSE EQUAL OR GREATER THAN:')) {
@@ -378,15 +380,17 @@ const personalizeFilter = async (results, user, req, res) => {
                             }
                         });
                     } else {
-                        // turn prerequisites into booleane expression to be evaluated
+                        // turn prerequisites into boolean expression to be evaluated
                         let prereqsFormatted = prereqs.replace(/<em>|<\/em>/gi, '').replace(/OR/gi, '||').replace(/AND/gi, '&&').replace(/\d{2}:\d{3}:\d{3}/gi, match => {
                             return `courses.includes('${match}')`;
                         });
-                        //                    console.log('prereqsFormatted:' + prereqsFormatted);
                         return eval(prereqsFormatted);
                     }
                 }
             });
+
+            console.log(`pre filter: ${results.length} | after filter: ${resultsFiltered.length}`);
+            return resultsFiltered;
         } else {
             console.log('user has no saved courses yet');
             req.session.notification = {
@@ -396,9 +400,6 @@ const personalizeFilter = async (results, user, req, res) => {
             res.redirect('/');
             return 'error';
         }
-
-        console.log(`pre filter: ${results.length} | after filter: ${resultsFiltered.length}`);
-        return resultsFiltered;
     } catch (e) {
         console.log('error getting user courses for personal filter:', e);
         req.session.notification = {
