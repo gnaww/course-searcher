@@ -360,9 +360,13 @@ const personalizeFilter = async (results, user, req, res) => {
                 return false;
             } else {
                 let prereqs = course.prerequisites.toUpperCase();
+                console.log(prereqs);
 //                console.log('prereqs: ', prereqs);
                 // check if prerequisites are fulfilled
-                if (prereqs === 'NONE' || prereqs === 'TWO COURSE WITHIN THE SUBJECT AREA:') {
+                if (prereqs === 'NONE') {
+                    return true;
+                }
+                else if (prereqs === 'TWO COURSE WITHIN THE SUBJECT AREA:') {
                     return true;
                 }
                 else if (prereqs.includes('ANY COURSE EQUAL OR GREATER THAN:')) {

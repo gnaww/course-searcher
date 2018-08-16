@@ -33,7 +33,7 @@ const getSubjectCodes = async () => {
         console.log('subject code error');
         console.log(error);
         throw('there was an error retrieving subject codes');
-    } 
+    }
 }
 
 // gets the course data from rutgers api
@@ -63,7 +63,7 @@ const updateAllCoursesData = async () => {
                 console.log('------------------------------------------------------------------');
                 console.log('UPDATING SECTION: ' + subjectCode);
             }
-            
+
             // includes all sections and courses in a subject
             let courses = await getCourseData(subjectCode);
             // iterates through all the courses
@@ -93,7 +93,7 @@ const updateAllCoursesData = async () => {
                 // iterates through all sections
                 for (section of courseSections) {
                     updatedSections++;
-                    let { 
+                    let {
                         number: sectionNum,
                         index: sectionIndex,
                         sectionNotes,
@@ -103,7 +103,7 @@ const updateAllCoursesData = async () => {
                     if (section.openStatus) {
                         sectionOpenStatus = 'OPEN';
                     }
-                    
+
                     let sectionInstructors = null;
                     if (debuggingMode) {
                         console.log(section.instructors);
@@ -118,7 +118,7 @@ const updateAllCoursesData = async () => {
                     if (sectionInstructors != null) {
                         sectionInstructors = sectionInstructors.replace("'", "");
                     }
-                    
+
                     let sectionTimes = JSON.stringify(section.meetingTimes);
                     if (sectionNotes != null) {
                         sectionNotes = sectionNotes.replace("'", "");
@@ -126,21 +126,21 @@ const updateAllCoursesData = async () => {
                         sectionNotes = 'None';
                     }
                     let lastUpdatedTime = new Date().toLocaleString("en-US");
-                    
+
                     const insertedSection = await knex.raw(
                     `INSERT INTO courses
-                        (course_unit, course_subject, course_number, course_full_number, name, section_number, section_index, section_open_status, instructors, times, notes, exam_code, campus, credits, url, pre_reqs, core_codes, last_updated) VALUES 
+                        (course_unit, course_subject, course_number, course_full_number, name, section_number, section_index, section_open_status, instructors, times, notes, exam_code, campus, credits, url, pre_reqs, core_codes, last_updated) VALUES
                         (:cu, :cs, :cn, :cfn, :na, :sn, :si, :sos, :i, :t, :no, :ec, :campus, :credits, :u, :pr, :coreCodes, :lu)
                         ON CONFLICT (section_index)
                         DO UPDATE SET section_open_status = :sos;`,
-                        { 
+                        {
                             cu: parseInt(courseUnitCode),
-                            cs: parseInt(courseSubject), 
+                            cs: parseInt(courseSubject),
                             cn: parseInt(courseNumber),
-                            cfn: courseFullNum, 
-                            na: courseShortTitle, 
-                            sn: sectionNum, 
-                            si: parseInt(sectionIndex), 
+                            cfn: courseFullNum,
+                            na: courseShortTitle,
+                            sn: sectionNum,
+                            si: parseInt(sectionIndex),
                             sos: sectionOpenStatus,
                             i: sectionInstructors,
                             t: sectionTimes,
@@ -151,17 +151,17 @@ const updateAllCoursesData = async () => {
                             u: courseUrl + '',
                             pr: coursePreReqs + '',
                             coreCodes: JSON.stringify(courseCoreCodes),
-                            lu: lastUpdatedTime 
+                            lu: lastUpdatedTime
                          });
                     if (debuggingMode) {
                         console.log(`${courseFullNum} |\t${courseShortTitle}\t | INSTRUCTORS ${sectionInstructors} |\t SECTION INDEX ${sectionIndex}\t| CREDITS ${courseCredits}`);
                     }
                     if (!(courseCoreCodes === undefined || courseCoreCodes.length === 0)) {
                         for (req of courseCoreCodes) {
-                            const insertedRequrement = await knex('courses_requirements').insert({course: courseFullNum, requirement: req.coreCode});
+                            const insertedRequirement = await knex('courses_requirements').insert({course: courseFullNum, requirement: req.coreCode});
                         }
                     }
-                    
+
                 }
             }
             const removeRows = knex.raw(`DELETE FROM courses_requirements

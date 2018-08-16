@@ -40,6 +40,7 @@ const store = new KnexSessionStore({
 const app = express();
 
 // runs the database update at the start of the server
+console.log('running update');
 update.updateAllCoursesData();
 
 // EJS templating engine setup
