@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
         t.integer('course_number').notNullable();
         t.text('course_full_number').notNullable();
         t.text('name').notNullable();
+        t.text('full_name');
         t.string('section_number', 2).notNullable();
         t.integer('section_index').notNullable();
         t.text('section_open_status').notNullable();

@@ -196,7 +196,7 @@ const directSearch = async (params, req, res, knex) => {
                         return false;
                     }
                 }).forEach(keyword => {
-                    whereClause += `UPPER(name) LIKE UPPER('%${keyword}%') OR `
+                    whereClause += `UPPER(name) LIKE UPPER('%${keyword}%') OR UPPER(full_name) LIKE UPPER('%${keyword}%') OR `
                 })
                 whereClause = whereClause.slice(0, whereClause.length - 4);
             } else if (category === 'index') {
@@ -353,41 +353,49 @@ const personalizeFilter = async (results, user, req, res) => {
                     courses.push(course.id);
                 });
             });
-        }
-        let resultsFiltered = results.filter(course => {
-            // remove if user already took class
-            if (courses.includes(course.number)) {
-                return false;
-            } else {
-                let prereqs = course.prerequisites.toUpperCase();
-                console.log(prereqs);
-//                console.log('prereqs: ', prereqs);
-                // check if prerequisites are fulfilled
-                if (prereqs === 'NONE') {
-                    return true;
-                }
-                else if (prereqs === 'TWO COURSE WITHIN THE SUBJECT AREA:') {
-                    return true;
-                }
-                else if (prereqs.includes('ANY COURSE EQUAL OR GREATER THAN:')) {
-                    let greaterThanPrereq = prereqs.slice('ANY COURSE EQUAL OR GREATER THAN:'.length + 2, prereqs.length - 2)
-                    let unitSubject = greaterThanPrereq.slice(0, 6);
-                    courses.forEach(userCourse => {
-                        // make sure class and prereq are same unit and subject
-                        if (userCourse.slice(0,6) === unitSubject) {
-                            return parseInt(userCourse.slice(7)) >= parseInt(greaterThanPrereq.slice(7))
-                        }
-                    });
+            let resultsFiltered = results.filter(course => {
+                // remove if user already took class
+                if (courses.includes(course.number)) {
+                    return false;
                 } else {
-                    // turn prerequisites into booleane expression to be evaluated
-                    let prereqsFormatted = prereqs.replace(/<em>|<\/em>/gi, '').replace(/OR/gi, '||').replace(/AND/gi, '&&').replace(/\d{2}:\d{3}:\d{3}/gi, match => {
-                        return `courses.includes('${match}')`;
-                    });
-//                    console.log('prereqsFormatted:' + prereqsFormatted);
-                    return eval(prereqsFormatted);
+                    let prereqs = course.prerequisites.toUpperCase();
+                    console.log(prereqs);
+                    //                console.log('prereqs: ', prereqs);
+                    // check if prerequisites are fulfilled
+                    if (prereqs === 'NONE') {
+                        return true;
+                    }
+                    else if (prereqs === 'TWO COURSE WITHIN THE SUBJECT AREA:') {
+                        return true;
+                    }
+                    else if (prereqs.includes('ANY COURSE EQUAL OR GREATER THAN:')) {
+                        let greaterThanPrereq = prereqs.slice('ANY COURSE EQUAL OR GREATER THAN:'.length + 2, prereqs.length - 2)
+                        let unitSubject = greaterThanPrereq.slice(0, 6);
+                        courses.forEach(userCourse => {
+                            // make sure class and prereq are same unit and subject
+                            if (userCourse.slice(0,6) === unitSubject) {
+                                return parseInt(userCourse.slice(7)) >= parseInt(greaterThanPrereq.slice(7))
+                            }
+                        });
+                    } else {
+                        // turn prerequisites into booleane expression to be evaluated
+                        let prereqsFormatted = prereqs.replace(/<em>|<\/em>/gi, '').replace(/OR/gi, '||').replace(/AND/gi, '&&').replace(/\d{2}:\d{3}:\d{3}/gi, match => {
+                            return `courses.includes('${match}')`;
+                        });
+                        //                    console.log('prereqsFormatted:' + prereqsFormatted);
+                        return eval(prereqsFormatted);
+                    }
                 }
+            });
+        } else {
+            console.log('user has no saved courses yet');
+            req.session.notification = {
+                type: 'error',
+                message: 'Error personalizing results! You haven\'t saved any completed courses yet. Go to your <a href="/account" class="alert-link">account</a> to save your completed courses!'
             }
-        });
+            res.redirect('/');
+            return 'error';
+        }
 
         console.log(`pre filter: ${results.length} | after filter: ${resultsFiltered.length}`);
         return resultsFiltered;
@@ -397,7 +405,7 @@ const personalizeFilter = async (results, user, req, res) => {
             type: 'error',
             message: 'Error personalizing results! Something went wrong on our end :('
         }
-        res.redirect('/');
+        res.redirect('back');
         return 'error';
     }
 }
