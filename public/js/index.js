@@ -37,6 +37,10 @@ $( document ).ready(function() {
         window.location.href = url;
     });
 
+    $('#scroller').click(function() {
+        $("html, body").animate({ scrollTop: $('#search-results').offset().top }, 700);
+    });
+
     $('#requirement-asc').click(function() {
         redirect('requirement-asc')
     });
@@ -68,9 +72,6 @@ $( document ).ready(function() {
     $('#credits-desc').click(function() {
         redirect('credits-desc');
     });
-    
-    // enables smooth scrolling
-    var scroll = new SmoothScroll('a[href*="#"]');
 });
 
 const redirect = sortType => {
@@ -99,4 +100,3 @@ const redirect = sortType => {
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
-

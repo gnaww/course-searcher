@@ -101,6 +101,7 @@ const handleCourseGet = async (req, res, next) => {
             // destructuring
             const {
                 name,
+                full_name: fullName,
                 course_full_number: courseFullNumber,
                 core_codes: coreCodes,
                 credits,
@@ -122,7 +123,7 @@ const handleCourseGet = async (req, res, next) => {
 
             // formats descriptions
             let description = url;
-            if (description == null) {
+            if (description === 'null') {
                 description = 'No description available.';
             }
 
@@ -131,6 +132,7 @@ const handleCourseGet = async (req, res, next) => {
                 return (Math.round(result[0].avg * 2) / 2).toFixed(1);
             });
             data.name = name;
+            data.fullName = fullName;
             data.courseFullNumber = courseFullNumber;
             data.coreCodesString = coreCodesString;
             data.credits = credits;
@@ -226,6 +228,7 @@ const handleCourseGet = async (req, res, next) => {
 
             console.log('CLASS DEBUGGING INFO ----------------------------------')
             console.log('name: ' + name);
+            console.log('full name: ' + fullName)
             console.log('courseFullNumber: ' + courseFullNumber);
             console.log('coreCodesString: ' + coreCodesString);
             console.log('credits: ' + credits);
@@ -234,8 +237,8 @@ const handleCourseGet = async (req, res, next) => {
             console.log('times: ' + times);
             console.log('courseOpenStatus: ' + courseOpenStatus);
             console.log('courseRating: ' + courseRating);
-            console.log('sections:');
-            console.log(sections);
+            // console.log('sections:');
+            // console.log(sections);
             console.log('-------------------------------------------------')
 
             // handle comments
