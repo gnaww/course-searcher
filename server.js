@@ -26,6 +26,7 @@ const authenticate = require('./controllers/authenticate');
 const account = require('./controllers/account');
 const course = require('./controllers/course');
 const index = require('./controllers/index');
+const misc = require('./controllers/misc');
 
 // Initialize knex.
 const knex = Knex(knexConfig);
@@ -84,6 +85,12 @@ app.route('/account')
 app.route('/register')
     .get(register.displayRegister(null))
     .post(register.handleRegister(knex, bcrypt));
+
+app.get('/about', res.render('pages/about'));
+
+app.get('/news', misc.displayNews);
+
+app.get('/suggestions', misc.displaySuggestions);
 
 app.post('/login', login.handleLogIn(bcrypt));
 
