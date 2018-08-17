@@ -143,7 +143,7 @@ const requirementSearch = async (params, req, res, knex) => {
             if (req.session.user && params.personalize === 'true') {
                 results = await personalizeFilter(results, req.session.user, req, res);
                 if (results === 'error') {
-                    return
+                    return 'error';
                 }
                 formRequirements.personalize = true;
             } else {
@@ -307,7 +307,7 @@ const directSearch = async (params, req, res, knex) => {
                 if (req.session.user && params.personalize === 'true') {
                     results = await personalizeFilter(results, req.session.user, req, res);
                     if (results === 'error') {
-                        return
+                        return 'error';
                     }
                     formDirect.personalize = true;
                 } else {
@@ -365,10 +365,17 @@ const personalizeFilter = async (results, user, req, res) => {
                         return true;
                     }
                     else if (prereqs === 'TWO COURSE WITHIN THE SUBJECT AREA:') {
-                        console.log(prereqs);
-                        console.log(course.number);
-                        console.log(course.number.slice(3,6))
-                        return true;
+                        let courseSubject = course.number.slice(3,6);
+                        let numCoursesInSubject = 0;
+                        courses.forEach(userCourse => {
+                            if (userCourse.slice(3,6) === courseSubject) {
+                                numCoursesInSubject++;
+                            }
+                            if (numCoursesInSubject >= 2) {
+                                return true;
+                            }
+                        });
+                        return false;
                     }
                     else if (prereqs.includes('ANY COURSE EQUAL OR GREATER THAN:')) {
                         let greaterThanPrereq = prereqs.slice('ANY COURSE EQUAL OR GREATER THAN:'.length + 2, prereqs.length - 2)
@@ -406,7 +413,7 @@ const personalizeFilter = async (results, user, req, res) => {
             type: 'error',
             message: 'Error personalizing results! Something went wrong on our end :('
         }
-        res.redirect('back');
+        res.redirect('/');
         return 'error';
     }
 }

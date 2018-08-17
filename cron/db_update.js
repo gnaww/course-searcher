@@ -139,7 +139,7 @@ const updateAllCoursesData = async () => {
                         (course_unit, course_subject, course_number, course_full_number, name, full_name, section_number, section_index, section_open_status, instructors, times, notes, exam_code, campus, credits, url, pre_reqs, core_codes, last_updated) VALUES
                         (:cu, :cs, :cn, :cfn, :na, :full_na, :sn, :si, :sos, :i, :t, :no, :ec, :campus, :credits, :u, :pr, :coreCodes, :lu)
                         ON CONFLICT (section_index)
-                        DO UPDATE SET section_open_status = :sos;`,
+                        DO UPDATE SET section_open_status = :sos, last_updated = :lu;`,
                         {
                             cu: parseInt(courseUnitCode),
                             cs: parseInt(courseSubject),
