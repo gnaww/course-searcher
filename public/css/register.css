@@ -10,7 +10,7 @@
     width: 10em;
     height: 1.9em;
     font-size: 1.2em;
-    transition: color .5s ease, background-color .5s ease, width .5s ease;
+    transition: color .5s ease, background-color .5s ease;
     line-height: 1.2em;
     background-color: white;
     margin-left: 30%;
@@ -19,7 +19,6 @@
 .register-form .btn:hover {
     color: #BBDAE0;
     background-color: #13446B;
-    width: 65%;
 }
 
 .register-form .btn:active {
@@ -37,11 +36,6 @@
 
 .register-form .form-input {
     width: 60%;
-    transition: width 0.5s ease;
-}
-
-.register-form .form-input:focus-within {
-    width: 65%;
 }
 
 h1 {

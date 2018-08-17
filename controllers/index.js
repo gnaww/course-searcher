@@ -143,7 +143,7 @@ const requirementSearch = async (params, req, res, knex) => {
             if (req.session.user && params.personalize === 'true') {
                 results = await personalizeFilter(results, req.session.user, req, res);
                 if (results === 'error') {
-                    return
+                    return 'error';
                 }
                 formRequirements.personalize = true;
             } else {
@@ -196,7 +196,7 @@ const directSearch = async (params, req, res, knex) => {
                         return false;
                     }
                 }).forEach(keyword => {
-                    whereClause += `UPPER(name) LIKE UPPER('%${keyword}%') OR `
+                    whereClause += `UPPER(name) LIKE UPPER('%${keyword}%') OR UPPER(full_name) LIKE UPPER('%${keyword}%') OR `
                 })
                 whereClause = whereClause.slice(0, whereClause.length - 4);
             } else if (category === 'index') {
@@ -307,7 +307,7 @@ const directSearch = async (params, req, res, knex) => {
                 if (req.session.user && params.personalize === 'true') {
                     results = await personalizeFilter(results, req.session.user, req, res);
                     if (results === 'error') {
-                        return
+                        return 'error';
                     }
                     formDirect.personalize = true;
                 } else {
@@ -347,43 +347,66 @@ const personalizeFilter = async (results, user, req, res) => {
     try {
         let userCourses = await knex('users_courses').where('username', user);
         let courses = [];
-        userCourses[0].courses.forEach(semester  => {
-            semester[1].forEach(course => {
-                courses.push(course.id);
+        if (userCourses != null && userCourses.length > 0) {
+            userCourses[0].courses.forEach(semester  => {
+                semester[1].forEach(course => {
+                    courses.push(course.id);
+                });
             });
-        });
-
-        let resultsFiltered = results.filter(course => {
-            // remove if user already took class
-            if (courses.includes(course.number)) {
-                return false;
-            } else {
-                let prereqs = course.prerequisites.toUpperCase();
-                // check if prerequisites are fulfilled
-                if (prereqs === 'NONE') {
-                    return true;
-                }
-                else if (prereqs.includes('ANY COURSE EQUAL OR GREATER THAN:')) {
-                    let greaterThanPrereq = prereqs.slice('ANY COURSE EQUAL OR GREATER THAN:'.length + 2, prereqs.length - 2)
-                    let unitSubject = greaterThanPrereq.slice(0, 6);
-                    courses.forEach(userCourse => {
-                        // make sure class and prereq are same unit and subject
-                        if (userCourse.slice(0,6) === unitSubject) {
-                            return parseInt(userCourse.slice(7)) >= parseInt(greaterThanPrereq.slice(7))
-                        }
-                    });
+            let resultsFiltered = results.filter(course => {
+                // remove if user already took class
+                if (courses.includes(course.number)) {
+                    return false;
                 } else {
-                    // turn prerequisites into booleane expression to be evaluated
-                    let prereqsFormatted = prereqs.replace(/<em>|<\/em>/gi, '').replace(/OR/gi, '||').replace(/AND/gi, '&&').replace(/\d{2}:\d{3}:\d{3}/gi, match => {
-                        return `courses.includes('${match}')`;
-                    });
-                    return eval(prereqsFormatted);
-                }
-            }
-        });
+                    let prereqs = course.prerequisites.toUpperCase();
 
-        console.log(`pre filter: ${results.length} | after filter: ${resultsFiltered.length}`);
-        return resultsFiltered;
+                    // check if prerequisites are fulfilled
+                    if (prereqs === 'NONE') {
+                        return true;
+                    }
+                    else if (prereqs === 'TWO COURSE WITHIN THE SUBJECT AREA:') {
+                        let courseSubject = course.number.slice(3,6);
+                        let numCoursesInSubject = 0;
+                        courses.forEach(userCourse => {
+                            if (userCourse.slice(3,6) === courseSubject) {
+                                numCoursesInSubject++;
+                            }
+                            if (numCoursesInSubject >= 2) {
+                                return true;
+                            }
+                        });
+                        return false;
+                    }
+                    else if (prereqs.includes('ANY COURSE EQUAL OR GREATER THAN:')) {
+                        let greaterThanPrereq = prereqs.slice('ANY COURSE EQUAL OR GREATER THAN:'.length + 2, prereqs.length - 2)
+                        let unitSubject = greaterThanPrereq.slice(0, 6);
+                        courses.forEach(userCourse => {
+                            // make sure class and prereq are same unit and subject
+                            if (userCourse.slice(0,6) === unitSubject) {
+                                return parseInt(userCourse.slice(7)) >= parseInt(greaterThanPrereq.slice(7))
+                            }
+                        });
+                    } else {
+                        // turn prerequisites into boolean expression to be evaluated
+                        let prereqsFormatted = prereqs.replace(/<em>|<\/em>/gi, '').replace(/OR/gi, '||').replace(/AND/gi, '&&').replace(/\d{2}:\d{3}:\d{3}/gi, match => {
+                            return `courses.includes('${match}')`;
+                        });
+                        return eval(prereqsFormatted);
+                    }
+                }
+            });
+
+            console.log(`pre filter: ${results.length} | after filter: ${resultsFiltered.length}`);
+            return resultsFiltered;
+        } else {
+            console.log('user has no saved courses yet');
+            req.session.notification = {
+                type: 'error',
+                message: 'Error personalizing results! You haven\'t saved any completed courses yet. Go to your <a href="/account" class="alert-link">account</a> to save your completed courses!'
+            }
+            res.redirect('/');
+            return 'error';
+        }
     } catch (e) {
         console.log('error getting user courses for personal filter:', e);
         req.session.notification = {

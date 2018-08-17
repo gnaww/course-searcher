@@ -40,8 +40,17 @@ const store = new KnexSessionStore({
 
 const app = express();
 
-// runs the database update at the start of the server
+// run update of courses immediately
+console.log('running update:', new Date().toUTCString());
 update.updateAllCoursesData();
+
+// updates the openStatus in course table every 1-2 minutes
+let updateCourses = cron.schedule('*/2 * * * *', () => {
+    console.log('running update:', new Date().toUTCString());
+    update.updateAllCoursesData();
+});
+
+updateCourses.start();
 
 // EJS templating engine setup
 app.use(express.static(path.join(__dirname, 'public')));
@@ -115,14 +124,6 @@ app.use((err, req, res) => {
         res.render('pages/error', { error: 500, user: null });
     }
 });
-
-// updates the openStatus in course table every 1-2 minutes
-cron.schedule('*/2 * * * *', () => {
-    console.log('running update');
-    update.updateAllCoursesData();
-});
-
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=> {

@@ -21,7 +21,7 @@ p {
 
 .dirclass {
     text-align: center;
-    width: 70%;
+    width: 100%;
     margin: auto;
 }
 
@@ -35,6 +35,7 @@ p {
     display: flex;
     text-align: center;
     width: 100%;
+    justify-content: center;
 }
 
 #dirsearch {
@@ -43,7 +44,7 @@ p {
 }
 
 .mid-container {
-    width: 70%;
+    width: 80%;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
@@ -61,12 +62,12 @@ p {
 .search-select {
     margin: 0 auto 2em auto;
     display: flex;
-    width: 50%;
+    width: 60%;
     text-align: center;
 }
 
 .search-select .btn {
-    flex-grow: 1;
+    width: 50%;
 }
 
 .search-select .btn-active {
@@ -266,12 +267,15 @@ input:checked + .slider:before {
 .min-input-sb {
     border: none;
     border-bottom: 1px solid #13446B;
+    width: 39em;
 }
 
 .bar-sb {
     position: relative;
     display: block;
+    width: 50.7em;
 }
+
 .bar-sb:before, .bar-sb:after {
     content: '';
     height: 2px;
@@ -299,146 +303,6 @@ input:checked + .slider:before {
     width:50%;
 }
 
-/* media queries */
-@media (min-width: 2000px) {
-    .min-input-sb {
-        width: 50em;
-    }
-    .bar-sb {
-        width: 65em;
-    }
-}
-
-@media (max-width: 2000px) {
-    .min-input-sb {
-        width: 50em;
-    }
-    .bar-sb {
-        width: 65em;
-    }
-}
-
-@media (max-width: 1800px) {
-    .min-input-sb {
-        width: 45em;
-    }
-    .bar-sb {
-        width: 58.5em;
-    }
-}
-
-@media (max-width: 1600px) {
-    .min-input-sb {
-        width: 40em;
-    }
-    .bar-sb {
-        width: 52em;
-    }
-}
-
-@media (max-width: 1400px) {
-    .min-input-sb {
-        width: 35em;
-    }
-    .bar-sb {
-        width: 45.5em;
-    }
-}
-
-@media (max-width: 1293px) {
-    .mid-container {
-        flex-direction: column;
-    }
-    
-    .req-col {
-        text-align: center;
-        width: auto;
-        height: auto;
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .dirclass {
-        width: 100%;
-    }
-    .min-input-sb {
-        width: 40em;
-    }
-    .bar-sb {
-        width: 52em;
-    }
-}
-
-@media (max-width: 1200px) {
-    .min-input-sb {
-        width: 35em;
-    }
-    .bar-sb {
-        width: 45.5em;
-    }
-}
-
-@media (max-width: 1100px) {
-    .min-input-sb {
-        width: 32em;
-    }
-    .bar-sb {
-        width: 41.5em;
-    }
-}
-
-@media (max-width: 1000px) {
-    .min-input-sb {
-        width: 25em;
-    }
-    .bar-sb {
-        width: 32.5em;
-    }
-}
-
-@media (max-width: 993px) {
-    .search-select {
-        width: 70%;
-    }
-    .search-result-wrapper {
-        padding-left: 5%;
-        padding-right: 5%;
-    }
-}
-
-@media (max-width: 900px) {
-    .min-input-sb {
-        width: 20em;
-    }
-    .bar-sb {
-        width: 26em;
-    }
-}
-
-@media (max-width: 800px) {
-    .min-input-sb {
-        width: 15em;
-    }
-    .bar-sb {
-        width: 19.5em;
-    }
-}
-
-@media (max-width: 700px) {
-    .min-input-sb {
-        width: 10em;
-    }
-    .bar-sb {
-        width: 13em;
-    }
-}
-
-@media (max-width: 425px) {
-    .reqful-p {
-        padding-right: 10%;
-        padding-left: 10%;
-    }
-}
 .scroll-down {
     line-height: 1em;
     margin-top: 1em;
@@ -483,4 +347,85 @@ input:checked + .slider:before {
     color: #1768AC;
     font-size: .7em;
     margin: 0;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #13446B;
+}
+
+/* media queries */
+@media (max-width: 1200px) {
+    .mid-container {
+        width: 90%;
+    }
+
+    .req-col {
+        margin: 0 2em 2em 2em;
+    }
+
+    .search-select {
+        width: 70%;
+    }
+
+    .min-input-sb {
+        width: 30em;
+    }
+
+    .bar-sb {
+        width: 39em;
+    }
+}
+
+@media (max-width: 992px) {
+    .mid-container {
+        width: 100%;
+    }
+
+    .req-col {
+        margin: 0 1em 1em 1em;
+    }
+
+    .search-select {
+        width: 100%;
+    }
+
+    .min-input-sb {
+        width: 23em;
+    }
+
+    .bar-sb {
+        width: 30em;
+    }
+}
+
+@media (max-width: 826px) {
+    .req-col {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .req-col {
+        margin: 0 1em 1em 1em;
+    }
+
+    .min-input-sb {
+        width: 18em;
+    }
+
+    .bar-sb {
+        width: 23.4em;
+    }
+}
+
+@media (max-width: 576px) {
+    .min-input-sb {
+        width: 10em;
+    }
+
+    .bar-sb {
+        width: 13em;
+    }
 }

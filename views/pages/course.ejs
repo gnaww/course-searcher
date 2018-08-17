@@ -19,7 +19,15 @@
         <div class="container-fluid">
             <div class="column-left">
                 <div class="class-header">
-                    <span class="header-text"><%= name %></span>
+                    <%
+                    if (fullName) { %>
+                        <span class="header-text" data-toggle="tooltip" data-placement="bottom" title="<%= fullName %>"><%= name %></span>
+                    <%
+                    } else { %>
+                        <span class="header-text"><%= name %></span>
+                    <%
+                    }
+                    %>
                     <% if(courseOpenStatus === 'OPEN') { %>
                     <!-- status: open -->
                     <span class="status open">
