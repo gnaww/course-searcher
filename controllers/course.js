@@ -237,8 +237,8 @@ const handleCourseGet = async (req, res, next) => {
             console.log('times: ' + times);
             console.log('courseOpenStatus: ' + courseOpenStatus);
             console.log('courseRating: ' + courseRating);
-            console.log('sections:');
-            console.log(sections);
+            // console.log('sections:');
+            // console.log(sections);
             console.log('-------------------------------------------------')
 
             // handle comments
