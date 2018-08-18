@@ -95,8 +95,6 @@ app.route('/register')
     .get(register.displayRegister(null))
     .post(register.handleRegister(knex, bcrypt));
 
-app.get('/about', (req, res) => res.render('pages/about'));
-
 app.get('/news', misc.displayNews);
 
 app.get('/suggestions', misc.displaySuggestions);
