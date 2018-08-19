@@ -27,6 +27,14 @@ $( document ).ready(function() {
             $(".class-comments").css("max-height", ($(".column-right").height()-$(".class-rating").height()-$(".add-comments").height()));
         }
     });
+    
+    // changes heart icon on click
+    $('.fav-course > .fas').click(function() {
+        $(this).toggleClass('fas far');
+    });
+    $('.fav-course > .far').click(function() {
+        $(this).toggleClass('far fas');
+    });
 });
 
 // Turn on Bootstrap tooltips

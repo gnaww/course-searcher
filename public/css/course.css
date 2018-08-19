@@ -302,3 +302,9 @@
         border-left: 0;
     }
 }
+
+.fav-course {
+    color: #ff6574;
+    font-size: 3em;
+    margin-left: .5em;
+}

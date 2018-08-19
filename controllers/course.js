@@ -261,6 +261,20 @@ const handleCourseGet = async (req, res, next) => {
             console.log('all comments: ');
             console.log(comments);
             console.log('-------------------------------------------------')
+            
+            console.log('FAVORITE DEBUGGIG INFO ------------------------------------------')
+            // handle user favorited courses/sections
+            if (req.session.user) { // if logged in
+                const favCourses = await knex('users_favorites').select('courses').where('username', data.user);
+                const favSections = await knex('users_favorites').select('sections').where('username', data.user);
+                data.favCourses = (favCourses);
+                data.favSections = (favSections);
+                console.log('favCourses:');
+                console.log(favCourses);
+                console.log('favSections:');
+                console.log(favSections);
+            }
+            
 
             res.render('pages/course', data);
         }

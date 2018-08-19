@@ -21,13 +21,13 @@
                 <div class="class-header">
                     <%
                     if (fullName) { %>
-                        <span class="header-text" data-toggle="tooltip" data-placement="bottom" title="<%= fullName %>"><%= name %></span>
+                    <span class="header-text" data-toggle="tooltip" data-placement="bottom" title="<%= fullName %>"><%= name %></span>
                     <%
                     } else { %>
-                        <span class="header-text"><%= name %></span>
+                    <span class="header-text"><%= name %></span>
                     <%
                     }
-                    %>
+                        %>
                     <% if(courseOpenStatus === 'OPEN') { %>
                     <!-- status: open -->
                     <span class="status open">
@@ -39,6 +39,20 @@
                         <i class="fas fa-times-circle "></i>
                     </span>
                     <% } %>
+                    <span class="fav-course">
+                        <%
+                        if (user) {
+                            // probably not the most effecient implementation
+                            if (favCourses.includes(courseFullNumber)) { %>
+                                <i class="fas fa-heart"></i>
+                            <%
+                            } else { %>
+                                <i class="far fa-heart"></i>
+                            <%
+                            }
+                        }
+                        %>
+                    </span>
                 </div>
                 <div class="class-metadata">
                     <span class="subsubheader-text">Course #:</span><span class="metadata-number course-info-text"><%= courseFullNumber %></span>
@@ -205,7 +219,7 @@
                         <button type="submit" class="btn btn-primary comment-button ">Post Comment</button>
                         <% } else { %>
                         <span class="disabled-button-wrapper" data-toggle="tooltip" data-placement="auto" title="You must be logged in to comment!">
-                          <button class="btn btn-primary comment-button" style="pointer-events: none;" type="button" disabled>Post Comment</button>
+                            <button class="btn btn-primary comment-button" style="pointer-events: none;" type="button" disabled>Post Comment</button>
                         </span>
                         <% } %>
                     </form>
@@ -219,32 +233,32 @@
                     let year, day, month;
                     console.log('these are the comments', comments);
                     if (!Array.isArray(comments) || !comments.length) { %>
-                        <h3>No comments posted yet!</h3>
+                    <h3>No comments posted yet!</h3>
                     <%
                     } else {
                         for(comment of comments) { %>
-                        <div class="comment">
-                            <div class="comment-text">
-                                <p><%= comment.comment %></p>
-                            </div>
-                            <div class="comment-metadata">
-                                <%
-                                let hours = comment.date.getHours();
-                                let minutes = comment.date.getMinutes();
-                                let timestamp = `${comment.date.toDateString()} ${hours}:${minutes}`
-                                %>
-                                <span class="comment-date" data-toggle="tooltip" data-placement="top" title="<%= timestamp %>"><%= moment(comment.date).fromNow() %></span>
-                                <span class="stars comment-stars">
-                                    <% for(let i = 0; i < comment.rating; i++) { %>
-                                    <i class="fas fa-star"></i>
-                                    <% } %>
-                                    <% for(let i = comment.rating; i < 5; i++) { %>
-                                    <i class="far fa-star"></i>
-                                    <% } %>
-                                </span>
-                            </div>
+                    <div class="comment">
+                        <div class="comment-text">
+                            <p><%= comment.comment %></p>
                         </div>
-                        <% }
+                        <div class="comment-metadata">
+                            <%
+                            let hours = comment.date.getHours();
+                            let minutes = comment.date.getMinutes();
+                            let timestamp = `${comment.date.toDateString()} ${hours}:${minutes}`
+                            %>
+                            <span class="comment-date" data-toggle="tooltip" data-placement="top" title="<%= timestamp %>"><%= moment(comment.date).fromNow() %></span>
+                            <span class="stars comment-stars">
+                                <% for(let i = 0; i < comment.rating; i++) { %>
+                                <i class="fas fa-star"></i>
+                                <% } %>
+                                <% for(let i = comment.rating; i < 5; i++) { %>
+                                <i class="far fa-star"></i>
+                                <% } %>
+                            </span>
+                        </div>
+                    </div>
+                    <% }
                     } %>
                 </div>
             </div>
