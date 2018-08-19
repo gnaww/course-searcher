@@ -42,8 +42,10 @@
                     <span class="fav-course">
                         <%
                         if (user) {
+                            console.log(favCourses);
+                            console.log(favCourses[0].courses.includes(courseFullNumber));
                             // probably not the most effecient implementation
-                            if (favCourses.includes(courseFullNumber)) { %>
+                            if (favCourses && favCourses[0] && favCourses[0].courses && favCourses[0].courses.includes(courseFullNumber)) { %>
                                 <i class="fas fa-heart"></i>
                             <%
                             } else { %>
@@ -231,7 +233,7 @@
                 <div class="class-comments">
                     <%
                     let year, day, month;
-                    console.log('these are the comments', comments);
+//                    console.log('these are the comments', comments);
                     if (!Array.isArray(comments) || !comments.length) { %>
                     <h3>No comments posted yet!</h3>
                     <%

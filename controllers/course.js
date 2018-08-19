@@ -16,45 +16,94 @@ const handleCoursePost = async (req, res, next) => {
         }
         if (req.session.user) { // logged in
             data.user = req.session.user;
-            const { newComment: commentText, newRating: rating } = req.body;
-            const user = data.user;
-            const course = req.query.id;
-            const date = new Date();
 
-            // check if user has commented/rated before
-            const oldComment = await Comment.query().where('course', course).where('user', user);
-
-            let isNewComment = false;
-
-            if (oldComment === undefined || oldComment.length == 0) { // new comment
-                isNewComment = true;
-                const newComment = await knex('comments').insert({comment: commentText, rating: rating, date: date, course: course, user: user});
-            } else { // update comment
-                const updatedComment = await knex('comments').where('course', course).where('user', user).update({comment: commentText, rating: rating, date: date});
-            }
-
-            console.log('COMMENT POSTING DEBUGGING ------------------------------');
-            console.log('commentText: ' + commentText);
-            console.log('rating: ' + rating);
-            console.log('user: ' + user);
-            console.log('course: ' + course);
-            console.log('date: ' + date);
-            console.log('oldComment:')
-            console.log(oldComment);
-            console.log('--------------------------------------------------------');
-            if (isNewComment) {
-                req.session.notification = {
-                    type: 'success',
-                    message: 'Successfully added comment!'
-                };
+            // if favoriting
+            if (req.body.favorite != null) {
+                const favorite = req.body.favorite;
+                let favCourses = await knex('users_favorites').where('username', data.user).select('courses');
+                let exists;
+                if (favCourses === undefined || favCourses.length == 0) {
+                    exits = false;
+                } else {
+                    exists = true;
+                    favCourses = favCourses[0].courses;
+                }
+                const course = req.query.id;
+                if (favorite === 'add') {
+                    // sections are currently unused
+                    if (!favCourses.includes(course)) {
+                        favCourses.push(course);
+                    }
+                    if (exists) {
+                        const updateFav = await knex('users_favorites').where('username', data.user).update({courses: JSON.stringify(favCourses)});
+                    } else {
+                        const addFav = await knex('users_favorites').where('username', data.user).insert({username: data.user, courses: JSON.stringify(favCourses)});
+                    }
+                    req.session.notification = {
+                        type: 'success',
+                        message: 'Added course to favorites!'
+                    };
+                } else if (favorite === 'delete') {
+                    if (favCourses.includes(course)) {
+                        favCourses.splice(favCourses.indexOf('course'), 1);
+                    }
+                    res.redirect('/course?id=' + course);
+                    // sections are currently unused
+                    const delFav = await knex('users_favorites').where('username', data.user).update({courses: JSON.stringify(favCourses)});
+                    req.session.notification = {
+                        type: 'success',
+                        message: 'Removed course to favorites!'
+                    };
+                    res.redirect('/course?id=' + course);
+                } else {
+                    req.session.notification = {
+                        type: 'error',
+                        message: 'Error favoriting course! Something went wrong on our end :('
+                    };
+                    res.redirect('/course?id=' + course);
+                }
             } else {
-                req.session.notification = {
-                    type: 'success',
-                    message: 'Successfully updated comment!'
-                };
+                const { newComment: commentText, newRating: rating } = req.body;
+                const user = data.user;
+                const course = req.query.id;
+                const date = new Date();
+
+                // check if user has commented/rated before
+                const oldComment = await Comment.query().where('course', course).where('user', user);
+
+                let isNewComment = false;
+
+                if (oldComment === undefined || oldComment.length == 0) { // new comment
+                    isNewComment = true;
+                    const newComment = await knex('comments').insert({comment: commentText, rating: rating, date: date, course: course, user: user});
+                } else { // update comment
+                    const updatedComment = await knex('comments').where('course', course).where('user', user).update({comment: commentText, rating: rating, date: date});
+                }
+
+                console.log('COMMENT POSTING DEBUGGING ------------------------------');
+                console.log('commentText: ' + commentText);
+                console.log('rating: ' + rating);
+                console.log('user: ' + user);
+                console.log('course: ' + course);
+                console.log('date: ' + date);
+                console.log('oldComment:')
+                console.log(oldComment);
+                console.log('--------------------------------------------------------');
+                if (isNewComment) {
+                    req.session.notification = {
+                        type: 'success',
+                        message: 'Successfully added comment!'
+                    };
+                } else {
+                    req.session.notification = {
+                        type: 'success',
+                        message: 'Successfully updated comment!'
+                    };
+                }
+
+                res.redirect('/course?id=' + course); 
             }
 
-            res.redirect('/course?id=' + course);
         } else { // not logged in
             console.log('non-logged in user tried to rate/comment');
             req.session.notification = {
@@ -261,7 +310,7 @@ const handleCourseGet = async (req, res, next) => {
             console.log('all comments: ');
             console.log(comments);
             console.log('-------------------------------------------------')
-            
+
             console.log('FAVORITE DEBUGGIG INFO ------------------------------------------')
             // handle user favorited courses/sections
             if (req.session.user) { // if logged in
@@ -274,8 +323,6 @@ const handleCourseGet = async (req, res, next) => {
                 console.log('favSections:');
                 console.log(favSections);
             }
-            
-
             res.render('pages/course', data);
         }
     } catch (error) {

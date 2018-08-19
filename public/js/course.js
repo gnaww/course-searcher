@@ -28,12 +28,24 @@ $( document ).ready(function() {
         }
     });
     
-    // changes heart icon on click
-    $('.fav-course > .fas').click(function() {
-        $(this).toggleClass('fas far');
-    });
-    $('.fav-course > .far').click(function() {
+    // changes heart icon on click and send a post request of either 
+    $('.fav-course > .far').click(function(e) {
         $(this).toggleClass('far fas');
+        e.preventDefault();
+        $.ajax({
+            method: 'POST',
+            url: '#',
+            data: { favorite: 'add' }
+        });
+    });
+    $('.fav-course > .fas').click(function(e) {
+        $(this).toggleClass('fas far');
+        e.preventDefault();
+        $.ajax({
+            method: 'POST',
+            url: '#',
+            data: { favorite: 'delete' }
+        });
     });
 });
 
