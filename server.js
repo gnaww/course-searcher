@@ -66,9 +66,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 // user sessions middleware
+const COOKIE_SECRET = process.env.COOKIE_SECRET
 app.use(session({
     name: 'user_sid',
-    secret: 'changethisbeforedeploy',
+    secret: COOKIE_SECRET || 'changethisbeforedeploy',
     store: store,
     resave: false,
     saveUninitialized: false,
