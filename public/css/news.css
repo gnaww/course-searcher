@@ -7,19 +7,19 @@
     margin: auto;
 }
 
-form {
+#news-form {
     padding: 2em;
     width: 30em;
     margin: auto;
 }
 
-form textarea {
+#news-form textarea {
     resize: none;
     height: 10em;
     width: 30em;
 }
 
-form input {
+#news-form input {
     width: 20em;
 }
 

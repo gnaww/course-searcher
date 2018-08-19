@@ -15,11 +15,31 @@ const displayNews = knex => async (req, res) => {
 }
 
 const handleNews = knex => async (req, res) => {
-    const { title, content } = req.body;
-    console.log(title, content);
-    knex('news').insert({title: title, content: content})
+    const { title, content, deletePost } = req.body;
+    console.log(req.body);
+    if (deletePost) {
+        console.log(deletePost);
+        knex('news')
+            .where('id', deletePost)
+            .del()
+            .then(result => {
+                req.session.notification = {
+                    type: 'success',
+                    message: 'Successfully deleted news post.'
+                }
+                res.redirect('/news');
+            })
+            .catch(err => {
+                console.log(err);
+                req.session.notification = {
+                    type: 'error',
+                    message: 'Error deleting news post.'
+                }
+                res.redirect('/news');
+            });
+    } else {
+        knex('news').insert({title: title, content: content})
         .then(result => {
-            console.log(result);
             req.session.notification = {
                 type: 'success',
                 message: 'Successfully posted news post.'
@@ -34,6 +54,7 @@ const handleNews = knex => async (req, res) => {
             }
             res.redirect('/news');
         });
+    }
 }
 
 const displaySuggestions = knex => (req, res) => {

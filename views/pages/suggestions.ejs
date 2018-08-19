@@ -9,26 +9,16 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/resources.css">
     <link rel="stylesheet" type="text/css" href="/css/navbar.css">
-    <link rel="stylesheet" type="text/css" href="/css/suggestions.css">
+    <link rel="stylesheet" type="text/css" href="/css/news.css">
 </head>
 
 <body>
     <header>
         <% include ../partials/navbar %>
     </header>
-    <div class="message-container">
-        <%
-            if (error === 404) { %>
-                <h1 class="message"> Error 404! <br> Page Not Found</h1>
-        <%  } else if (error === 500) { %>
-                <h1 class="message">Error 500! <br> Something broke internally <br> :(</h1>
-        <%  } else if (error === 'course') { %>
-                <h1 class="message">Error! <br> Course not found</h1>
-        <%  }  else if (error === 'course-error') { %>
-                <h1 class="message">Error! <br> Could not retrieve course information</h1>
-        <%  }  else if (error === 'account-delete') { %>
-                <h1 class="message">Successfully deleted account. <br> Click <a href="/">here</a> to return to the homepage.</h1>
-        <%  }  %>
+    <% include ../partials/notification %>
+    <div class="container-fluid">
+        
     </div>
     <% include ../partials/footer %>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
