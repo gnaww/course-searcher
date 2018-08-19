@@ -1,11 +1,14 @@
-const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD || '';
+//
+// module.exports = {
+//     client: 'pg',
+//     connection: {
+//         host: '127.0.0.1',
+//         user: 'postgres',
+//         password: 'redskies',
+//         database: 'course-planner'
+//     }
+// };
 
 module.exports = {
-    client: 'pg',
-    connection: {
-        host: '127.0.0.1',
-        user: 'postgres',
-        password: DATABASE_PASSWORD,
-        database: 'course-planner'
-    }
+    production: { client: 'pg', connection: process.env.DATABASE_URL }
 };
