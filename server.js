@@ -95,9 +95,11 @@ app.route('/register')
     .get(register.displayRegister(null))
     .post(register.handleRegister(knex, bcrypt));
 
-app.get('/news', misc.displayNews);
+app.route('/news')
+    .get(misc.displayNews(knex))
+    .post(misc.handleNews(knex));
 
-app.get('/suggestions', misc.displaySuggestions);
+app.get('/suggestions', misc.displaySuggestions(knex));
 
 app.post('/login', login.handleLogIn(bcrypt));
 

@@ -1,0 +1,64 @@
+.container-fluid {
+    padding: 3em 5em 5em 5em;
+}
+
+.container-fluid .btn {
+    display: block;
+    margin: auto;
+}
+
+form {
+    padding: 2em;
+    width: 30em;
+    margin: auto;
+}
+
+form textarea {
+    resize: none;
+    height: 10em;
+    width: 30em;
+}
+
+form input {
+    width: 20em;
+}
+
+.news-header {
+    font-size: 3.5em;
+    text-align: center;
+}
+
+.news-title {
+    padding-left: 2rem;
+    font-size: 2em;
+}
+
+.news-post {
+    width: 80%;
+    margin: 2em auto 2em auto;
+    padding-top: 2em;
+    border-top: 1px solid #d3d3d3;
+}
+
+.news-post p {
+    padding: 0 2em 0 2em;
+}
+
+.news-date {
+    padding-left: 1em;
+    font-size: 1.2em;
+    opacity: 0.8;
+}
+
+/* media queries */
+@media (max-width: 992px) {
+    .news-post {
+        width: 90%;
+    }
+}
+
+@media (max-width: 826px) {
+    .news-post {
+        width: 100%;
+    }
+}
