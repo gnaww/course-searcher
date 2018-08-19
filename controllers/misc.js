@@ -35,7 +35,7 @@ const handleNews = knex => async (req, res) => {
                 }
                 res.redirect('/news');
             });
-    } else {
+    } else if (req.session.user === 'admin') {
         if (title && content) {
             knex('news').insert({ title: title, content: content })
                 .then(result => {
@@ -61,6 +61,13 @@ const handleNews = knex => async (req, res) => {
             }
             res.redirect('/news');
         }
+    } else {
+        console.log('non admin user tried to post/delete news posts');
+        req.session.notification = {
+            type: 'error',
+            message: 'Stop doing that! >:('
+        }
+        res.redirect('/news');
     }
 }
 
