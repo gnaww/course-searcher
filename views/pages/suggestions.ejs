@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/resources.css">
     <link rel="stylesheet" type="text/css" href="/css/navbar.css">
-    <link rel="stylesheet" type="text/css" href="/css/news.css">
+    <link rel="stylesheet" type="text/css" href="/css/suggestions.css">
 </head>
 
 <body>
@@ -18,7 +18,83 @@
     </header>
     <% include ../partials/notification %>
     <div class="container-fluid">
-        
+        <h1>Add a New Suggestion</h1>
+        <form action="/suggestions" method="post">
+            <textarea name="content" type="text" placeholder="Short description of suggestion here" required=""></textarea> <br>
+            <button type="submit" class="btn btn-primary">Add Suggestion</button>
+        </form>
+        <div>
+            <a data-toggle="collapse" href="#completed" role="button" aria-expanded="false" aria-controls="completed">
+                Completed
+            </a>
+            <div id="completed" class="collapse">
+                <%
+                if (completed.length > 0) {
+                    for (let i = 0; i < completed.length; i++) { %>
+
+                    <%
+                    }
+                } else { %>
+                    <h3>No suggestions in category.</h3>
+                <%
+                }
+                %>
+            </div>
+        </div>
+        <div>
+            <a data-toggle="collapse" href="#in-progress" role="button" aria-expanded="false" aria-controls="in-progress">
+                In Progress
+            </a>
+            <div id="in-progress" class="collapse">
+                <%
+                if (inProgress.length > 0) {
+                    for (let i = 0; i < inProgress.length; i++) { %>
+
+                    <%
+                    }
+                } else { %>
+                    <h3>No suggestions in category.</h3>
+                <%
+                }
+                %>
+            </div>
+        </div>
+        <div>
+            <a data-toggle="collapse" href="#discarded" role="button" aria-expanded="false" aria-controls="discarded">
+                Discarded
+            </a>
+            <div id="discarded" class="collapse">
+                <%
+                if (discarded.length > 0) {
+                    for (let i = 0; i < discarded.length; i++) { %>
+
+                    <%
+                    }
+                } else { %>
+                    <h3>No suggestions in category.</h3>
+                <%
+                }
+                %>
+            </div>
+        </div>
+        <div>
+            <a data-toggle="collapse" href="#uncategorized" role="button" aria-expanded="false" aria-controls="uncategorized">
+                Uncategorized
+            </a>
+            <div id="uncategorized" class="collapse">
+                <%
+                if (uncategorized.length > 0) {
+                    for (let i = 0; i < uncategorized.length; i++) { %>
+
+                    <%
+                    }
+                } else { %>
+                    <h3>No suggestions in category.</h3>
+                <%
+                }
+                %>
+            </div>
+        </div>
     </div>
     <% include ../partials/footer %>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

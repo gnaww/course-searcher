@@ -16,9 +16,7 @@ const displayNews = knex => async (req, res) => {
 
 const handleNews = knex => async (req, res) => {
     const { title, content, deletePost } = req.body;
-    console.log(req.body);
     if (deletePost) {
-        console.log(deletePost);
         knex('news')
             .where('id', deletePost)
             .del()
@@ -57,7 +55,7 @@ const handleNews = knex => async (req, res) => {
     }
 }
 
-const displaySuggestions = knex => (req, res) => {
+const displaySuggestions = knex => async (req, res) => {
     let data = {
         notification: null,
         user: null
@@ -69,11 +67,20 @@ const displaySuggestions = knex => (req, res) => {
     if (req.session.user) {
         data.user = req.session.user;
     }
+    data.completed = await knex('suggestions').where('category', 'Completed');
+    data.inProgress = await knex('suggestions').where('category', 'In Progress');
+    data.discarded = await knex('suggestions').where('category', 'Discarded');
+    data.uncategorized = await knex('suggestions').where('category', 'Uncategorized');
     res.render('pages/suggestions', data);
+}
+
+const handleSuggestions = knex => (req, res) => {
+    const { suggestion, category } = req.body;
 }
 
 module.exports = {
     displayNews: displayNews,
     handleNews: handleNews,
-    displaySuggestions: displaySuggestions
+    displaySuggestions: displaySuggestions,
+    handleSuggestions: handleSuggestions
 };

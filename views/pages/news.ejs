@@ -39,10 +39,15 @@
                     <span class="news-title"><%-newsPosts[i].title%></span>
                     <span class="news-date"><%-date%></span>
                     <p><%-newsPosts[i].content%></p>
-                    <form action="/news" method="post">
-                        <input type="hidden" name="deletePost" value="<%-newsPosts[i].id%>">
-                        <button type="submit" class="btn btn-danger">Delete Post <i class="far fa-trash-alt"></i></button>
-                    </form>
+                    <%
+                    if (user === 'admin') { %>
+                        <form action="/news" method="post">
+                            <input type="hidden" name="deletePost" value="<%-newsPosts[i].id%>">
+                            <button type="submit" class="btn btn-danger">Delete Post <i class="far fa-trash-alt"></i></button>
+                        </form>
+                    <%
+                    }
+                    %>
                 </div>
             <%
             }
