@@ -99,7 +99,9 @@ app.route('/news')
     .get(misc.displayNews(knex))
     .post(misc.handleNews(knex));
 
-app.get('/suggestions', misc.displaySuggestions(knex));
+app.route('/suggestions')
+    .get(misc.displaySuggestions(knex))
+    .post(misc.handleSuggestions(knex));
 
 app.post('/login', login.handleLogIn(bcrypt));
 

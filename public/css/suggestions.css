@@ -1,0 +1,59 @@
+.container-fluid {
+    padding: 3em 5em 5em 5em;
+    text-align: center;
+}
+
+.container-fluid form textarea {
+    resize: none;
+    width: 40em;
+    height: 7em;
+}
+
+.suggestions-categories {
+    margin: 0 auto;
+    text-align: left;
+    width: 80%;
+}
+
+.suggestions-category {
+    margin: 1em 0;
+    padding: 1em 2em;
+    border: 2px solid #d3d3d3;
+}
+
+.suggestions-category a {
+    font-size: 1.5em;
+    color: #1768AC;
+    display: flex;
+    align-items: center;
+}
+
+.suggestions-category a span {
+    flex-grow: 1;
+}
+
+.suggestions-category a:link, .suggestions-category a:visited, .suggestions-category a:hover, .suggestions-category a:active {
+    text-decoration: none;
+}
+
+.suggestions-list ul {
+    margin-left: 1rem;
+    font-size: 1.2em;
+}
+
+.suggestions-list form select {
+    font-size: 0.9em;
+}
+
+/* media queries */
+@media (max-width: 992px) {
+    .suggestions-categories {
+        width: 90%;
+    }
+}
+
+@media (max-width: 826px) {
+    .suggestions-categories {
+        width: 100%;
+    }
+}

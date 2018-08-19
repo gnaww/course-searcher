@@ -22,7 +22,7 @@
         if (user === 'admin') { %>
             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#news-form" aria-expanded="false" aria-controls="news-form">Post a News Post</button>
             <form action="/news" method="post" id="news-form" class="collapse">
-                <input name="title" type="text" placeholder="Title"> <br>
+                <input name="title" type="text" placeholder="Title" required> <br>
                 <textarea name="content" type="text" placeholder="Content" required=""></textarea> <br>
                 <button type="submit" class="btn btn-primary">Post News</button>
             </form>

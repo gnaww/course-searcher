@@ -20,79 +20,173 @@
     <div class="container-fluid">
         <h1>Add a New Suggestion</h1>
         <form action="/suggestions" method="post">
-            <textarea name="content" type="text" placeholder="Short description of suggestion here" required=""></textarea> <br>
-            <button type="submit" class="btn btn-primary">Add Suggestion</button>
+            <textarea name="suggestion" type="text" placeholder="Short description of suggestion here" required=""></textarea> <br>
+            <button type="submit" class="btn btn-primary btn-lg">Add Suggestion</button>
         </form>
-        <div>
-            <a data-toggle="collapse" href="#completed" role="button" aria-expanded="false" aria-controls="completed">
-                Completed
-            </a>
-            <div id="completed" class="collapse">
-                <%
-                if (completed.length > 0) {
-                    for (let i = 0; i < completed.length; i++) { %>
-
+        <div class="suggestions-categories">
+            <div class="suggestions-category rounded">
+                <a data-toggle="collapse" href="#completed" role="button" aria-expanded="false" aria-controls="completed">
+                    <span><i class="fas fa-circle" style="color: #33cc33"></i> Completed - <%= completed.length %></span><i class="fas fa-plus"></i>
+                </a>
+                <div id="completed" class="collapse suggestions-list">
+                    <%
+                    if (completed.length > 0) { %>
+                        <ul>
+                        <%
+                        for (let i = 0; i < completed.length; i++) { %>
+                            <li>
+                                <%=completed[i].suggestion%>
+                                <%
+                                if (user === 'admin') { %>
+                                    <form action="/suggestions" method="post">
+                                        <input type="hidden" name="suggestionId" value="<%-completed[i].id%>">
+                                        <select name="category" required>
+                                            <option value="" selected disabled>Suggestion Category</option>
+                                            <option value="Completed">Completed</option>
+                                            <option value="In Progress">In Progress</option>
+                                            <option value="Discarded">Discarded</option>
+                                            <option value="Uncategorized">Uncategorized</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-primary btn-sm">Update Category</button>
+                                    </form>
+                                <%
+                                }
+                                %>
+                            </li>
+                        <%
+                        }
+                        %>
+                        </ul>
+                    <%
+                    } else { %>
+                        <h4>No suggestions in category.</h4>
                     <%
                     }
-                } else { %>
-                    <h3>No suggestions in category.</h3>
-                <%
-                }
-                %>
+                    %>
+                </div>
             </div>
-        </div>
-        <div>
-            <a data-toggle="collapse" href="#in-progress" role="button" aria-expanded="false" aria-controls="in-progress">
-                In Progress
-            </a>
-            <div id="in-progress" class="collapse">
-                <%
-                if (inProgress.length > 0) {
-                    for (let i = 0; i < inProgress.length; i++) { %>
-
+            <div class="suggestions-category rounded">
+                <a data-toggle="collapse" href="#in-progress" role="button" aria-expanded="false" aria-controls="in-progress">
+                    <span><i class="fas fa-circle" style="color: #2a64f7"></i> In Progress - <%= inProgress.length %></span><i class="fas fa-plus"></i>
+                </a>
+                <div id="in-progress" class="collapse suggestions-list">
+                    <%
+                    if (inProgress.length > 0) { %>
+                        <ul>
+                        <%
+                        for (let i = 0; i < inProgress.length; i++) { %>
+                            <li>
+                                <%=inProgress[i].suggestion%>
+                                <%
+                                if (user === 'admin') { %>
+                                    <form action="/suggestions" method="post">
+                                        <input type="hidden" name="suggestionId" value="<%-inProgress[i].id%>">
+                                        <select name="category" required>
+                                            <option value="" selected disabled>Suggestion Category</option>
+                                            <option value="Completed">Completed</option>
+                                            <option value="In Progress">In Progress</option>
+                                            <option value="Discarded">Discarded</option>
+                                            <option value="Uncategorized">Uncategorized</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-primary btn-sm">Update Category</button>
+                                    </form>
+                                <%
+                                }
+                                %>
+                            </li>
+                        <%
+                        }
+                        %>
+                        </ul>
+                    <%
+                    } else { %>
+                        <h4>No suggestions in category.</h4>
                     <%
                     }
-                } else { %>
-                    <h3>No suggestions in category.</h3>
-                <%
-                }
-                %>
+                    %>
+                </div>
             </div>
-        </div>
-        <div>
-            <a data-toggle="collapse" href="#discarded" role="button" aria-expanded="false" aria-controls="discarded">
-                Discarded
-            </a>
-            <div id="discarded" class="collapse">
-                <%
-                if (discarded.length > 0) {
-                    for (let i = 0; i < discarded.length; i++) { %>
-
+            <div class="suggestions-category rounded">
+                <a data-toggle="collapse" href="#discarded" role="button" aria-expanded="false" aria-controls="discarded">
+                    <span><i class="fas fa-circle" style="color: #ff0000"></i> Discarded - <%= discarded.length %></span><i class="fas fa-plus"></i>
+                </a>
+                <div id="discarded" class="collapse suggestions-list">
+                    <%
+                    if (discarded.length > 0) { %>
+                        <ul>
+                        <%
+                        for (let i = 0; i < discarded.length; i++) { %>
+                            <li>
+                                <%=discarded[i].suggestion%>
+                                <%
+                                if (user === 'admin') { %>
+                                    <form action="/suggestions" method="post">
+                                        <input type="hidden" name="suggestionId" value="<%-discarded[i].id%>">
+                                        <select name="category" required>
+                                            <option value="" selected disabled>Suggestion Category</option>
+                                            <option value="Completed">Completed</option>
+                                            <option value="In Progress">In Progress</option>
+                                            <option value="Discarded">Discarded</option>
+                                            <option value="Uncategorized">Uncategorized</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-primary btn-sm">Update Category</button>
+                                    </form>
+                                <%
+                                }
+                                %>
+                            </li>
+                        <%
+                        }
+                        %>
+                        </ul>
+                    <%
+                    } else { %>
+                        <h4>No suggestions in category.</h4>
                     <%
                     }
-                } else { %>
-                    <h3>No suggestions in category.</h3>
-                <%
-                }
-                %>
+                    %>
+                </div>
             </div>
-        </div>
-        <div>
-            <a data-toggle="collapse" href="#uncategorized" role="button" aria-expanded="false" aria-controls="uncategorized">
-                Uncategorized
-            </a>
-            <div id="uncategorized" class="collapse">
-                <%
-                if (uncategorized.length > 0) {
-                    for (let i = 0; i < uncategorized.length; i++) { %>
-
+            <div class="suggestions-category rounded">
+                <a data-toggle="collapse" href="#uncategorized" role="button" aria-expanded="false" aria-controls="uncategorized">
+                    <span><i class="fas fa-circle" style="color: #d3d3d3"></i> Uncategorized - <%= uncategorized.length %></span><i class="fas fa-plus"></i>
+                </a>
+                <div id="uncategorized" class="collapse suggestions-list">
+                    <%
+                    if (uncategorized.length > 0) { %>
+                        <ul>
+                        <%
+                        for (let i = 0; i < uncategorized.length; i++) { %>
+                            <li>
+                                <%=uncategorized[i].suggestion%>
+                                <%
+                                if (user === 'admin') { %>
+                                    <form action="/suggestions" method="post">
+                                        <input type="hidden" name="suggestionId" value="<%-uncategorized[i].id%>">
+                                        <select name="category" required>
+                                            <option value="" selected disabled>Suggestion Category</option>
+                                            <option value="Completed">Completed</option>
+                                            <option value="In Progress">In Progress</option>
+                                            <option value="Discarded">Discarded</option>
+                                            <option value="Uncategorized">Uncategorized</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-primary btn-sm">Update Category</button>
+                                    </form>
+                                <%
+                                }
+                                %>
+                            </li>
+                        <%
+                        }
+                        %>
+                        </ul>
+                    <%
+                    } else { %>
+                        <h4>No suggestions in category.</h4>
                     <%
                     }
-                } else { %>
-                    <h3>No suggestions in category.</h3>
-                <%
-                }
-                %>
+                    %>
+                </div>
             </div>
         </div>
     </div>
@@ -100,6 +194,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="/js/suggestions.js"></script>
 </body>
 
 </html>
