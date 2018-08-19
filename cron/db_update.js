@@ -165,6 +165,7 @@ const updateAllCoursesData = async () => {
                         console.log(`${courseFullNum} |\t${courseShortTitle}\t | INSTRUCTORS ${sectionInstructors} |\t SECTION INDEX ${sectionIndex}\t| CREDITS ${courseCredits}`);
                     }
                     if (!(courseCoreCodes === undefined || courseCoreCodes.length === 0)) {
+                        const deletedRequirements = await knex('courses_requirements').where('course', courseFullNum).del();
                         for (req of courseCoreCodes) {
                             const insertedRequirement = await knex('courses_requirements').insert({course: courseFullNum, requirement: req.coreCode});
                         }
