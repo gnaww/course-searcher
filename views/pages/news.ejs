@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rutgers Course Searcher++</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/resources.css">
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="/css/news.css">
+</head>
+
+<body>
+    <header>
+        <% include ../partials/navbar %>
+    </header>
+    <% include ../partials/notification %>
+    <div class="container-fluid">
+        <%
+        if (user === 'admin') { %>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#news-form" aria-expanded="false" aria-controls="news-form">Post a News Post</button>
+            <form action="/news" method="post" id="news-form" class="collapse">
+                <input name="title" type="text" placeholder="Title" required> <br>
+                <textarea name="content" type="text" placeholder="Content" required=""></textarea> <br>
+                <button type="submit" class="btn btn-primary">Post News</button>
+            </form>
+        <%
+        }
+        %>
+        <div class="news-header">Site News</div>
+        <%
+        let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        if (newsPosts.length > 0) {
+            for (let i = 0; i < newsPosts.length; i++) {
+                let date = `${months[newsPosts[i].date.getMonth()]} ${newsPosts[i].date.getDate()}, ${newsPosts[i].date.getFullYear()}`; %>
+                <div class="news-post">
+                    <span class="news-title"><%-newsPosts[i].title%></span>
+                    <span class="news-date"><%-date%></span>
+                    <p><%-newsPosts[i].content%></p>
+                    <%
+                    if (user === 'admin') { %>
+                        <form action="/news" method="post">
+                            <input type="hidden" name="deletePost" value="<%-newsPosts[i].id%>">
+                            <button type="submit" class="btn btn-danger">Delete Post <i class="far fa-trash-alt"></i></button>
+                        </form>
+                    <%
+                    }
+                    %>
+                </div>
+            <%
+            }
+        } else { %>
+            <h2 class="text-center">No news posts</h2>
+        <%
+        }
+        %>
+    </div>
+    <% include ../partials/footer %>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+
+</html>
