@@ -396,7 +396,7 @@ const personalizeFilter = async (results, user, req, res) => {
                 }
             });
 
-            console.log(`pre filter: ${results.length} | after filter: ${resultsFiltered.length}`);
+            // console.log(`pre filter: ${results.length} | after filter: ${resultsFiltered.length}`);
             return resultsFiltered;
         } else {
             console.log('user has no saved courses yet');
