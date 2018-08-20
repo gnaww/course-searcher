@@ -11,7 +11,7 @@ const now = require("performance-now")
 
 const Course = require('../models/Course.js');
 
-//initalize knex (won't need this later on)
+// Initalize knex
 const environment = process.env.NODE_ENV || 'development';
 const knex = Knex(knexConfig)[environment];
 
