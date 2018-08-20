@@ -29,7 +29,8 @@ const index = require('./controllers/index');
 const misc = require('./controllers/misc');
 
 // Initialize knex.
-const knex = Knex(knexConfig);
+const environment = process.env.NODE_ENV || 'development';
+const knex = Knex(knexConfig)[environment];
 
 Model.knex(knex);
 
