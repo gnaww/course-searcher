@@ -30,7 +30,7 @@ const misc = require('./controllers/misc');
 
 // Initialize knex.
 const environment = process.env.NODE_ENV || 'development';
-const knex = Knex(knexConfig);
+const knex = Knex(knexConfig)[environment];
 
 Model.knex(knex);
 
@@ -64,7 +64,7 @@ app.use(cors());
 app.use(fileUpload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+app.use(morgan('combined'));
 
 // user sessions middleware
 const COOKIE_SECRET = process.env.COOKIE_SECRET || 'changethisbeforedeploy';

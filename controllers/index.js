@@ -41,7 +41,7 @@ const displayHomepage = knex => async (req, res) => {
 }
 
 const requirementSearch = async (params, req, res, knex) => {
-    dump(params);
+    // dump(params);
 
     // contains all requirements to query db for
     let requirements = [];
@@ -165,7 +165,7 @@ const requirementSearch = async (params, req, res, knex) => {
 }
 
 const directSearch = async (params, req, res, knex) => {
-    dump(params);
+    // dump(params);
 
     // for prepopulating form after search
     let formCategory = {

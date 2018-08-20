@@ -207,7 +207,6 @@ const handleAccount = (knex, pdfjsLib) => (req, res) => {
 
 const handleAccountDelete = async (req, res, knex) => {
     const username = req.session.user;
-    console.log(username);
     knex.transaction(function(trx) {
         return knex('users')
             .transacting(trx)

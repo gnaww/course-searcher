@@ -13,7 +13,7 @@ const Course = require('../models/Course.js');
 
 // Initalize knex
 const environment = process.env.NODE_ENV || 'development';
-const knex = Knex(knexConfig);
+const knex = Knex(knexConfig)[environment];
 
 Model.knex(knex);
 

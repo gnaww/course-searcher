@@ -33,15 +33,15 @@ const handleCoursePost = async (req, res, next) => {
                 const updatedComment = await knex('comments').where('course', course).where('user', user).update({comment: commentText, rating: rating, date: date});
             }
 
-            console.log('COMMENT POSTING DEBUGGING ------------------------------');
-            console.log('commentText: ' + commentText);
-            console.log('rating: ' + rating);
-            console.log('user: ' + user);
-            console.log('course: ' + course);
-            console.log('date: ' + date);
-            console.log('oldComment:')
-            console.log(oldComment);
-            console.log('--------------------------------------------------------');
+            // console.log('COMMENT POSTING DEBUGGING ------------------------------');
+            // console.log('commentText: ' + commentText);
+            // console.log('rating: ' + rating);
+            // console.log('user: ' + user);
+            // console.log('course: ' + course);
+            // console.log('date: ' + date);
+            // console.log('oldComment:')
+            // console.log(oldComment);
+            // console.log('--------------------------------------------------------');
             if (isNewComment) {
                 req.session.notification = {
                     type: 'success',
@@ -64,8 +64,7 @@ const handleCoursePost = async (req, res, next) => {
             res.redirect('/course?id=' + course);
         }
     } catch (error) {
-        console.log('There is a problem with posting comment/rating');
-        console.log(error);
+        console.log('error posting comment/rating:', error);
         req.session.notification = {
             type: 'error',
             message: 'Error posting comment! Something went wrong on our end :('
@@ -158,8 +157,8 @@ const handleCourseGet = async (req, res, next) => {
                *   04 -> SEM
                *   19 -> PROJ-IND
             */
-            console.log('SECTION DEBUGGING INFO ----------------------------------');
-            console.log('Amount of sections: ' + selectedCourse.length);
+            // console.log('SECTION DEBUGGING INFO ----------------------------------');
+            // console.log('Amount of sections: ' + selectedCourse.length);
             let sections = [];
             for (let i = 0; i < selectedCourse.length; i++) {
                 let sectionNumber = selectedCourse[i].section_number;
@@ -181,7 +180,7 @@ const handleCourseGet = async (req, res, next) => {
                 let locations = [];
                 let meetingModeDescs = [];
 
-                console.log('Amount of classes for section' + i + ': ' + sectionTimes.length);
+                // console.log('Amount of classes for section' + i + ': ' + sectionTimes.length);
                 for (let j = 0; j < sectionTimes.length; j++) {
 
                     // meeting mode
@@ -209,8 +208,8 @@ const handleCourseGet = async (req, res, next) => {
                     sectionOpenStatus: sectionOpenStatus,
                     examCode: examCode
                 }
-                console.log('section' + i);
-                console.log(section);
+                // console.log('section' + i);
+                // console.log(section);
                 sections.push(section);
             }
             data.sections = sections;
@@ -224,22 +223,22 @@ const handleCourseGet = async (req, res, next) => {
             }
             data.courseOpenStatus = courseOpenStatus;
 
-            console.log('-------------------------------------------------')
-
-            console.log('CLASS DEBUGGING INFO ----------------------------------')
-            console.log('name: ' + name);
-            console.log('full name: ' + fullName)
-            console.log('courseFullNumber: ' + courseFullNumber);
-            console.log('coreCodesString: ' + coreCodesString);
-            console.log('credits: ' + credits);
-            console.log('preReqs: ' + preReqs);
-            console.log('description: ' + data.description);
-            console.log('times: ' + times);
-            console.log('courseOpenStatus: ' + courseOpenStatus);
-            console.log('courseRating: ' + courseRating);
+            // console.log('-------------------------------------------------')
+            //
+            // console.log('CLASS DEBUGGING INFO ----------------------------------')
+            // console.log('name: ' + name);
+            // console.log('full name: ' + fullName)
+            // console.log('courseFullNumber: ' + courseFullNumber);
+            // console.log('coreCodesString: ' + coreCodesString);
+            // console.log('credits: ' + credits);
+            // console.log('preReqs: ' + preReqs);
+            // console.log('description: ' + data.description);
+            // console.log('times: ' + times);
+            // console.log('courseOpenStatus: ' + courseOpenStatus);
+            // console.log('courseRating: ' + courseRating);
             // console.log('sections:');
             // console.log(sections);
-            console.log('-------------------------------------------------')
+            // console.log('-------------------------------------------------')
 
             // handle comments
             const comments = await Comment.query().where('course', courseId).orderBy('date', 'desc');
@@ -255,18 +254,17 @@ const handleCourseGet = async (req, res, next) => {
 
 
 
-            console.log('COMMENT GETTING DEBUGGING INFO ----------------------------------')
-            console.log('userComment: ');
-            console.log(userComment);
-            console.log('all comments: ');
-            console.log(comments);
-            console.log('-------------------------------------------------')
+            // console.log('COMMENT GETTING DEBUGGING INFO ----------------------------------')
+            // console.log('userComment: ');
+            // console.log(userComment);
+            // console.log('all comments: ');
+            // console.log(comments);
+            // console.log('-------------------------------------------------')
 
             res.render('pages/course', data);
         }
     } catch (error) {
-        console.log("there was a problem retrieving course data")
-        console.log(error);
+        console.log('there was a problem retrieving course data:', error)
         if (req.session.user) {
             res.render('pages/error', { error: 'course-error', user: req.session.user });
         } else {
@@ -296,7 +294,7 @@ const formatDay = (day) => {
             return 'Sat';
             break;
         default:
-            console.log('day passed: ' + day);
+            // console.log('day passed: ' + day);
             return 'N/A';
     }
 }
