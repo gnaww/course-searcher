@@ -1,9 +1,8 @@
 const cron = require("node-cron");
 const fs = require("fs");
 const fetch = require('node-fetch');
-const knexfile = require('../knexfile.js');
 const Knex = require('knex');
-const knexConfig = require('../knexfile');
+const knexConfig = require('./knexfile');
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 const { Model } = require('objection');
