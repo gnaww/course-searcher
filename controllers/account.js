@@ -30,7 +30,17 @@ const displayAccount = (knex, form) => (req, res) => {
                 });
             }
             data.semesters = semesters;
-            res.render('pages/account', data);
+            knex('users_favorites').where({ username: username }).select('courses')
+            .then(result => {
+                let favCourses = [];
+                console.log('favCourses');
+                console.log(favCourses);
+                if (!result == null) {
+                    favCourses = result[0].course;
+                }
+                data.favCourses = result;
+                res.render('pages/account', data);
+            });
         })
         .catch(err => {
             console.log('error occurred while querying users_courses: ', err.stack);

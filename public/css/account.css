@@ -144,3 +144,11 @@ h6 {
         width: 100%;
     }
 }
+
+.favorited-courses {
+    margin-top: 2em;
+}
+
+.favorited-courses-link {
+    color: #1768AC;
+}
