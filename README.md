@@ -6,7 +6,7 @@ A better Rutgers University course search engine.
 
 2. Clone this repository
 
-3. Set up a database in PostgreSQL and edit `knexfile.js` in the root repository folder to match your database configuration.
+3. Set up a database in PostgreSQL and edit `knexfile.js` in the root repository folder to match your database configuration. Use the development config for locally hosting the website.
 
 4. Run `npm install`
 
