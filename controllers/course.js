@@ -29,6 +29,7 @@ const handleCoursePost = async (req, res, next) => {
                     favCourses = favCourses[0].courses;
                 }
                 const course = req.query.id;
+                console.log(favorite);
                 if (favorite === 'add') {
                     // sections are currently unused
                     if (!favCourses.includes(course)) {
@@ -39,6 +40,7 @@ const handleCoursePost = async (req, res, next) => {
                     } else {
                         const addFav = await knex('users_favorites').where('username', data.user).insert({username: data.user, courses: JSON.stringify(favCourses)});
                     }
+                    console.log('favoriting: ' + course)
                     req.session.notification = {
                         type: 'success',
                         message: 'Added course to favorites!'
@@ -47,21 +49,20 @@ const handleCoursePost = async (req, res, next) => {
                     if (favCourses.includes(course)) {
                         favCourses.splice(favCourses.indexOf('course'), 1);
                     }
-                    res.redirect('/course?id=' + course);
                     // sections are currently unused
                     const delFav = await knex('users_favorites').where('username', data.user).update({courses: JSON.stringify(favCourses)});
                     req.session.notification = {
                         type: 'success',
                         message: 'Removed course to favorites!'
                     };
-                    res.redirect('/course?id=' + course);
+                    console.log('unfavoriting: ' + course)
                 } else {
                     req.session.notification = {
                         type: 'error',
                         message: 'Error favoriting course! Something went wrong on our end :('
                     };
-                    res.redirect('/course?id=' + course);
                 }
+//                res.redirect('/course?id=' + course);
             } else {
                 const { newComment: commentText, newRating: rating } = req.body;
                 const user = data.user;

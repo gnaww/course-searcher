@@ -37,7 +37,10 @@ $( document ).ready(function() {
             url: '#',
             data: { favorite: 'add' }
         });
+        // temp fix to reload the page before i figure out a better way to do this
+        location.reload();
     });
+    
     $('.fav-course > .fas').click(function(e) {
         $(this).toggleClass('fas far');
         e.preventDefault();
@@ -46,7 +49,12 @@ $( document ).ready(function() {
             url: '#',
             data: { favorite: 'delete' }
         });
+        // temp fix to reload the page before i figure out a better way to do this
+        location.reload();
     });
+    
+    
+    
 });
 
 // Turn on Bootstrap tooltips

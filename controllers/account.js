@@ -1,4 +1,4 @@
-const validator = require('validator');
+ const validator = require('validator');
 const User = require('../models/User');
 
 const displayAccount = (knex, form) => (req, res) => {
