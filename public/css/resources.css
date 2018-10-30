@@ -1,11 +1,15 @@
 html, body {
     font-family: 'Lato', sans-serif;
     color: #13446B;
-    height: 100%;
 }
 
-.container-fluid {
-    min-height: calc(100vh - 130px);
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 130px;
 }
 
 .btn-primary {
@@ -91,7 +95,7 @@ html, body {
     font-size: 5em;
     height: auto;
     text-align: center;
-    align-self: middle;
+    align-self: center;
 }
 
 .back-to-top {
@@ -169,6 +173,8 @@ html, body {
 }
 
 footer {
+    position: absolute;
+    bottom: 0;
     display: flex;
     background-color: #13446B;
     color: #C3DFE4;

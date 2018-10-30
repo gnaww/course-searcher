@@ -290,12 +290,14 @@
         width: 100%;
         padding-bottom: 2em;
         padding-right: 0;
+        height: auto;
     }
 
     .column-right {
         width: 100%;
         padding-top: 2em;
         padding-left: 0;
+        height: auto;
     }
     .divider {
         border-top: 2px solid #d3d3d3;
