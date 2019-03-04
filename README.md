@@ -1,6 +1,8 @@
 # Rutgers Course Searcher++
 A better Rutgers University course search engine.
 
+Currently down and not working due to Heroku free tier database limitations once a certain amount of database rows are reached. :(
+
 ## To set up website locally
 1. Install [NodeJS](https://nodejs.org/en/download/) and [PostgreSQL](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
 
