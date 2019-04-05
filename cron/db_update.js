@@ -18,7 +18,7 @@ const knex = Knex(knexConfig);
 
 Model.knex(knex);
 
-const semester = '92018';
+const semester = '92019';
 const debuggingMode = false;
 
 // returns an array of subject codes
