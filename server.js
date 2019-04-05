@@ -92,6 +92,7 @@ app.route('/account')
 
 app.route('/register')
     .get(register.displayRegister(null))
+    .get(register.displayRegister(null))
     .post(register.handleRegister(knex, bcrypt));
 
 app.post('/login', login.handleLogIn(bcrypt));

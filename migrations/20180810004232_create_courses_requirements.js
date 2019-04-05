@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('courses_requirements', function(t) {
         t.text('course').notNullable();
