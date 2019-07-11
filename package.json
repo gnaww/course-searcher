@@ -14,7 +14,7 @@
     "express-fileupload": "^0.4.0",
     "express-session": "^1.15.6",
     "knex": "^0.15.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "moment": "^2.22.2",
     "morgan": "^1.9.1",
     "node-cron": "^1.2.1",
