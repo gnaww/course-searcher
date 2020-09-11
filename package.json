@@ -18,7 +18,7 @@
     "moment": "^2.22.2",
     "morgan": "^1.9.1",
     "node-cron": "^1.2.1",
-    "node-fetch": "^2.2.0",
+    "node-fetch": "^2.6.1",
     "nodemon": "^1.18.3",
     "objection": "^1.2.2",
     "pdfjs-dist": "^2.0.489",
