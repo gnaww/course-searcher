@@ -21,7 +21,7 @@
     "node-fetch": "^2.2.0",
     "nodemon": "^1.18.3",
     "objection": "^1.2.2",
-    "pdfjs-dist": "^2.0.489",
+    "pdfjs-dist": "^2.16.105",
     "performance-now": "^2.1.0",
     "pg": "^7.4.3",
     "serve-favicon": "^2.5.0",
